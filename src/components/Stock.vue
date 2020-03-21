@@ -99,6 +99,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class Stock extends Vue {
   @Prop() private symbol!: string;
   @Prop() private price!: number;
+  @Prop() private stock!: object;
 }
 </script>
 
