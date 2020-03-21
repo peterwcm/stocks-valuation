@@ -1,0 +1,155 @@
+// .root {
+//   flex-basis: 100%;
+// }
+
+// .container {
+//   margin: 10px;
+//   background: #fff;
+//   box-shadow: 0 0 10px 2px #ccc;
+// }
+
+// .item {
+//   margin: 0 0 2rem;
+// }
+
+.title {
+  padding: 1.5rem 2rem;
+}
+
+.heading {
+  margin: 0;
+  font-size: 1.25rem;
+
+  &Symbol {
+    float: left;
+  }
+
+  &Link {
+    text-decoration: none;
+  }
+
+  &History {
+    margin-left: 1rem;
+  }
+
+  &Price {
+    float: right;
+  }
+}
+
+.subHeading {
+  clear: both;
+  margin-top: 0;
+  padding-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #9197a2;
+  text-transform: capitalize;
+
+  &Name {
+    float: left;
+  }
+
+  &Change {
+    float: right;
+  }
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem 0.5rem;
+  background-color: #f4f8f9;
+  border-top: 1px solid #e0e4e3;
+  border-bottom: 1px solid #e0e4e3;
+}
+
+.highlightsBlock {
+  flex-basis: 33.33333%;
+  box-sizing: border-box;
+  text-align: center;
+
+  &Middle {
+    border-left: 1px solid #e0e4e3;
+    border-right: 1px solid #e0e4e3;
+  }
+
+  &Label {
+    margin-top: 0;
+    font-size: 0.75rem;
+    color: #4f556b;
+  }
+
+  &Value {
+    color: #6ba8e6;
+    font-weight: bold;
+  }
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1.5rem 2rem 1rem;
+}
+
+.detailsBlock {
+  flex-basis: 33.33333%;
+  margin-bottom: 1rem;
+  text-align: left;
+
+  &Label {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    color: #4f556b;
+  }
+
+  &Value {
+    color: #6ba8e6;
+    font-weight: bold;
+  }
+}
+
+.recommendation {
+  padding: 1rem 2rem 1.5rem;
+  background-color: #f4f8f9;
+  border-top: 1px solid #e0e4e3;
+
+  &Heading {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+}
+
+.buyIndicator {
+  position: relative;
+  border: 1px solid #e0e4e3;
+  background-color: #fff;
+
+  &Bar {
+    height: 1.5rem;
+    width: 20%;
+
+    &Positive {
+      background-color: #30af30;
+    }
+
+    &Negative {
+      background-color: #de3c3c;
+    }
+  }
+
+  &Label {
+    position: absolute;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.positiveResult {
+  color: #30af30;
+}
+
+.negativeResult {
+  color: #de3c3c;
+}

@@ -1,37 +1,37 @@
 <template>
-  <div class="app">
-    <div class="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/stocks">Stocks</router-link>
-    </div>
-    <router-view/>
+  <div class="page">
+    <header class="header">
+      <Menu />
+    </header>
+
+    <main class="page__content">
+      <router-view />
+    </main>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Stocks Valuation App</strong> by
+          <a href="https://github.com/peterwcm" target="_blank">Peter Wong</a>
+          © {{ new Date().getFullYear() }}
+        </p>
+      </div>
+    </footer>
   </div>
 </template>
 
+<script>
+import Menu from "@/components/Menu.vue";
+
+export default {
+  components: {
+    Menu
+  }
+};
+</script>
+
 <style lang="scss">
-// Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
-
-.app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-.nav {
-  padding: 30px;
-
-  > a {
-    margin: 1rem;
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
+@import "@/styles/base";
 </style>
