@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <div class="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/stocks">Stocks</router-link>
@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss">
-#app {
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
