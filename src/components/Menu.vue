@@ -61,7 +61,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
-
-<style scoped lang="scss">
-// @import "@/styles/components/Stock";
-</style>
