@@ -5,10 +5,6 @@
         <h1 class="title">
           <b-icon icon="dollar-sign"></b-icon>tocks
         </h1>
-        <h2 class="subtitle">
-          A simple container to divide your page into
-          <strong>sections</strong>, like the one you're currently reading
-        </h2>
         <Stock symbol="anz.ax" price="16.01" />
       </div>
     </section>

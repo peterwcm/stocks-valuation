@@ -1,5 +1,40 @@
-.title {
-  // padding: 1.5rem 2rem;
+.stock {
+  &__header {
+    .column {
+      &:last-child {
+        text-align: right;
+      }
+    }
+  }
+
+  &__heading {
+    font-size: 1.25rem;
+    padding: 1.5rem 1.5rem 0;
+  }
+
+  &__subheading {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  &__highlights {
+    padding: 1.5rem;
+    background-color: #f4f8f9;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+
+    .level-item {
+      &:nth-child(2) {
+        border-left: 1px solid $border;
+        border-right: 1px solid $border;
+      }
+    }
+  }
+}
+
+.level {
+  .title {
+    color: #6ba8e6;
+  }
 }
 
 // .heading {
@@ -39,44 +74,6 @@
 //     float: right;
 //   }
 // }
-
-.highlights {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 1.5rem 0.5rem;
-  background-color: #f4f8f9;
-  border-top: 1px solid #e0e4e3;
-  border-bottom: 1px solid #e0e4e3;
-}
-
-.highlightsBlock {
-  flex-basis: 33.33333%;
-  box-sizing: border-box;
-  text-align: center;
-
-  &Middle {
-    border-left: 1px solid #e0e4e3;
-    border-right: 1px solid #e0e4e3;
-  }
-
-  &Label {
-    margin-top: 0;
-    font-size: 0.75rem;
-    color: #4f556b;
-  }
-
-  &Value {
-    color: #6ba8e6;
-    font-weight: bold;
-  }
-}
-
-.level {
-  .title {
-    color: #6ba8e6;
-  }
-}
 
 .positiveResult {
   color: #30af30;

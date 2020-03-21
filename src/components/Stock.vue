@@ -1,45 +1,51 @@
 <template>
   <article class="card stock">
     <header class="stock__header">
-      <div class="columns is-mobile">
-        <div class="column is-three-quarters">
-          <h2 class="title">{{ symbol | capitalize }}</h2>
+      <section class="stock__heading">
+        <div class="columns is-mobile">
+          <div class="column">
+            <h2 class="title">{{ symbol | capitalize }}</h2>
+          </div>
+          <div class="column is-narrow">
+            <h3 class="title">${{ price }}</h3>
+          </div>
         </div>
-        <div class="column">
-          <h3 class="subtitle">${{ price }}</h3>
+      </section>
+      <section class="stock__subheading">
+        <div class="columns is-mobile">
+          <div class="column">
+            <h3 class="subtitle">Australia and New Zealand Banking Group</h3>
+          </div>
+          <div class="column is-narrow">
+            <h3 class="subtitle">+2.1 (+10%)</h3>
+          </div>
         </div>
-      </div>
-      <div class="columns is-mobile">
-        <div class="column is-three-quarters">
-          <h3 class="subtitle">Australia and New Zealand Banking Group</h3>
+      </section>
+      <section class="stock__highlights">
+        <div class="level is-mobile">
+          <div class="level-item has-text-centered">
+            <div>
+              <h3 class="heading">Price/Earnings</h3>
+              <p class="title">4.9</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <h3 class="heading">Price/Book</h3>
+              <p class="title">0.37</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <h3 class="heading">Div Yield</h3>
+              <p class="title">9.99%</p>
+            </div>
+          </div>
         </div>
-        <div class="column">
-          <h3 class="subtitle">+2.1 (+10%)</h3>
-        </div>
-      </div>
-      <div class="highlights">
-        <div class="highlightsBlock">
-          <h3 class="highlightsBlockLabel">Price/Earnings</h3>
-          <span class="highlightsBlockValue">4.9</span>
-        </div>
-        <div>
-          <h3 class="highlightsBlockLabel">Price/Book</h3>
-          <span class="{epsLatestClass">0.37</span>
-        </div>
-        <div class="highlightsBlock">
-          <h3 class="highlightsBlockLabel">Div Yield</h3>
-          <span class="highlightsBlockValue">9.99%</span>
-        </div>
-      </div>
+      </section>
     </header>
     <div class="card-content">
       <div class="level">
-        <!-- <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Price/Earnings</p>
-            <p class="title">4.9</p>
-          </div>
-        </div>-->
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Sales</p>
