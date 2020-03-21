@@ -1,0 +1,14 @@
+html,
+body,
+.page {
+  height: 100%;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+
+  > .main {
+    flex-grow: 1;
+  }
+}

@@ -4,7 +4,7 @@
       <Menu />
     </header>
 
-    <main class="page__content">
+    <main class="main">
       <router-view />
     </main>
 
