@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Buefy from 'buefy'
 import App from './App.vue'
+import Buefy from 'buefy'
 import router from './router'
 
 Vue.use(Buefy, {
