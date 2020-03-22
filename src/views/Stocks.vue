@@ -6,7 +6,7 @@
           <b-icon icon="dollar-sign"></b-icon>tocks
         </h1>
         <div class="stocks">
-          <!-- <b-message>{{ msg }}</b-message> -->
+          <b-message type="is-danger" v-if="error">{{ error }}</b-message>
           <div class="columns is-multiline">
             <div
               class="column is-6-tablet is-4-desktop"
@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      error: null,
       stocks: null
     };
   },
@@ -53,10 +54,12 @@ export default {
           }
         )
         .then(response => {
+          this.stocks = response.data.quoteResponse.result;
           console.log(response);
-          return (this.stocks = response.data.quoteResponse.result);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          this.error = error;
+        });
     } else {
       axios
         .get(`${process.env.BASE_URL}stocks.json`)
@@ -64,7 +67,9 @@ export default {
           this.stocks = response.data;
           console.log(response);
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          this.error = error;
+        });
     }
   }
 };
