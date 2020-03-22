@@ -14,12 +14,10 @@ $stock-card-border: 1px solid $border;
     .icon {
       position: absolute;
       top: -0.5rem;
-      right: -2rem;
+      right: -3rem;
+      padding-right: 1.5rem;
       border-bottom: 0;
-      color: $border;
-    }
-
-    i {
+      color: rgba($grey-light, 0.9);
       font-size: 1rem;
     }
   }
