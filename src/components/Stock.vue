@@ -4,20 +4,20 @@
       <section class="stock__heading">
         <div class="columns is-mobile">
           <div class="column">
-            <h2 class="title">{{ symbol | capitalize }}</h2>
+            <h2 class="title stock__symbol">{{ symbol }}</h2>
           </div>
           <div class="column is-narrow">
-            <h3 class="title">${{ price }}</h3>
+            <h3 class="title stock__price">${{ price }}</h3>
           </div>
         </div>
       </section>
       <section class="stock__subheading">
         <div class="columns is-mobile">
           <div class="column">
-            <h3 class="subtitle">Australia and New Zealand Banking Group</h3>
+            <h3 class="subtitle stock__name">Australia and New Zealand Banking Group</h3>
           </div>
           <div class="column is-narrow">
-            <h3 class="subtitle">+2.1 (+10%)</h3>
+            <h3 class="subtitle stock__change">+2.1 (+10%)</h3>
           </div>
         </div>
       </section>
@@ -26,62 +26,62 @@
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Earnings</h3>
-              <p class="title">4.9</p>
+              <p class="subtitle">4.9</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Book</h3>
-              <p class="title">0.37</p>
+              <p class="subtitle">0.37</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Div Yield</h3>
-              <p class="title">9.99%</p>
+              <p class="subtitle">9.99%</p>
             </div>
           </div>
         </div>
       </section>
     </header>
     <div class="card-content">
-      <div class="level">
+      <div class="level is-mobile">
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Sales</p>
-            <p class="title">0.33</p>
+            <p class="subtitle">0.33</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Cash Flow</p>
-            <p class="title">1.99</p>
+            <p class="subtitle">1.99</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Market Cap</p>
-            <p class="title">45b</p>
+            <p class="subtitle">45b</p>
           </div>
         </div>
       </div>
-      <div class="level">
+      <div class="level is-mobile">
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Debt/Equity</p>
-            <p class="title">2.13</p>
+            <p class="subtitle">2.13</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Quick Ratio</p>
-            <p class="title">-</p>
+            <p class="subtitle">-</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Current Ratio</p>
-            <p class="title">-</p>
+            <p class="subtitle">-</p>
           </div>
         </div>
       </div>

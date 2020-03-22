@@ -1,3 +1,6 @@
+$stock-card-padding: 1.5rem;
+$stock-card-border: 1px solid $border;
+
 .stock {
   &__header {
     .column {
@@ -8,77 +11,51 @@
   }
 
   &__heading {
-    font-size: 1.25rem;
-    padding: 1.5rem 1.5rem 0;
+    padding: $stock-card-padding $stock-card-padding 0;
+
+    .title {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__symbol {
+    text-transform: uppercase;
   }
 
   &__subheading {
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 $stock-card-padding $stock-card-padding;
+
+    .subtitle {
+      font-size: 0.8rem;
+    }
   }
 
   &__highlights {
-    padding: 1.5rem;
+    padding: $stock-card-padding;
     background-color: #f4f8f9;
-    border-top: 1px solid $border;
-    border-bottom: 1px solid $border;
+    border-top: $stock-card-border;
+    border-bottom: $stock-card-border;
 
     .level-item {
       &:nth-child(2) {
-        border-left: 1px solid $border;
-        border-right: 1px solid $border;
+        border-left: $stock-card-border;
+        border-right: $stock-card-border;
       }
     }
   }
 }
 
 .level {
-  .title {
+  .subtitle {
     color: #6ba8e6;
+    // font-size: ;
   }
 }
 
-// .heading {
-//   margin: 0;
-//   font-size: 1.25rem;
-
-//   &Symbol {
-//     float: left;
-//   }
-
-//   &Link {
-//     text-decoration: none;
-//   }
-
-//   &History {
-//     margin-left: 1rem;
-//   }
-
-//   &Price {
-//     float: right;
-//   }
-// }
-
-// .subHeading {
-//   clear: both;
-//   margin-top: 0;
-//   padding-top: 0.25rem;
-//   font-size: 0.75rem;
-//   color: #9197a2;
-//   text-transform: capitalize;
-
-//   &Name {
-//     float: left;
-//   }
-
-//   &Change {
-//     float: right;
-//   }
-// }
-
-.positiveResult {
+.is-positive {
   color: #30af30;
 }
 
-.negativeResult {
+.is-negative {
   color: #de3c3c;
 }

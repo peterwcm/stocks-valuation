@@ -8,7 +8,7 @@
         <div class="stocks">
           <div class="columns is-multiline">
             <div
-              class="column is-6-tablet is-6-desktop"
+              class="column is-6-tablet is-4-desktop"
               v-for="(stock, index) in stocks"
               :key="stock.symbol"
               :index="index"
