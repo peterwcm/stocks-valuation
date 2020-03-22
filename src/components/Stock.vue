@@ -28,7 +28,7 @@
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Earnings</h3>
-              <p class="subtitle">{{ '-' }}</p>
+              <p class="subtitle">{{ trailingPE.toFixed(2) }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
@@ -114,6 +114,7 @@ export default class Stock extends Vue {
   @Prop() private longName!: string;
   @Prop() private ask!: number;
   @Prop() private marketCap!: number;
+  @Prop() private trailingPE!: number;
   @Prop() private dividendYield!: number;
 }
 </script>
