@@ -3,21 +3,23 @@
     <header class="stock__header">
       <section class="stock__heading">
         <div class="columns is-mobile">
-          <div class="column">
-            <h2 class="title stock__symbol">{{ symbol }}</h2>
-          </div>
           <div class="column is-narrow">
-            <h3 class="title stock__price">${{ price }}</h3>
+            <h2 class="title stock__symbol">
+              {{ symbol }}
+              <b-icon
+                class="has-tooltip-arrow has-tooltip-right"
+                :data-tooltip="`$${ask}`"
+                icon="info-circle"
+                size="is-small"
+              ></b-icon>
+            </h2>
           </div>
         </div>
       </section>
       <section class="stock__subheading">
-        <div class="columns is-mobile">
+        <div class="columns">
           <div class="column">
-            <h3 class="subtitle stock__name">Australia and New Zealand Banking Group</h3>
-          </div>
-          <div class="column is-narrow">
-            <h3 class="subtitle stock__change">+2.1 (+10%)</h3>
+            <h3 class="subtitle stock__name">{{ longName }}</h3>
           </div>
         </div>
       </section>
@@ -26,19 +28,19 @@
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Earnings</h3>
-              <p class="subtitle">4.9</p>
+              <p class="subtitle">{{ '-' }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Book</h3>
-              <p class="subtitle">0.37</p>
+              <p class="subtitle">{{ '-' }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Div Yield</h3>
-              <p class="subtitle">9.99%</p>
+              <p class="subtitle">{{ dividendYield }}%</p>
             </div>
           </div>
         </div>
@@ -49,19 +51,19 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Sales</p>
-            <p class="subtitle">0.33</p>
+            <p class="subtitle">{{ '-' }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Cash Flow</p>
-            <p class="subtitle">1.99</p>
+            <p class="subtitle">{{ '-' }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Market Cap</p>
-            <p class="subtitle">45b</p>
+            <p class="subtitle">{{ marketCap | largeNumber }}</p>
           </div>
         </div>
       </div>
@@ -69,19 +71,19 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Debt/Equity</p>
-            <p class="subtitle">2.13</p>
+            <p class="subtitle">{{ '-' }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Quick Ratio</p>
-            <p class="subtitle">-</p>
+            <p class="subtitle">{{ '-' }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Current Ratio</p>
-            <p class="subtitle">-</p>
+            <p class="subtitle">{{ '-' }}</p>
           </div>
         </div>
       </div>
@@ -95,11 +97,24 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
+@Component({
+  filters: {
+    largeNumber: (n: number) => {
+      if (n < 1e3) return n;
+      if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + "K";
+      if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + "M";
+      if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + "B";
+      if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+    }
+  }
+})
 export default class Stock extends Vue {
   @Prop() private symbol!: string;
-  @Prop() private price!: number;
-  @Prop() private stock!: object;
+  @Prop() private shortName!: string;
+  @Prop() private longName!: string;
+  @Prop() private ask!: number;
+  @Prop() private marketCap!: number;
+  @Prop() private dividendYield!: number;
 }
 </script>
 

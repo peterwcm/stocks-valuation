@@ -34,4 +34,5 @@ export default {
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 @import "@/styles/base";
+@import "~@creativebulma/bulma-tooltip/src/sass";
 </style>
