@@ -38,34 +38,41 @@ export default {
     };
   },
   mounted() {
-    if (process.env.VUE_APP_USE_RAPIDAPI === "true") {
-      const asxSymbols = ["GEM", "ANZ", "CBA"];
+    // @todo: remove this. for development only.
+    const USE_API = false;
+
+    if (USE_API) {
+      const region = "AU";
+      const symbol = "CTD.AX";
 
       axios
         .get(
-          `https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-quotes?region=AU&lang=en&symbols=${asxSymbols
-            .map(symbol => `${symbol}.ax`)
-            .join("%252C")}`,
+          "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics",
           {
+            params: {
+              region,
+              symbol
+            },
             headers: {
+              "content-type": "application/octet-stream",
               "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
               "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY
             }
           }
         )
         .then(response => {
-          this.stocks = response.data.quoteResponse.result;
           console.log(response);
+          this.stocks = [response.data];
         })
         .catch(error => {
           this.error = error;
         });
     } else {
       axios
-        .get(`${process.env.BASE_URL}stocks.json`)
+        .get(`${process.env.BASE_URL}stats.json`)
         .then(response => {
-          this.stocks = response.data;
           console.log(response);
+          this.stocks = response.data;
         })
         .catch(error => {
           this.error = error;

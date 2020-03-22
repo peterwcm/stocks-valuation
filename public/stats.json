@@ -1,0 +1,1247 @@
+[
+  {
+    "defaultKeyStatistics": {
+      "annualHoldingsTurnover": {},
+      "enterpriseToRevenue": {
+        "raw": 3.469,
+        "fmt": "3.47"
+      },
+      "beta3Year": {},
+      "profitMargins": {
+        "raw": 0.33089,
+        "fmt": "33.09%"
+      },
+      "enterpriseToEbitda": {},
+      "52WeekChange": {
+        "raw": -0.38194442,
+        "fmt": "-38.19%"
+      },
+      "morningStarRiskRating": {},
+      "forwardEps": {
+        "raw": 2.47,
+        "fmt": "2.47"
+      },
+      "revenueQuarterlyGrowth": {},
+      "sharesOutstanding": {
+        "raw": 2836179968,
+        "fmt": "2.84B",
+        "longFmt": "2,836,179,968"
+      },
+      "fundInceptionDate": {},
+      "annualReportExpenseRatio": {},
+      "totalAssets": {},
+      "bookValue": {
+        "raw": 21.443,
+        "fmt": "21.44"
+      },
+      "sharesShort": {},
+      "sharesPercentSharesOut": {},
+      "fundFamily": null,
+      "lastFiscalYearEnd": {
+        "raw": 1569801600,
+        "fmt": "2019-09-30"
+      },
+      "heldPercentInstitutions": {},
+      "netIncomeToCommon": {
+        "raw": 6296000000,
+        "fmt": "6.3B",
+        "longFmt": "6,296,000,000"
+      },
+      "trailingEps": {
+        "raw": 2.019,
+        "fmt": "2.02"
+      },
+      "lastDividendValue": {},
+      "SandP52WeekChange": {
+        "raw": -0.17633194,
+        "fmt": "-17.63%"
+      },
+      "priceToBook": {
+        "raw": 0.74709696,
+        "fmt": "0.75"
+      },
+      "heldPercentInsiders": {},
+      "nextFiscalYearEnd": {
+        "raw": 1632960000,
+        "fmt": "2021-09-30"
+      },
+      "yield": {},
+      "mostRecentQuarter": {
+        "raw": 1569801600,
+        "fmt": "2019-09-30"
+      },
+      "shortRatio": {},
+      "sharesShortPreviousMonthDate": {},
+      "floatShares": {
+        "raw": 2790053594,
+        "fmt": "2.79B",
+        "longFmt": "2,790,053,594"
+      },
+      "beta": {
+        "raw": 0.603843,
+        "fmt": "0.6"
+      },
+      "enterpriseValue": {
+        "raw": 62418051072,
+        "fmt": "62.42B",
+        "longFmt": "62,418,051,072"
+      },
+      "priceHint": {
+        "raw": 2,
+        "fmt": "2",
+        "longFmt": "2"
+      },
+      "threeYearAverageReturn": {},
+      "lastSplitDate": {
+        "raw": 1067385600,
+        "fmt": "2003-10-29"
+      },
+      "lastSplitFactor": "1:1",
+      "legalType": null,
+      "morningStarOverallRating": {},
+      "earningsQuarterlyGrowth": {
+        "raw": -0.097,
+        "fmt": "-9.70%"
+      },
+      "priceToSalesTrailing12Months": {},
+      "dateShortInterest": {},
+      "pegRatio": {},
+      "ytdReturn": {},
+      "forwardPE": {},
+      "maxAge": 1,
+      "lastCapGain": {},
+      "shortPercentOfFloat": {},
+      "sharesShortPriorMonth": {},
+      "category": null,
+      "fiveYearAverageReturn": {}
+    },
+    "financialsTemplate": {
+      "code": "B",
+      "maxAge": 1
+    },
+    "price": {
+      "regularMarketOpen": {
+        "raw": 15.9,
+        "fmt": "15.90"
+      },
+      "averageDailyVolume3Month": {
+        "raw": 7750652,
+        "fmt": "7.75M",
+        "longFmt": "7,750,652"
+      },
+      "exchange": "ASX",
+      "regularMarketTime": 1584681059,
+      "volume24Hr": {},
+      "regularMarketDayHigh": {
+        "raw": 16.56,
+        "fmt": "16.56"
+      },
+      "shortName": "ANZ BANK FPO",
+      "averageDailyVolume10Day": {
+        "raw": 23248585,
+        "fmt": "23.25M",
+        "longFmt": "23,248,585"
+      },
+      "longName": "Australia and New Zealand Banking Group Limited",
+      "regularMarketChange": {
+        "raw": 1.0200005,
+        "fmt": "1.02"
+      },
+      "currencySymbol": "A$",
+      "regularMarketPreviousClose": {
+        "raw": 15,
+        "fmt": "15.00"
+      },
+      "preMarketPrice": {},
+      "exchangeDataDelayedBy": 0,
+      "toCurrency": null,
+      "postMarketChange": {},
+      "postMarketPrice": {},
+      "exchangeName": "ASX",
+      "preMarketChange": {},
+      "circulatingSupply": {},
+      "regularMarketDayLow": {
+        "raw": 15.53,
+        "fmt": "15.53"
+      },
+      "priceHint": {
+        "raw": 2,
+        "fmt": "2",
+        "longFmt": "2"
+      },
+      "currency": "AUD",
+      "regularMarketPrice": {
+        "raw": 16.02,
+        "fmt": "16.02"
+      },
+      "regularMarketVolume": {
+        "raw": 21132953,
+        "fmt": "21.13M",
+        "longFmt": "21,132,953.00"
+      },
+      "lastMarket": null,
+      "regularMarketSource": "DELAYED",
+      "openInterest": {},
+      "marketState": "PREPRE",
+      "underlyingSymbol": null,
+      "marketCap": {
+        "raw": 45435604992,
+        "fmt": "45.44B",
+        "longFmt": "45,435,604,992.00"
+      },
+      "quoteType": "EQUITY",
+      "volumeAllCurrencies": {},
+      "strikePrice": {},
+      "symbol": "ANZ.AX",
+      "maxAge": 1,
+      "fromCurrency": null,
+      "regularMarketChangePercent": {
+        "raw": 0.06800003,
+        "fmt": "6.80%"
+      }
+    },
+    "financialData": {
+      "ebitdaMargins": {
+        "raw": 0,
+        "fmt": "0.00%"
+      },
+      "profitMargins": {
+        "raw": 0.33089,
+        "fmt": "33.09%"
+      },
+      "grossMargins": {
+        "raw": 0,
+        "fmt": "0.00%"
+      },
+      "operatingCashflow": {
+        "raw": -11555999744,
+        "fmt": "-11.56B",
+        "longFmt": "-11,555,999,744"
+      },
+      "revenueGrowth": {
+        "raw": -0.031,
+        "fmt": "-3.10%"
+      },
+      "operatingMargins": {
+        "raw": 0.50008,
+        "fmt": "50.01%"
+      },
+      "ebitda": {},
+      "targetLowPrice": {
+        "raw": 25,
+        "fmt": "25.00"
+      },
+      "recommendationKey": "none",
+      "grossProfits": {
+        "raw": 17991000000,
+        "fmt": "17.99B",
+        "longFmt": "17,991,000,000"
+      },
+      "freeCashflow": {},
+      "targetMedianPrice": {
+        "raw": 29,
+        "fmt": "29.00"
+      },
+      "currentPrice": {
+        "raw": 16.02,
+        "fmt": "16.02"
+      },
+      "earningsGrowth": {
+        "raw": -0.078,
+        "fmt": "-7.80%"
+      },
+      "currentRatio": {},
+      "returnOnAssets": {
+        "raw": 0.00656,
+        "fmt": "0.66%"
+      },
+      "numberOfAnalystOpinions": {
+        "raw": 13,
+        "fmt": "13",
+        "longFmt": "13"
+      },
+      "targetMeanPrice": {
+        "raw": 28.83,
+        "fmt": "28.83"
+      },
+      "debtToEquity": {},
+      "returnOnEquity": {
+        "raw": 0.10501,
+        "fmt": "10.50%"
+      },
+      "targetHighPrice": {
+        "raw": 32.2,
+        "fmt": "32.20"
+      },
+      "totalCash": {
+        "raw": 245456994304,
+        "fmt": "245.46B",
+        "longFmt": "245,456,994,304"
+      },
+      "totalDebt": {
+        "raw": 262454001664,
+        "fmt": "262.45B",
+        "longFmt": "262,454,001,664"
+      },
+      "totalRevenue": {
+        "raw": 17991000064,
+        "fmt": "17.99B",
+        "longFmt": "17,991,000,064"
+      },
+      "totalCashPerShare": {
+        "raw": 86.594,
+        "fmt": "86.59"
+      },
+      "financialCurrency": "AUD",
+      "maxAge": 86400,
+      "revenuePerShare": {
+        "raw": 6.346,
+        "fmt": "6.35"
+      },
+      "quickRatio": {},
+      "recommendationMean": {}
+    },
+    "quoteType": {
+      "exchange": "ASX",
+      "shortName": "ANZ BANK FPO",
+      "longName": "Australia and New Zealand Banking Group Limited",
+      "exchangeTimezoneName": "Australia/Sydney",
+      "exchangeTimezoneShortName": "AEDT",
+      "isEsgPopulated": false,
+      "gmtOffSetMilliseconds": "39600000",
+      "quoteType": "EQUITY",
+      "symbol": "ANZ.AX",
+      "messageBoardId": "finmb_384998",
+      "market": "au_market"
+    },
+    "calendarEvents": {
+      "maxAge": 1,
+      "earnings": {
+        "earningsDate": [
+          {
+            "raw": 1588291200,
+            "fmt": "2020-05-01"
+          }
+        ],
+        "earningsAverage": {},
+        "earningsLow": {},
+        "earningsHigh": {},
+        "revenueAverage": {},
+        "revenueLow": {},
+        "revenueHigh": {}
+      },
+      "exDividendDate": {
+        "raw": 1573430400,
+        "fmt": "2019-11-11"
+      },
+      "dividendDate": {}
+    },
+    "summaryDetail": {
+      "previousClose": {
+        "raw": 15,
+        "fmt": "15.00"
+      },
+      "regularMarketOpen": {
+        "raw": 15.9,
+        "fmt": "15.90"
+      },
+      "twoHundredDayAverage": {
+        "raw": 25.484825,
+        "fmt": "25.48"
+      },
+      "trailingAnnualDividendYield": {
+        "raw": 0.10666667,
+        "fmt": "10.67%"
+      },
+      "payoutRatio": {
+        "raw": 0.7493,
+        "fmt": "74.93%"
+      },
+      "volume24Hr": {},
+      "regularMarketDayHigh": {
+        "raw": 16.56,
+        "fmt": "16.56"
+      },
+      "navPrice": {},
+      "averageDailyVolume10Day": {
+        "raw": 23248585,
+        "fmt": "23.25M",
+        "longFmt": "23,248,585"
+      },
+      "totalAssets": {},
+      "regularMarketPreviousClose": {
+        "raw": 15,
+        "fmt": "15.00"
+      },
+      "fiftyDayAverage": {
+        "raw": 23.495142,
+        "fmt": "23.50"
+      },
+      "trailingAnnualDividendRate": {
+        "raw": 1.6,
+        "fmt": "1.60"
+      },
+      "open": {
+        "raw": 15.9,
+        "fmt": "15.90"
+      },
+      "toCurrency": null,
+      "averageVolume10days": {
+        "raw": 23248585,
+        "fmt": "23.25M",
+        "longFmt": "23,248,585"
+      },
+      "expireDate": {},
+      "yield": {},
+      "algorithm": null,
+      "dividendRate": {
+        "raw": 1.6,
+        "fmt": "1.60"
+      },
+      "exDividendDate": {
+        "raw": 1573430400,
+        "fmt": "2019-11-11"
+      },
+      "beta": {
+        "raw": 0.603843,
+        "fmt": "0.60"
+      },
+      "circulatingSupply": {},
+      "startDate": {},
+      "regularMarketDayLow": {
+        "raw": 15.53,
+        "fmt": "15.53"
+      },
+      "priceHint": {
+        "raw": 2,
+        "fmt": "2",
+        "longFmt": "2"
+      },
+      "currency": "AUD",
+      "trailingPE": {
+        "raw": 7.9346213,
+        "fmt": "7.93"
+      },
+      "regularMarketVolume": {
+        "raw": 21132953,
+        "fmt": "21.13M",
+        "longFmt": "21,132,953"
+      },
+      "lastMarket": null,
+      "maxSupply": {},
+      "openInterest": {},
+      "marketCap": {
+        "raw": 45435604992,
+        "fmt": "45.44B",
+        "longFmt": "45,435,604,992"
+      },
+      "volumeAllCurrencies": {},
+      "strikePrice": {},
+      "averageVolume": {
+        "raw": 7750652,
+        "fmt": "7.75M",
+        "longFmt": "7,750,652"
+      },
+      "priceToSalesTrailing12Months": {
+        "raw": 2.525463,
+        "fmt": "2.53"
+      },
+      "dayLow": {
+        "raw": 15.53,
+        "fmt": "15.53"
+      },
+      "ask": {
+        "raw": 14.9,
+        "fmt": "14.90"
+      },
+      "ytdReturn": {},
+      "askSize": {
+        "raw": 0,
+        "fmt": null,
+        "longFmt": "0"
+      },
+      "volume": {
+        "raw": 21132953,
+        "fmt": "21.13M",
+        "longFmt": "21,132,953"
+      },
+      "fiftyTwoWeekHigh": {
+        "raw": 29.3,
+        "fmt": "29.30"
+      },
+      "forwardPE": {
+        "raw": 6.4858303,
+        "fmt": "6.49"
+      },
+      "maxAge": 1,
+      "fromCurrency": null,
+      "fiveYearAvgDividendYield": {
+        "raw": 6,
+        "fmt": "6.00"
+      },
+      "fiftyTwoWeekLow": {
+        "raw": 15,
+        "fmt": "15.00"
+      },
+      "bid": {
+        "raw": 16.02,
+        "fmt": "16.02"
+      },
+      "tradeable": false,
+      "dividendYield": {
+        "raw": 0.0999,
+        "fmt": "9.99%"
+      },
+      "bidSize": {
+        "raw": 0,
+        "fmt": null,
+        "longFmt": "0"
+      },
+      "dayHigh": {
+        "raw": 16.56,
+        "fmt": "16.56"
+      }
+    },
+    "symbol": "ANZ.AX",
+    "pageViews": {},
+    "quoteData": {
+      "ANZ.AX": {
+        "sourceInterval": 20,
+        "regularMarketOpen": {
+          "raw": 15.9,
+          "fmt": "15.90"
+        },
+        "exchange": "ASX",
+        "regularMarketTime": {
+          "raw": 1584681059,
+          "fmt": "4:10PM AEDT"
+        },
+        "fiftyTwoWeekRange": {
+          "raw": "15.0 - 29.3",
+          "fmt": "15.00 - 29.30"
+        },
+        "sharesOutstanding": {
+          "raw": 2836179968,
+          "fmt": "2.836B",
+          "longFmt": "2,836,179,968"
+        },
+        "regularMarketDayHigh": {
+          "raw": 16.56,
+          "fmt": "16.56"
+        },
+        "shortName": "ANZ BANK FPO",
+        "longName": "Australia and New Zealand Banking Group Limited",
+        "exchangeTimezoneName": "Australia/Sydney",
+        "regularMarketChange": {
+          "raw": 1.0200005,
+          "fmt": "1.02"
+        },
+        "regularMarketPreviousClose": {
+          "raw": 15,
+          "fmt": "15.00"
+        },
+        "fiftyTwoWeekHighChange": {
+          "raw": -13.279999,
+          "fmt": "-13.28"
+        },
+        "exchangeTimezoneShortName": "AEDT",
+        "fiftyTwoWeekLowChange": {
+          "raw": 1.0200005,
+          "fmt": "1.02"
+        },
+        "exchangeDataDelayedBy": 0,
+        "regularMarketDayLow": {
+          "raw": 15.53,
+          "fmt": "15.53"
+        },
+        "priceHint": 2,
+        "currency": "AUD",
+        "regularMarketPrice": {
+          "raw": 16.02,
+          "fmt": "16.02"
+        },
+        "regularMarketVolume": {
+          "raw": 21132953,
+          "fmt": "21.133M",
+          "longFmt": "21,132,953"
+        },
+        "isLoading": false,
+        "triggerable": false,
+        "gmtOffSetMilliseconds": 39600000,
+        "firstTradeDateMilliseconds": 570398400000,
+        "region": "AU",
+        "marketState": "PREPRE",
+        "marketCap": {
+          "raw": 45435604992,
+          "fmt": "45.436B",
+          "longFmt": "45,435,604,992"
+        },
+        "quoteType": "EQUITY",
+        "invalid": false,
+        "symbol": "ANZ.AX",
+        "language": "en-AU",
+        "fiftyTwoWeekLowChangePercent": {
+          "raw": 0.06800003,
+          "fmt": "6.80%"
+        },
+        "regularMarketDayRange": {
+          "raw": "15.53 - 16.56",
+          "fmt": "15.53 - 16.56"
+        },
+        "messageBoardId": "finmb_384998",
+        "fiftyTwoWeekHigh": {
+          "raw": 29.3,
+          "fmt": "29.30"
+        },
+        "fiftyTwoWeekHighChangePercent": {
+          "raw": -0.4532423,
+          "fmt": "-45.32%"
+        },
+        "uuid": "79c92875-c1ee-322e-af11-e93ab822ad18",
+        "market": "au_market",
+        "fiftyTwoWeekLow": {
+          "raw": 15,
+          "fmt": "15.00"
+        },
+        "regularMarketChangePercent": {
+          "raw": 6.8000035,
+          "fmt": "6.80%"
+        },
+        "fullExchangeName": "ASX",
+        "tradeable": false
+      }
+    },
+    "mktmData": {}
+  },
+  {
+    "defaultKeyStatistics": {
+      "annualHoldingsTurnover": {},
+      "enterpriseToRevenue": {
+        "raw": 1.363,
+        "fmt": "1.36"
+      },
+      "beta3Year": {},
+      "profitMargins": {
+        "raw": 0.17469999,
+        "fmt": "17.47%"
+      },
+      "enterpriseToEbitda": {
+        "raw": 4.746,
+        "fmt": "4.75"
+      },
+      "52WeekChange": {
+        "raw": -0.7709269,
+        "fmt": "-77.09%"
+      },
+      "morningStarRiskRating": {},
+      "forwardEps": {
+        "raw": 0.97,
+        "fmt": "0.97"
+      },
+      "revenueQuarterlyGrowth": {},
+      "sharesOutstanding": {
+        "raw": 108879000,
+        "fmt": "108.88M",
+        "longFmt": "108,879,000"
+      },
+      "fundInceptionDate": {},
+      "annualReportExpenseRatio": {},
+      "totalAssets": {},
+      "bookValue": {
+        "raw": 5.367,
+        "fmt": "5.37"
+      },
+      "sharesShort": {},
+      "sharesPercentSharesOut": {},
+      "fundFamily": null,
+      "lastFiscalYearEnd": {
+        "raw": 1561852800,
+        "fmt": "2019-06-30"
+      },
+      "heldPercentInstitutions": {},
+      "netIncomeToCommon": {
+        "raw": 80287000,
+        "fmt": "80.29M",
+        "longFmt": "80,287,000"
+      },
+      "trailingEps": {
+        "raw": 0.738,
+        "fmt": "0.74"
+      },
+      "lastDividendValue": {},
+      "SandP52WeekChange": {
+        "raw": -0.17633194,
+        "fmt": "-17.63%"
+      },
+      "priceToBook": {
+        "raw": 1.0452766,
+        "fmt": "1.05"
+      },
+      "heldPercentInsiders": {},
+      "nextFiscalYearEnd": {
+        "raw": 1625011200,
+        "fmt": "2021-06-30"
+      },
+      "yield": {},
+      "mostRecentQuarter": {
+        "raw": 1577750400,
+        "fmt": "2019-12-31"
+      },
+      "shortRatio": {},
+      "sharesShortPreviousMonthDate": {},
+      "floatShares": {
+        "raw": 81722182,
+        "fmt": "81.72M",
+        "longFmt": "81,722,182"
+      },
+      "beta": {
+        "raw": 1.31116,
+        "fmt": "1.31"
+      },
+      "enterpriseValue": {
+        "raw": 626525568,
+        "fmt": "626.53M",
+        "longFmt": "626,525,568"
+      },
+      "priceHint": {
+        "raw": 2,
+        "fmt": "2",
+        "longFmt": "2"
+      },
+      "threeYearAverageReturn": {},
+      "lastSplitDate": {},
+      "lastSplitFactor": null,
+      "legalType": null,
+      "morningStarOverallRating": {},
+      "earningsQuarterlyGrowth": {
+        "raw": -0.153,
+        "fmt": "-15.30%"
+      },
+      "priceToSalesTrailing12Months": {},
+      "dateShortInterest": {},
+      "pegRatio": {},
+      "ytdReturn": {},
+      "forwardPE": {},
+      "maxAge": 1,
+      "lastCapGain": {},
+      "shortPercentOfFloat": {},
+      "sharesShortPriorMonth": {},
+      "category": null,
+      "fiveYearAverageReturn": {}
+    },
+    "financialsTemplate": {
+      "code": "N",
+      "maxAge": 1
+    },
+    "price": {
+      "regularMarketOpen": {
+        "raw": 4.93,
+        "fmt": "4.93"
+      },
+      "averageDailyVolume3Month": {
+        "raw": 1080915,
+        "fmt": "1.08M",
+        "longFmt": "1,080,915"
+      },
+      "exchange": "ASX",
+      "regularMarketTime": 1584681063,
+      "volume24Hr": {},
+      "regularMarketDayHigh": {
+        "raw": 6.29,
+        "fmt": "6.29"
+      },
+      "shortName": "CORP TRAV FPO",
+      "averageDailyVolume10Day": {
+        "raw": 2390466,
+        "fmt": "2.39M",
+        "longFmt": "2,390,466"
+      },
+      "longName": "Corporate Travel Management Limited",
+      "regularMarketChange": {
+        "raw": 0.9100003,
+        "fmt": "0.91"
+      },
+      "currencySymbol": "A$",
+      "regularMarketPreviousClose": {
+        "raw": 4.7,
+        "fmt": "4.70"
+      },
+      "preMarketPrice": {},
+      "exchangeDataDelayedBy": 0,
+      "toCurrency": null,
+      "postMarketChange": {},
+      "postMarketPrice": {},
+      "exchangeName": "ASX",
+      "preMarketChange": {},
+      "circulatingSupply": {},
+      "regularMarketDayLow": {
+        "raw": 4.75,
+        "fmt": "4.75"
+      },
+      "priceHint": {
+        "raw": 2,
+        "fmt": "2",
+        "longFmt": "2"
+      },
+      "currency": "AUD",
+      "regularMarketPrice": {
+        "raw": 5.61,
+        "fmt": "5.61"
+      },
+      "regularMarketVolume": {
+        "raw": 3645578,
+        "fmt": "3.65M",
+        "longFmt": "3,645,578.00"
+      },
+      "lastMarket": null,
+      "regularMarketSource": "DELAYED",
+      "openInterest": {},
+      "marketState": "PREPRE",
+      "underlyingSymbol": null,
+      "marketCap": {
+        "raw": 610811200,
+        "fmt": "610.81M",
+        "longFmt": "610,811,200.00"
+      },
+      "quoteType": "EQUITY",
+      "volumeAllCurrencies": {},
+      "strikePrice": {},
+      "symbol": "CTD.AX",
+      "maxAge": 1,
+      "fromCurrency": null,
+      "regularMarketChangePercent": {
+        "raw": 0.19361709,
+        "fmt": "19.36%"
+      }
+    },
+    "financialData": {
+      "ebitdaMargins": {
+        "raw": 0.28725,
+        "fmt": "28.73%"
+      },
+      "profitMargins": {
+        "raw": 0.17469999,
+        "fmt": "17.47%"
+      },
+      "grossMargins": {
+        "raw": 0.48995,
+        "fmt": "49.00%"
+      },
+      "operatingCashflow": {
+        "raw": 125478000,
+        "fmt": "125.48M",
+        "longFmt": "125,478,000"
+      },
+      "revenueGrowth": {
+        "raw": 0.048,
+        "fmt": "4.80%"
+      },
+      "operatingMargins": {
+        "raw": 0.25964,
+        "fmt": "25.96%"
+      },
+      "ebitda": {
+        "raw": 132014000,
+        "fmt": "132.01M",
+        "longFmt": "132,014,000"
+      },
+      "targetLowPrice": {
+        "raw": 24.5,
+        "fmt": "24.50"
+      },
+      "recommendationKey": "none",
+      "grossProfits": {
+        "raw": 224089000,
+        "fmt": "224.09M",
+        "longFmt": "224,089,000"
+      },
+      "freeCashflow": {
+        "raw": 84518376,
+        "fmt": "84.52M",
+        "longFmt": "84,518,376"
+      },
+      "targetMedianPrice": {
+        "raw": 26.9,
+        "fmt": "26.90"
+      },
+      "currentPrice": {
+        "raw": 5.61,
+        "fmt": "5.61"
+      },
+      "earningsGrowth": {
+        "raw": -0.154,
+        "fmt": "-15.40%"
+      },
+      "currentRatio": {
+        "raw": 1.463,
+        "fmt": "1.46"
+      },
+      "returnOnAssets": {
+        "raw": 0.082729995,
+        "fmt": "8.27%"
+      },
+      "numberOfAnalystOpinions": {
+        "raw": 6,
+        "fmt": "6",
+        "longFmt": "6"
+      },
+      "targetMeanPrice": {
+        "raw": 27.92,
+        "fmt": "27.92"
+      },
+      "debtToEquity": {
+        "raw": 12.912,
+        "fmt": "12.91"
+      },
+      "returnOnEquity": {
+        "raw": 0.14388,
+        "fmt": "14.39%"
+      },
+      "targetHighPrice": {
+        "raw": 32.2,
+        "fmt": "32.20"
+      },
+      "totalCash": {
+        "raw": 86330000,
+        "fmt": "86.33M",
+        "longFmt": "86,330,000"
+      },
+      "totalDebt": {
+        "raw": 78495000,
+        "fmt": "78.5M",
+        "longFmt": "78,495,000"
+      },
+      "totalRevenue": {
+        "raw": 459572992,
+        "fmt": "459.57M",
+        "longFmt": "459,572,992"
+      },
+      "totalCashPerShare": {
+        "raw": 0.793,
+        "fmt": "0.79"
+      },
+      "financialCurrency": "AUD",
+      "maxAge": 86400,
+      "revenuePerShare": {
+        "raw": 4.231,
+        "fmt": "4.23"
+      },
+      "quickRatio": {
+        "raw": 1.384,
+        "fmt": "1.38"
+      },
+      "recommendationMean": {}
+    },
+    "quoteType": {
+      "exchange": "ASX",
+      "shortName": "CORP TRAV FPO",
+      "longName": "Corporate Travel Management Limited",
+      "exchangeTimezoneName": "Australia/Sydney",
+      "exchangeTimezoneShortName": "AEDT",
+      "isEsgPopulated": false,
+      "gmtOffSetMilliseconds": "39600000",
+      "quoteType": "EQUITY",
+      "symbol": "CTD.AX",
+      "messageBoardId": "finmb_46478476",
+      "market": "au_market"
+    },
+    "calendarEvents": {
+      "maxAge": 1,
+      "earnings": {
+        "earningsDate": [
+          {
+            "raw": 1582070400,
+            "fmt": "2020-02-19"
+          }
+        ],
+        "earningsAverage": {},
+        "earningsLow": {},
+        "earningsHigh": {},
+        "revenueAverage": {},
+        "revenueLow": {},
+        "revenueHigh": {}
+      },
+      "exDividendDate": {
+        "raw": 1583366400,
+        "fmt": "2020-03-05"
+      },
+      "dividendDate": {}
+    },
+    "summaryDetail": {
+      "previousClose": {
+        "raw": 4.7,
+        "fmt": "4.70"
+      },
+      "regularMarketOpen": {
+        "raw": 4.93,
+        "fmt": "4.93"
+      },
+      "twoHundredDayAverage": {
+        "raw": 18.036783,
+        "fmt": "18.04"
+      },
+      "trailingAnnualDividendYield": {
+        "raw": 0.08510639,
+        "fmt": "8.51%"
+      },
+      "payoutRatio": {
+        "raw": 0.542,
+        "fmt": "54.20%"
+      },
+      "volume24Hr": {},
+      "regularMarketDayHigh": {
+        "raw": 6.29,
+        "fmt": "6.29"
+      },
+      "navPrice": {},
+      "averageDailyVolume10Day": {
+        "raw": 2390466,
+        "fmt": "2.39M",
+        "longFmt": "2,390,466"
+      },
+      "totalAssets": {},
+      "regularMarketPreviousClose": {
+        "raw": 4.7,
+        "fmt": "4.70"
+      },
+      "fiftyDayAverage": {
+        "raw": 13.386286,
+        "fmt": "13.39"
+      },
+      "trailingAnnualDividendRate": {
+        "raw": 0.4,
+        "fmt": "0.40"
+      },
+      "open": {
+        "raw": 4.93,
+        "fmt": "4.93"
+      },
+      "toCurrency": null,
+      "averageVolume10days": {
+        "raw": 2390466,
+        "fmt": "2.39M",
+        "longFmt": "2,390,466"
+      },
+      "expireDate": {},
+      "yield": {},
+      "algorithm": null,
+      "dividendRate": {
+        "raw": 0.4,
+        "fmt": "0.40"
+      },
+      "exDividendDate": {
+        "raw": 1583366400,
+        "fmt": "2020-03-05"
+      },
+      "beta": {
+        "raw": 1.31116,
+        "fmt": "1.31"
+      },
+      "circulatingSupply": {},
+      "startDate": {},
+      "regularMarketDayLow": {
+        "raw": 4.75,
+        "fmt": "4.75"
+      },
+      "priceHint": {
+        "raw": 2,
+        "fmt": "2",
+        "longFmt": "2"
+      },
+      "currency": "AUD",
+      "trailingPE": {
+        "raw": 7.6016264,
+        "fmt": "7.60"
+      },
+      "regularMarketVolume": {
+        "raw": 3645578,
+        "fmt": "3.65M",
+        "longFmt": "3,645,578"
+      },
+      "lastMarket": null,
+      "maxSupply": {},
+      "openInterest": {},
+      "marketCap": {
+        "raw": 610811200,
+        "fmt": "610.81M",
+        "longFmt": "610,811,200"
+      },
+      "volumeAllCurrencies": {},
+      "strikePrice": {},
+      "averageVolume": {
+        "raw": 1080915,
+        "fmt": "1.08M",
+        "longFmt": "1,080,915"
+      },
+      "priceToSalesTrailing12Months": {
+        "raw": 1.3290842,
+        "fmt": "1.33"
+      },
+      "dayLow": {
+        "raw": 4.75,
+        "fmt": "4.75"
+      },
+      "ask": {
+        "raw": 5.78,
+        "fmt": "5.78"
+      },
+      "ytdReturn": {},
+      "askSize": {
+        "raw": 0,
+        "fmt": null,
+        "longFmt": "0"
+      },
+      "volume": {
+        "raw": 3645578,
+        "fmt": "3.65M",
+        "longFmt": "3,645,578"
+      },
+      "fiftyTwoWeekHigh": {
+        "raw": 27.31,
+        "fmt": "27.31"
+      },
+      "forwardPE": {
+        "raw": 5.783505,
+        "fmt": "5.78"
+      },
+      "maxAge": 1,
+      "fromCurrency": null,
+      "fiveYearAvgDividendYield": {
+        "raw": 1.45,
+        "fmt": "1.45"
+      },
+      "fiftyTwoWeekLow": {
+        "raw": 4.355,
+        "fmt": "4.36"
+      },
+      "bid": {
+        "raw": 5.56,
+        "fmt": "5.56"
+      },
+      "tradeable": false,
+      "dividendYield": {
+        "raw": 0.0713,
+        "fmt": "7.13%"
+      },
+      "bidSize": {
+        "raw": 0,
+        "fmt": null,
+        "longFmt": "0"
+      },
+      "dayHigh": {
+        "raw": 6.29,
+        "fmt": "6.29"
+      }
+    },
+    "symbol": "CTD.AX",
+    "pageViews": {},
+    "quoteData": {
+      "CTD.AX": {
+        "sourceInterval": 20,
+        "regularMarketOpen": {
+          "raw": 4.93,
+          "fmt": "4.93"
+        },
+        "exchange": "ASX",
+        "regularMarketTime": {
+          "raw": 1584681063,
+          "fmt": "4:11PM AEDT"
+        },
+        "fiftyTwoWeekRange": {
+          "raw": "4.355 - 27.31",
+          "fmt": "4.36 - 27.31"
+        },
+        "sharesOutstanding": {
+          "raw": 108879000,
+          "fmt": "108.879M",
+          "longFmt": "108,879,000"
+        },
+        "regularMarketDayHigh": {
+          "raw": 6.29,
+          "fmt": "6.29"
+        },
+        "shortName": "CORP TRAV FPO",
+        "longName": "Corporate Travel Management Limited",
+        "exchangeTimezoneName": "Australia/Sydney",
+        "regularMarketChange": {
+          "raw": 0.9100003,
+          "fmt": "0.91"
+        },
+        "regularMarketPreviousClose": {
+          "raw": 4.7,
+          "fmt": "4.70"
+        },
+        "fiftyTwoWeekHighChange": {
+          "raw": -21.699999,
+          "fmt": "-21.70"
+        },
+        "exchangeTimezoneShortName": "AEDT",
+        "fiftyTwoWeekLowChange": {
+          "raw": 1.2550001,
+          "fmt": "1.26"
+        },
+        "exchangeDataDelayedBy": 0,
+        "regularMarketDayLow": {
+          "raw": 4.75,
+          "fmt": "4.75"
+        },
+        "priceHint": 2,
+        "currency": "AUD",
+        "regularMarketPrice": {
+          "raw": 5.61,
+          "fmt": "5.61"
+        },
+        "regularMarketVolume": {
+          "raw": 3645578,
+          "fmt": "3.646M",
+          "longFmt": "3,645,578"
+        },
+        "isLoading": false,
+        "triggerable": false,
+        "gmtOffSetMilliseconds": 39600000,
+        "firstTradeDateMilliseconds": 1292356800000,
+        "region": "AU",
+        "marketState": "PREPRE",
+        "marketCap": {
+          "raw": 610811200,
+          "fmt": "610.811M",
+          "longFmt": "610,811,200"
+        },
+        "quoteType": "EQUITY",
+        "invalid": false,
+        "symbol": "CTD.AX",
+        "language": "en-AU",
+        "fiftyTwoWeekLowChangePercent": {
+          "raw": 0.28817454,
+          "fmt": "28.82%"
+        },
+        "regularMarketDayRange": {
+          "raw": "4.75 - 6.29",
+          "fmt": "4.75 - 6.29"
+        },
+        "messageBoardId": "finmb_46478476",
+        "fiftyTwoWeekHigh": {
+          "raw": 27.31,
+          "fmt": "27.31"
+        },
+        "fiftyTwoWeekHighChangePercent": {
+          "raw": -0.7945807,
+          "fmt": "-79.46%"
+        },
+        "uuid": "84750a4f-2639-3d19-902c-1445e1d1a52e",
+        "market": "au_market",
+        "fiftyTwoWeekLow": {
+          "raw": 4.355,
+          "fmt": "4.36"
+        },
+        "regularMarketChangePercent": {
+          "raw": 19.36171,
+          "fmt": "19.36%"
+        },
+        "fullExchangeName": "ASX",
+        "tradeable": false
+      }
+    },
+    "mktmData": {}
+  }
+]
