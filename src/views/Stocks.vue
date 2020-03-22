@@ -37,6 +37,11 @@ export default {
       stocks: null
     };
   },
+  methods: {
+    transformApiData: data => {
+      return data;
+    }
+  },
   mounted() {
     // @todo: remove this. for development only.
     const USE_API = false;

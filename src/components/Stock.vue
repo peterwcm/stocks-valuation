@@ -125,7 +125,6 @@ export default class Stock extends Vue {
   @Prop() private financialData!: Record<string, any>;
   @Prop() private summaryDetail!: Record<string, any>;
   @Prop({ default: 75 }) readonly scoreThreshold!: number;
-  // @Prop() private static readonly scoreThreshold: number;
 
   round(value: number, decimals: number) {
     return Number(value.toFixed(decimals));
