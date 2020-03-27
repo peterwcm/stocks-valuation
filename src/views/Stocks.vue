@@ -43,14 +43,14 @@ export default {
       return data;
     }
   },
-  async create() {
+  async mounted() {
     try {
       this.stocks = await StockModel.getStocks();
+      console.log("test", this.stocks);
     } catch (err) {
       this.error = err.message;
     }
-  },
-  mounted() {
+
     // @todo: remove this. for development only.
     const USE_API = false;
 

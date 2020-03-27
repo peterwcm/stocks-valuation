@@ -7,6 +7,7 @@
             <h2 class="title stock__symbol">
               {{ symbol }}
               <b-icon
+                v-if="summaryDetail"
                 class="has-tooltip-arrow has-tooltip-right"
                 :data-tooltip="`$${summaryDetail.ask.raw}`"
                 icon="info-circle"
@@ -28,19 +29,25 @@
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Earnings</h3>
-              <p class="subtitle">{{ summaryDetail.trailingPE.raw.toFixed(2) }}</p>
+              <p class="subtitle" v-if="summaryDetail">{{ summaryDetail.trailingPE.raw.toFixed(2) }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Book</h3>
-              <p class="subtitle">{{ defaultKeyStatistics.priceToBook.raw.toFixed(2) }}</p>
+              <p
+                class="subtitle"
+                v-if="defaultKeyStatistics"
+              >{{ defaultKeyStatistics.priceToBook.raw.toFixed(2) }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Div Yield</h3>
-              <p class="subtitle">{{ (summaryDetail.dividendYield.raw * 100).toFixed(2) }}%</p>
+              <p
+                class="subtitle"
+                v-if="summaryDetail"
+              >{{ (summaryDetail.dividendYield.raw * 100).toFixed(2) }}%</p>
             </div>
           </div>
         </div>
@@ -51,7 +58,10 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Sales</p>
-            <p class="subtitle">{{ summaryDetail.priceToSalesTrailing12Months.raw.toFixed(2) }}</p>
+            <p
+              class="subtitle"
+              v-if="summaryDetail"
+            >{{ summaryDetail.priceToSalesTrailing12Months.raw.toFixed(2) }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
@@ -59,13 +69,14 @@
             <p class="heading">Price/Cash</p>
             <p
               class="subtitle"
+              v-if="summaryDetail && financialData"
             >{{ summaryDetail.ask.raw / financialData.totalCashPerShare.raw | optionalNumber('n/a') }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Market Cap</p>
-            <p class="subtitle">{{ summaryDetail.marketCap.raw | largeNumber }}</p>
+            <p class="subtitle" v-if="summaryDetail">{{ summaryDetail.marketCap.raw | largeNumber }}</p>
           </div>
         </div>
       </div>
@@ -73,19 +84,28 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Debt/Equity</p>
-            <p class="subtitle">{{ financialData.debtToEquity.raw | optionalNumber('n/a') }}</p>
+            <p
+              class="subtitle"
+              v-if="financialData"
+            >{{ financialData.debtToEquity.raw | optionalNumber('n/a') }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Quick Ratio</p>
-            <p class="subtitle">{{ financialData.quickRatio.raw | optionalNumber('n/a') }}</p>
+            <p
+              class="subtitle"
+              v-if="financialData"
+            >{{ financialData.quickRatio.raw | optionalNumber('n/a') }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Current Ratio</p>
-            <p class="subtitle">{{ financialData.currentRatio.raw | optionalNumber('n/a') }}</p>
+            <p
+              class="subtitle"
+              v-if="financialData"
+            >{{ financialData.currentRatio.raw | optionalNumber('n/a') }}</p>
           </div>
         </div>
       </div>

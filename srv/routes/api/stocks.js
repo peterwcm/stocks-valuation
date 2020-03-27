@@ -10,14 +10,14 @@ router.get('/', async (req, res) => {
 });
 
 // Add Stock
-router.post('/', async (req, res) => {
-  const stocks = await loadStocksCollection();
-  await stocks.insertOne({
-    text: req.body.text,
-    createdAt: new Date()
-  });
-  res.status(201).send();
-});
+// router.post('/', async (req, res) => {
+//   const stocks = await loadStocksCollection();
+//   await stocks.insertOne({
+//     text: req.body.text,
+//     createdAt: new Date()
+//   });
+//   res.status(201).send();
+// });
 
 // Delete Stock
 // router.delete('/:id', async (req, res) => {
