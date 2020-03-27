@@ -10,7 +10,7 @@
           <div class="columns is-multiline">
             <div
               class="column is-6-tablet is-4-desktop"
-              v-for="(stock, index) in stocks"
+              v-for="(stock, index) in sortedStocks"
               :key="stock.symbol"
               :index="index"
             >
@@ -38,25 +38,19 @@ export default {
       stocks: null
     };
   },
-  methods: {
-    transformApiData: data => {
-      return data;
+  computed: {
+    sortedStocks() {
+      const stocks = this.stocks;
+      return stocks ? stocks.sort((a, b) => b.score - a.score) : [];
     }
   },
   async mounted() {
-    try {
-      this.stocks = await StockModel.getStocks();
-      console.log("stocks", this.stocks);
-    } catch (err) {
-      this.error = err.message;
-    }
-
     // @todo: remove this. for development only.
     const USE_API = false;
 
     if (USE_API) {
-      const region = "AU";
-      const symbol = "CTD.AX";
+      const region = "TW";
+      const symbol = "2317.TW";
 
       axios
         .get(
@@ -81,15 +75,12 @@ export default {
           this.error = error;
         });
     } else {
-      // axios
-      //   .get(`${process.env.BASE_URL}stats.json`)
-      //   .then(response => {
-      //     console.log(response);
-      //     this.stocks = response.data;
-      //   })
-      //   .catch(error => {
-      //     this.error = error;
-      //   });
+      try {
+        this.stocks = await StockModel.getStocks();
+        console.log("stocks", this.stocks);
+      } catch (err) {
+        this.error = err.message;
+      }
     }
   }
 };

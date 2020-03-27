@@ -30,6 +30,7 @@ async function loadStocksCollection() {
   const client = await mongodb.MongoClient.connect(
     `mongodb+srv://${process.env.EXPRESS_MONGO_USER}:${process.env.EXPRESS_MONGO_PASSWORD}@${process.env.EXPRESS_MONGO_ENDPOINT}`,
     {
+      useUnifiedTopology: true,
       useNewUrlParser: true
     }
   );
