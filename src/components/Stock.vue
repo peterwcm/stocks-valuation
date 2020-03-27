@@ -41,7 +41,7 @@
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Div Yield</h3>
-              <p class="subtitle">{{ dividendYield | optional | round | percentage }}</p>
+              <p class="subtitle">{{ dividendYield | optional | percentage }}</p>
             </div>
           </div>
         </div>
@@ -113,8 +113,8 @@ import { Component, Prop, Vue } from "vue-property-decorator";
       if (val >= 1e9 && val < 1e12) return +(val / 1e9).toFixed(1) + "B";
       if (val >= 1e12) return +(val / 1e12).toFixed(1) + "T";
     },
-    percentage: (val: number | string) => {
-      return typeof val === "number" ? `${val * 100}%` : val;
+    percentage: (val: number | string, decimal: number = 2) => {
+      return typeof val === "number" ? `${(val * 100).toFixed(decimal)}%` : val;
     },
     optional: (val: number | string, emptyText: string = "n/a") => {
       return val !== null && val !== undefined ? val : emptyText;

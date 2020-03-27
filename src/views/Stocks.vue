@@ -46,7 +46,7 @@ export default {
   async mounted() {
     try {
       this.stocks = await StockModel.getStocks();
-      console.log("test", this.stocks);
+      console.log("stocks", this.stocks);
     } catch (err) {
       this.error = err.message;
     }
