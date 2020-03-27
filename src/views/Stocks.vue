@@ -25,6 +25,7 @@
 
 <script>
 import Stock from "@/components/Stock.vue";
+import StockModel from "@/models/StockModel";
 import axios from "axios";
 
 export default {
@@ -40,6 +41,13 @@ export default {
   methods: {
     transformApiData: data => {
       return data;
+    }
+  },
+  async create() {
+    try {
+      this.stocks = await StockModel.getStocks();
+    } catch (err) {
+      this.error = err.message;
     }
   },
   mounted() {
@@ -73,15 +81,15 @@ export default {
           this.error = error;
         });
     } else {
-      axios
-        .get(`${process.env.BASE_URL}stats.json`)
-        .then(response => {
-          console.log(response);
-          this.stocks = response.data;
-        })
-        .catch(error => {
-          this.error = error;
-        });
+      // axios
+      //   .get(`${process.env.BASE_URL}stats.json`)
+      //   .then(response => {
+      //     console.log(response);
+      //     this.stocks = response.data;
+      //   })
+      //   .catch(error => {
+      //     this.error = error;
+      //   });
     }
   }
 };
