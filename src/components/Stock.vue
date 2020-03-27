@@ -143,51 +143,103 @@ export default class Stock extends Vue {
     return Number(value.toFixed(decimals));
   }
 
+  private upScore(
+    val: number,
+    better: number,
+    best: number,
+    betterScore: number = 10,
+    bestScore: number = 25,
+    worstScore: number = -5
+  ) {
+    if (!val) return 0;
+
+    if (val >= better && val < best) {
+      return betterScore;
+    } else if (val > best) {
+      return bestScore;
+    } else {
+      return worstScore;
+    }
+  }
+
+  private downScore(
+    val: number,
+    better: number,
+    best: number,
+    betterScore: number = 10,
+    bestScore: number = 25,
+    worstScore: number = -5
+  ) {
+    if (!val) return 0;
+
+    if (val <= better && val > best) {
+      return betterScore;
+    } else if (val <= best) {
+      return bestScore;
+    } else {
+      return worstScore;
+    }
+  }
+
   get score() {
-    const score = Math.random() * 100;
+    let score = Math.random() * 100;
 
-    if (score <= 100) {
-      return score;
-    }
+    // Valuation
+    // PB A) 1 - 0.51 B) <= 0.5
+    // PE A) 8 - 5.1 B) <= 5
+    // PC A) 4 - 2.1 B) <= 2
+    // PS A) 1.5 - 1.1 B) <= 1
+    // Yield A) 4% - 6% B) >= 6.1%
+    score = this.downScore(this.priceToBook, 1, 0.5);
+    score = this.downScore(this.priceToEarnings, 8, 5);
+    score = this.downScore(this.priceToCash, 4, 2);
+    score = this.downScore(this.priceToSales, 1.5, 1);
+    score = this.upScore(this.dividendYield, 0.04, 0.06);
 
-    const peRatioMax = 15;
-    const pbvRatioMax = 1.5;
-    const buyThreshold = 10;
+    return Math.min(Math.max(score, 0), 100);
 
-    const stockPrice = this.ask;
-    const earningShare = 0;
-    const estEarningShare = 0;
-    const bookValue = 0;
-    if (!estEarningShare || !bookValue) return null;
+    // Health/Risk
 
-    const peRatio = stockPrice / estEarningShare;
-    const pbvRatio = stockPrice / bookValue;
+    // Profitability
 
-    const estStockPrice = this.round(estEarningShare * buyThreshold, 2);
-    let indicatorScore = this.round(
-      Math.min(
-        Math.max(((estStockPrice - stockPrice) / stockPrice) * 100, -70),
-        70
-      ),
-      0
-    );
+    // const peRatioMax = 15;
+    // const pbvRatioMax = 1.5;
+    // const buyThreshold = 10;
 
-    // EPS Growth
-    if (estEarningShare && estEarningShare > earningShare) {
-      indicatorScore += 10;
-    } else if (estEarningShare && estEarningShare < earningShare) {
-      indicatorScore -= 10;
-    }
-    // Return
-    if (estEarningShare) {
-      indicatorScore += peRatio > 0 && peRatio <= peRatioMax ? 10 : -10;
-    }
-    // Safety
-    if (bookValue) {
-      indicatorScore += pbvRatio > 0 && pbvRatio <= pbvRatioMax ? 10 : -10;
-    }
+    // const stockPrice = this.ask;
+    // const earningShare = 0;
+    // const estEarningShare = 0;
+    // const bookValue = 0;
+    // if (!estEarningShare || !bookValue) return null;
 
-    return indicatorScore;
+    // const peRatio = stockPrice / estEarningShare;
+    // const pbvRatio = stockPrice / bookValue;
+
+    // const estStockPrice = this.round(estEarningShare * buyThreshold, 2);
+    // let indicatorScore = this.round(
+    //   Math.min(
+    //     Math.max(((estStockPrice - stockPrice) / stockPrice) * 100, -70),
+    //     70
+    //   ),
+    //   0
+    // );
+
+    // // EPS Growth
+    // if (estEarningShare && estEarningShare > earningShare) {
+    //   indicatorScore += 10;
+    // } else if (estEarningShare && estEarningShare < earningShare) {
+    //   indicatorScore -= 10;
+    // }
+    // // Return
+    // if (estEarningShare) {
+    //   indicatorScore += peRatio > 0 && peRatio <= peRatioMax ? 10 : -10;
+    // }
+    // // Safety
+    // if (bookValue) {
+    //   indicatorScore += pbvRatio > 0 && pbvRatio <= pbvRatioMax ? 10 : -10;
+    // }
+
+    // return indicatorScore;
   }
 }
 </script>
