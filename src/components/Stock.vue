@@ -7,9 +7,9 @@
             <h2 class="title stock__symbol">
               {{ symbol }}
               <b-icon
-                v-if="summaryDetail"
+                v-if="ask"
                 class="has-tooltip-arrow has-tooltip-right"
-                :data-tooltip="`$${summaryDetail.ask.raw}`"
+                :data-tooltip="`$${ask}`"
                 icon="info-circle"
                 size="is-small"
               ></b-icon>
@@ -19,8 +19,8 @@
       </section>
       <section class="stock__subheading">
         <div class="columns">
-          <div class="column">
-            <h3 class="subtitle stock__name">{{ price.longName }}</h3>
+          <div class="column" v-if="name">
+            <h3 class="subtitle stock__name">{{ name }}</h3>
           </div>
         </div>
       </section>
@@ -29,25 +29,19 @@
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Earnings</h3>
-              <p class="subtitle" v-if="summaryDetail">{{ summaryDetail.trailingPE.raw.toFixed(2) }}</p>
+              <p class="subtitle">{{ priceToEarnings | optional | round }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Price/Book</h3>
-              <p
-                class="subtitle"
-                v-if="defaultKeyStatistics"
-              >{{ defaultKeyStatistics.priceToBook.raw.toFixed(2) }}</p>
+              <p class="subtitle">{{ priceToBook | optional | round }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
             <div>
               <h3 class="heading">Div Yield</h3>
-              <p
-                class="subtitle"
-                v-if="summaryDetail"
-              >{{ (summaryDetail.dividendYield.raw * 100).toFixed(2) }}%</p>
+              <p class="subtitle">{{ dividendYield | optional | round | percentage }}</p>
             </div>
           </div>
         </div>
@@ -58,25 +52,19 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Sales</p>
-            <p
-              class="subtitle"
-              v-if="summaryDetail"
-            >{{ summaryDetail.priceToSalesTrailing12Months.raw.toFixed(2) }}</p>
+            <p class="subtitle">{{ priceToSales | optional | round }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Price/Cash</p>
-            <p
-              class="subtitle"
-              v-if="summaryDetail && financialData"
-            >{{ summaryDetail.ask.raw / financialData.totalCashPerShare.raw | optionalNumber('n/a') }}</p>
+            <p class="subtitle">{{ priceToCash | optional | round }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Market Cap</p>
-            <p class="subtitle" v-if="summaryDetail">{{ summaryDetail.marketCap.raw | largeNumber }}</p>
+            <p class="subtitle">{{ marketCap | optional | abbreviation }}</p>
           </div>
         </div>
       </div>
@@ -84,28 +72,19 @@
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Debt/Equity</p>
-            <p
-              class="subtitle"
-              v-if="financialData"
-            >{{ financialData.debtToEquity.raw | optionalNumber('n/a') }}</p>
+            <p class="subtitle">{{ debtToEquity | optional | round }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Quick Ratio</p>
-            <p
-              class="subtitle"
-              v-if="financialData"
-            >{{ financialData.quickRatio.raw | optionalNumber('n/a') }}</p>
+            <p class="subtitle">{{ quickRatio | optional | round }}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">Current Ratio</p>
-            <p
-              class="subtitle"
-              v-if="financialData"
-            >{{ financialData.currentRatio.raw | optionalNumber('n/a') }}</p>
+            <p class="subtitle">{{ currentRatio | optional | round }}</p>
           </div>
         </div>
       </div>
@@ -126,24 +105,38 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 
 @Component({
   filters: {
-    largeNumber: (n: number) => {
-      if (n < 1e3) return n;
-      if (n >= 1e3 && n < 1e6) return +(n / 1e3).toFixed(1) + "K";
-      if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + "M";
-      if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + "B";
-      if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+    abbreviation: (val: number | string) => {
+      if (typeof val !== "number") return val;
+      if (val < 1e3) return val;
+      if (val >= 1e3 && val < 1e6) return +(val / 1e3).toFixed(1) + "K";
+      if (val >= 1e6 && val < 1e9) return +(val / 1e6).toFixed(1) + "M";
+      if (val >= 1e9 && val < 1e12) return +(val / 1e9).toFixed(1) + "B";
+      if (val >= 1e12) return +(val / 1e12).toFixed(1) + "T";
     },
-    optionalNumber: (value: number, defaultValue: number | string) => {
-      return value ? value.toFixed(2) : defaultValue;
+    percentage: (val: number | string) => {
+      return typeof val === "number" ? `${val * 100}%` : val;
+    },
+    optional: (val: number | string, emptyText: string = "n/a") => {
+      return val !== null && val !== undefined ? val : emptyText;
+    },
+    round: (val: number | string, decimal: number = 2) => {
+      return typeof val === "number" ? +val.toFixed(decimal) : val;
     }
   }
 })
 export default class Stock extends Vue {
   @Prop() private symbol!: string;
-  @Prop() private defaultKeyStatistics!: Record<string, any>;
-  @Prop() private price!: Record<string, any>;
-  @Prop() private financialData!: Record<string, any>;
-  @Prop() private summaryDetail!: Record<string, any>;
+  @Prop() private ask!: number;
+  @Prop() private name!: string;
+  @Prop() private marketCap!: number;
+  @Prop() private priceToEarnings!: number;
+  @Prop() private priceToBook!: number;
+  @Prop() private priceToCash!: number;
+  @Prop() private priceToSales!: number;
+  @Prop() private quickRatio!: number;
+  @Prop() private currentRatio!: number;
+  @Prop() private debtToEquity!: number;
+  @Prop() private dividendYield!: number;
   @Prop({ default: 75 }) readonly scoreThreshold!: number;
 
   round(value: number, decimals: number) {
@@ -161,7 +154,7 @@ export default class Stock extends Vue {
     const pbvRatioMax = 1.5;
     const buyThreshold = 10;
 
-    const stockPrice = this.summaryDetail.ask.raw;
+    const stockPrice = this.ask;
     const earningShare = 0;
     const estEarningShare = 0;
     const bookValue = 0;
