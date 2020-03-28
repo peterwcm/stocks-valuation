@@ -17,6 +17,41 @@ interface Stock {
 }
 
 class StockModel {
+  static getStocks() {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(url)
+        .then(res => {
+          resolve(
+            res.data.map((data: any) => {
+              const stock = {
+                symbol: data.symbol,
+                ask: data?.summaryDetail?.ask?.raw || null,
+                name: data?.price?.longName || null,
+                marketCap: data?.summaryDetail?.marketCap?.raw || null,
+                priceToEarnings: data?.summaryDetail?.trailingPE?.raw || null,
+                priceToBook: data?.defaultKeyStatistics?.priceToBook?.raw || null,
+                priceToCash: data?.summaryDetail?.ask?.raw / data?.financialData?.totalCashPerShare?.raw || null,
+                priceToSales: data?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
+                quickRatio: data?.financialData?.quickRatio?.raw || null,
+                currentRatio: data?.financialData?.currentRatio?.raw || null,
+                debtToEquity: data?.financialData?.debtToEquity?.raw || null,
+                dividendYield: data?.summaryDetail?.dividendYieldata?.raw || null,
+                score: 0,
+                createdAt: new Date()
+              };
+              stock.score = this.getScore(stock);
+
+              return stock;
+            })
+          );
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
   private static upScore(
     val: number | null,
     better: number,
@@ -103,41 +138,6 @@ class StockModel {
     //   // } else if (estEarningShare && estEarningShare < earningShare) {
     //   //   indicatorScore -= 10;
     //   // }
-  }
-
-  static getStocks() {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(url)
-        .then(res => {
-          resolve(
-            res.data.map((d: any) => {
-              const stock = {
-                symbol: d.symbol,
-                ask: d?.summaryDetail?.ask?.raw || null,
-                name: d?.price?.longName || null,
-                marketCap: d?.summaryDetail?.marketCap?.raw || null,
-                priceToEarnings: d?.summaryDetail?.trailingPE?.raw || null,
-                priceToBook: d?.defaultKeyStatistics?.priceToBook?.raw || null,
-                priceToCash: d?.summaryDetail?.ask?.raw / d?.financialData?.totalCashPerShare?.raw || null,
-                priceToSales: d?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
-                quickRatio: d?.financialData?.quickRatio?.raw || null,
-                currentRatio: d?.financialData?.currentRatio?.raw || null,
-                debtToEquity: d?.financialData?.debtToEquity?.raw || null,
-                dividendYield: d?.summaryDetail?.dividendYield?.raw || null,
-                score: 0,
-                date: new Date()
-              };
-              stock.score = this.getScore(stock);
-
-              return stock;
-            })
-          );
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
   }
 
   // static addStock(text: string) {

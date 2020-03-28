@@ -88,10 +88,10 @@
           </div>
         </div>
       </div>
-      <div class="columns" v-if="date">
+      <div class="columns" v-if="createdAt">
         <div class="column has-text-right stock__date">
           <small>
-            <em>Last fetched: {{ date | moment('from', 'now') }}</em>
+            <em>Last fetched: {{ createdAt | moment('from', 'now') }}</em>
           </small>
         </div>
       </div>
@@ -145,7 +145,7 @@ export default class Stock extends Vue {
   @Prop() private debtToEquity!: number;
   @Prop() private dividendYield!: number;
   @Prop() private score!: number;
-  @Prop() private date!: Date;
+  @Prop() private createdAt!: Date;
   @Prop({ default: 75 }) readonly scoreThreshold!: number;
 }
 </script>

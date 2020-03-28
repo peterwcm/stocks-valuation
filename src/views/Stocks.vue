@@ -12,7 +12,7 @@
             <div class="column">
               <b-field label="Stock Symbols">
                 <b-taginput
-                  v-model="stockSymbols"
+                  v-model="watchlist"
                   ellipsis
                   icon="comments-dollar"
                   placeholder="Add a stock symbol, e.g. ANZ.AX"
@@ -40,6 +40,7 @@
 
 <script>
 import Stock from "@/components/Stock.vue";
+import UserModel from "@/models/UserModel";
 import StockModel from "@/models/StockModel";
 import axios from "axios";
 
@@ -51,7 +52,7 @@ export default {
     return {
       error: null,
       stocks: null,
-      stockSymbols: null
+      watchlist: null
     };
   },
   computed: {
@@ -92,6 +93,10 @@ export default {
         });
     } else {
       try {
+        const user = await UserModel.getUser("admin");
+        this.watchlist = user ? user?.watchlist : [];
+        console.log("watchlist", this.watchlist);
+
         this.stocks = await StockModel.getStocks();
         console.log("stocks", this.stocks);
       } catch (err) {
