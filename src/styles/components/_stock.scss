@@ -43,12 +43,15 @@ $stock-card-border: 1px solid $border;
       }
     }
   }
+
+  &__date {
+    padding-bottom: 0;
+  }
 }
 
 .level {
   .subtitle {
     color: #6ba8e6;
-    // font-size: ;
   }
 }
 
