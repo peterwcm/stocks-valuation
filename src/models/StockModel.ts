@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const url = 'http://localhost:3000/api/stocks/';
-const url = '/stats.json';
+const url = '/stocks.json';
 
 interface Stock {
   ask: number | null;
@@ -126,7 +126,7 @@ class StockModel {
                 debtToEquity: d?.financialData?.debtToEquity?.raw || null,
                 dividendYield: d?.summaryDetail?.dividendYield?.raw || null,
                 score: 0,
-                createdAt: new Date(d.createdAt)
+                date: new Date()
               };
               stock.score = this.getScore(stock);
 

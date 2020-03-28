@@ -7,6 +7,21 @@
         </h1>
         <div class="stocks">
           <b-message type="is-danger" v-if="error">{{ error }}</b-message>
+
+          <div class="columns">
+            <div class="column">
+              <b-field label="Stock Symbols">
+                <b-taginput
+                  v-model="stockSymbols"
+                  ellipsis
+                  icon="comments-dollar"
+                  placeholder="Add a stock symbol, e.g. ANZ.AX"
+                  type="is-info"
+                ></b-taginput>
+              </b-field>
+            </div>
+          </div>
+
           <div class="columns is-multiline">
             <div
               class="column is-6-tablet is-4-desktop"
@@ -35,7 +50,8 @@ export default {
   data() {
     return {
       error: null,
-      stocks: null
+      stocks: null,
+      stockSymbols: null
     };
   },
   computed: {
@@ -49,8 +65,8 @@ export default {
     const USE_API = false;
 
     if (USE_API) {
-      const region = "TW";
-      const symbol = "2317.TW";
+      const region = "US";
+      const symbol = "GOOGL";
 
       axios
         .get(
