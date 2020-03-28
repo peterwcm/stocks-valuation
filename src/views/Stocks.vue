@@ -7,21 +7,21 @@
         </h1>
         <div class="stocks">
           <b-message type="is-danger" v-if="error">{{ error }}</b-message>
-
           <div class="columns">
             <div class="column">
-              <b-field label="Stock Symbols">
+              <b-field label="Watchlist">
                 <b-taginput
+                  ref="watchlist"
                   v-model="watchlist"
                   ellipsis
                   icon="comments-dollar"
                   placeholder="Add a stock symbol, e.g. ANZ.AX"
                   type="is-info"
+                  @input="symbolsChange"
                 ></b-taginput>
               </b-field>
             </div>
           </div>
-
           <div class="columns is-multiline">
             <div
               class="column is-6-tablet is-4-desktop"
@@ -50,12 +50,35 @@ export default {
   },
   data() {
     return {
+      // We only need one user for personal use.
+      username: "admin",
       error: null,
       stocks: null,
       watchlist: null
     };
   },
+  methods: {
+    /**
+     * Symbols change event..
+     */
+    async symbolsChange() {
+      const symbolsLoading = this.$buefy.loading.open({
+        container: this.$refs.watchlist.$el
+      });
+
+      // Convert all symbols to uppercase.
+      this.watchlist = this.watchlist.map(s => s.toUpperCase());
+      // Sync the watchlist.
+      await UserModel.updateWatchlist(this.username, this.watchlist);
+      // @todo: refetch the stocks data with the latest watchlist.
+
+      symbolsLoading.close();
+    }
+  },
   computed: {
+    /**
+     * Sort stocks based on their score.
+     */
     sortedStocks() {
       const stocks = this.stocks;
       return stocks ? stocks.sort((a, b) => b.score - a.score) : [];
@@ -93,9 +116,9 @@ export default {
         });
     } else {
       try {
-        const user = await UserModel.getUser("admin");
+        // Load the user and stocks data.
+        const user = await UserModel.getUser(this.username);
         this.watchlist = user ? user?.watchlist : [];
-        console.log("watchlist", this.watchlist);
 
         this.stocks = await StockModel.getStocks();
         console.log("stocks", this.stocks);
