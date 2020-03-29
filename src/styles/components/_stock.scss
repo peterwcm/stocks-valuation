@@ -46,6 +46,15 @@ $stock-card-border: 1px solid $border;
 
   &__date {
     padding-bottom: 0;
+
+    .button {
+      margin: 0 0.5rem;
+      border: 0;
+
+      &:hover {
+        color: $info;
+      }
+    }
   }
 }
 

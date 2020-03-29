@@ -90,6 +90,9 @@
       </div>
       <div class="columns" v-if="createdAt">
         <div class="column has-text-right stock__date">
+          <b-button size="is-small">
+            <b-icon icon="sync-alt"></b-icon>
+          </b-button>
           <small>
             <em>Last fetched: {{ createdAt | moment('from', 'now') }}</em>
           </small>
