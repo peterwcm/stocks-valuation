@@ -25,6 +25,9 @@ router.put('/update', async (req, res) => {
 
 /**
  * Load the Mongo users collection from remote DB.
+ *
+ * @return {Collection}
+ *   The Mongo users collection.
  */
 async function loadUsersCollection() {
   const client = await mongodb.MongoClient.connect(

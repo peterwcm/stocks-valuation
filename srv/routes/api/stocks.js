@@ -1,5 +1,6 @@
 import express from 'express';
 import mongodb from 'mongodb';
+import axios from 'axios';
 import stocksData from '../../data/stocks.json';
 
 // @todo: remove this. This was for development only.
@@ -26,30 +27,9 @@ router.post('/', async (req, res) => {
         .find({ symbol })
         .limit(1)
         .count();
-      if (false) {
-        // Fetch stock data from remote API.
-        const region = 'US';
-        const symbol = 'GOOGL';
-
-        axios
-          .get('https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics', {
-            params: {
-              region,
-              symbol
-            },
-            headers: {
-              'content-type': 'application/octet-stream',
-              'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
-              'x-rapidapi-key': process.env.EXPRESS_RAPIDAPI_KEY
-            }
-          })
-          .then(response => {
-            console.log(response);
-            this.stocks = [response.data];
-          })
-          .catch(error => {
-            this.error = error;
-          });
+      if (!symbolCount) {
+        const stock = await fetchStock(symbol);
+        stocks.insertOne(stock);
       }
     }
 
@@ -81,7 +61,71 @@ router.post('/', async (req, res) => {
 // });
 
 /**
+ * Fetch stock data from remote API.
+ *
+ * @param {string} symbol
+ *   The stock symbol.
+ *
+ * @return {AxiosPromise}
+ *   The axios promise from the fetch request.
+ */
+async function fetchStock(symbol) {
+  const region = getStockRegion(symbol);
+  return axios
+    .get('https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics', {
+      params: {
+        region,
+        symbol
+      },
+      headers: {
+        'content-type': 'application/json',
+        'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+        'x-rapidapi-key': process.env.EXPRESS_RAPIDAPI_KEY
+      }
+    })
+    .then(response => {
+      // Add missing stock into MongoDB.
+      let stock = response.data;
+      // Remove the symbol key, property keys containing a dot do not work well with MongoDb.
+      stock.quoteData = stock.quoteData[symbol];
+      stock.createdAt = new Date();
+      return stock;
+    })
+    .catch(error => {
+      console.log(`Cannot cache stock symbol: ${symbol}`);
+      console.error(error);
+    });
+}
+
+/**
+ * Retrieve the region code for a stock symbol.
+ *
+ * @param {string} symbol
+ *   The stock symbol, e.g. ANZ.AX, GOOGL, 2317.TW, 0005.HK
+ *
+ * @return {string}
+ *   The 2-character region code.
+ */
+function getStockRegion(symbol) {
+  const symbolRegionPair = symbol.split('.');
+
+  if (symbolRegionPair.length < 2) {
+    return 'US';
+  }
+
+  // Custom region map for certain exchange.
+  const regionMap = {
+    AX: 'AU'
+  };
+
+  return regionMap[symbolRegionPair[1]] || symbolRegionPair[1];
+}
+
+/**
  * Load the Mongo stocks collection from remote DB.
+ *
+ * @return {Collection}
+ *   The Mongo stocks collection.
  */
 async function loadStocksCollection() {
   const client = await mongodb.MongoClient.connect(
