@@ -20,6 +20,39 @@ router.post('/', async (req, res) => {
   if (USE_API) {
     // Load stocks from Mongo.
     const stocks = await loadStocksCollection();
+
+    for (const symbol of watchlist) {
+      const symbolCount = await stocks
+        .find({ symbol })
+        .limit(1)
+        .count();
+      if (false) {
+        // Fetch stock data from remote API.
+        const region = 'US';
+        const symbol = 'GOOGL';
+
+        axios
+          .get('https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics', {
+            params: {
+              region,
+              symbol
+            },
+            headers: {
+              'content-type': 'application/octet-stream',
+              'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+              'x-rapidapi-key': process.env.EXPRESS_RAPIDAPI_KEY
+            }
+          })
+          .then(response => {
+            console.log(response);
+            this.stocks = [response.data];
+          })
+          .catch(error => {
+            this.error = error;
+          });
+      }
+    }
+
     res.send(await stocks.find(query).toArray());
   } else {
     res.send(stocksData);

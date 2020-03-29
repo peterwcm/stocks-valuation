@@ -95,45 +95,14 @@ export default {
     }
   },
   async mounted() {
-    // @todo: remove this. This was for development only.
-    const USE_API = false;
+    try {
+      // Load the user and stocks data.
+      const user = await UserModel.getUser(this.username);
+      this.watchlist = user ? user?.watchlist : [];
 
-    if (USE_API) {
-      const region = "US";
-      const symbol = "GOOGL";
-
-      axios
-        .get(
-          "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics",
-          {
-            params: {
-              region,
-              symbol
-            },
-            headers: {
-              "content-type": "application/octet-stream",
-              "x-rapidapi-host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
-              "x-rapidapi-key": process.env.VUE_APP_RAPIDAPI_KEY
-            }
-          }
-        )
-        .then(response => {
-          console.log(response);
-          this.stocks = [response.data];
-        })
-        .catch(error => {
-          this.error = error;
-        });
-    } else {
-      try {
-        // Load the user and stocks data.
-        const user = await UserModel.getUser(this.username);
-        this.watchlist = user ? user?.watchlist : [];
-
-        this.refreshStocks();
-      } catch (err) {
-        this.error = err.message;
-      }
+      this.refreshStocks();
+    } catch (err) {
+      this.error = err.message;
     }
   }
 };
