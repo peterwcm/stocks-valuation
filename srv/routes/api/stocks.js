@@ -11,17 +11,16 @@ const router = express.Router();
  */
 router.post('/', async (req, res) => {
   const watchlist = req.body.watchlist || [];
+  const query = watchlist.length
+    ? {
+        symbol: { $in: watchlist }
+      }
+    : {};
 
   if (USE_API) {
     // Load stocks from Mongo.
     const stocks = await loadStocksCollection();
-    res.send(
-      await stocks
-        .find({
-          symbol: { $in: watchlist }
-        })
-        .toArray()
-    );
+    res.send(await stocks.find(query).toArray());
   } else {
     res.send(stocksData);
   }

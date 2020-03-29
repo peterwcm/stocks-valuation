@@ -37,10 +37,6 @@ class StockModel {
    *   The promise with list of Stock objects.
    */
   static getStocks(watchlist: Array<string>): Array<Stock> | Promise<Array<Stock>> {
-    if (!watchlist || !watchlist.length) {
-      return [];
-    }
-
     return new Promise((resolve, reject) => {
       axios
         .post(url, {
