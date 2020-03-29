@@ -58,7 +58,7 @@ class StockModel {
                 quickRatio: data?.financialData?.quickRatio?.raw || null,
                 currentRatio: data?.financialData?.currentRatio?.raw || null,
                 debtToEquity: data?.financialData?.debtToEquity?.raw || null,
-                dividendYield: data?.summaryDetail?.dividendYieldata?.raw || null,
+                dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
                 score: 0,
                 createdAt: data?.createdAt || new Date()
               };
