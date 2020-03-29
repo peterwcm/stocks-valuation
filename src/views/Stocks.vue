@@ -61,27 +61,27 @@ export default {
      * Symbols change event.
      */
     async symbolsChange() {
-      // Add loading effect inside the watchlist tags input.
-      const symbolsLoading = this.$buefy.loading.open({
-        container: null
-      });
-
       // Convert all symbols to uppercase.
       this.watchlist = this.watchlist.map(s => s.toUpperCase());
       // Sync the watchlist.
       await UserModel.updateWatchlist(this.username, this.watchlist);
 
       this.refreshStocks();
-
-      // Stop the loading effect.
-      symbolsLoading.close();
     },
     /**
      * Refresh the stocks listing.
      */
     async refreshStocks() {
+      // Add loading effect inside the watchlist tags input.
+      const symbolsLoading = this.$buefy.loading.open({
+        container: null
+      });
+
       this.stocks = await StockModel.getStocks(this.watchlist);
       console.log("stocks", this.stocks);
+
+      // Stop the loading effect.
+      symbolsLoading.close();
     }
   },
   computed: {
