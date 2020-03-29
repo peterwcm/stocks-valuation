@@ -1,9 +1,15 @@
 import axios from 'axios';
 
+// The local server URL for stocks API.
 // const url = 'http://localhost:3000/api/stocks/';
 const url = '/stocks.json';
 
+/**
+ * The Stock interface.
+ */
 interface Stock {
+  symbol: string;
+  name: string;
   ask: number | null;
   marketCap: number | null;
   priceToEarnings: number | null;
@@ -14,20 +20,32 @@ interface Stock {
   currentRatio: number | null;
   debtToEquity: number | null;
   dividendYield: number | null;
+  score: number;
+  createdAt: Date;
 }
 
+/**
+ * The Stock model service.
+ */
 class StockModel {
-  static getStocks() {
+  /**
+   * Retrieve all stocks.
+   *
+   * @return {Promise<Array<Stock>>}
+   *   The promise with list of Stock objects.
+   */
+  static getStocks(): Promise<Array<Stock>> {
     return new Promise((resolve, reject) => {
       axios
         .get(url)
         .then(res => {
           resolve(
             res.data.map((data: any) => {
+              // Transform the remote data to a Stock object.
               const stock = {
                 symbol: data.symbol,
-                ask: data?.summaryDetail?.ask?.raw || null,
                 name: data?.price?.longName || null,
+                ask: data?.summaryDetail?.ask?.raw || null,
                 marketCap: data?.summaryDetail?.marketCap?.raw || null,
                 priceToEarnings: data?.summaryDetail?.trailingPE?.raw || null,
                 priceToBook: data?.defaultKeyStatistics?.priceToBook?.raw || null,
@@ -52,6 +70,25 @@ class StockModel {
     });
   }
 
+  /**
+   * Calculate a score of a value based on the given criteria. The larger the value, the better the score is.
+   *
+   * @param {number|null} val
+   *   The value to be checked.
+   * @param {number} better
+   *   The bottom value of the better range, inclusively.
+   * @param {number} best
+   *   The upper value of the better range, exclusively, also, the bottom value of the best range, inclusively.
+   * @param {number} betterScore
+   *   The score for when the value is in the better range.
+   * @param {number} bestScore
+   *   The score for when the value is in the best range.
+   * @param {number} worstScore
+   *   The score for when the value is in neither of the range.
+   *
+   * @return {number}
+   *   The score of a value.
+   */
   private static upScore(
     val: number | null,
     better: number,
@@ -59,18 +96,37 @@ class StockModel {
     betterScore: number = 15,
     bestScore: number = 20,
     worstScore: number = -5
-  ) {
+  ): number {
     if (!val) return 0;
 
     if (val >= better && val < best) {
       return betterScore;
-    } else if (val > best) {
+    } else if (val >= best) {
       return bestScore;
     } else {
       return worstScore;
     }
   }
 
+  /**
+   * Calculate a score of a value based on the given criteria. The smaller the value, the better the score is.
+   *
+   * @param {number|null} val
+   *   The value to be checked.
+   * @param {number} better
+   *   The upper value of the better range, inclusively.
+   * @param {number} best
+   *   The bottom value of the better range, exclusively, also, the upper value of the best range, inclusively.
+   * @param {number} betterScore
+   *   The score for when the value is in the better range.
+   * @param {number} bestScore
+   *   The score for when the value is in the best range.
+   * @param {number} worstScore
+   *   The score for when the value is in neither of the range.
+   *
+   * @return {number}
+   *   The score of a value.
+   */
   private static downScore(
     val: number | null,
     better: number,
@@ -78,7 +134,7 @@ class StockModel {
     betterScore: number = 15,
     bestScore: number = 20,
     worstScore: number = -5
-  ) {
+  ): number {
     if (!val) return 0;
 
     if (val <= better && val > best) {
@@ -90,7 +146,16 @@ class StockModel {
     }
   }
 
-  private static getScore(stock: Stock) {
+  /**
+   * Calculate the score of a stock.
+   *
+   * @param {Stock} stock
+   *   The Stock object.
+   *
+   * @return {number}
+   *   The score of the Stock object.
+   */
+  private static getScore(stock: Stock): number {
     let score = 0;
     // Valuation
     // PB A) 1 - 0.51 B) <= 0.5
