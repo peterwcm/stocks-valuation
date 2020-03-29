@@ -42,7 +42,6 @@
 import Stock from "@/components/Stock.vue";
 import UserModel from "@/models/UserModel";
 import StockModel from "@/models/StockModel";
-import axios from "axios";
 
 export default {
   components: {
