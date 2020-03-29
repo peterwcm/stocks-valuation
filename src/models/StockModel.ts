@@ -1,14 +1,13 @@
 import axios from 'axios';
 
 // The local server URL for stocks API.
-// const url = 'http://localhost:3000/api/stocks/';
-const url = '/stocks.json';
+const url = 'http://localhost:3000/api/stocks';
 
 /**
  * The Stock interface.
  */
 interface Stock {
-  symbol: string;
+  symbol: string | null;
   name: string;
   ask: number | null;
   marketCap: number | null;
@@ -21,7 +20,7 @@ interface Stock {
   debtToEquity: number | null;
   dividendYield: number | null;
   score: number;
-  createdAt: Date;
+  createdAt: Date | null;
 }
 
 /**
@@ -29,15 +28,24 @@ interface Stock {
  */
 class StockModel {
   /**
-   * Retrieve all stocks.
+   * Retrieve stocks by symbols.
    *
-   * @return {Promise<Array<Stock>>}
+   * @param {Array<string>} watchlist
+   *   The list of stock symbols.
+   *
+   * @return {Array<Stock>|Promise<Array<Stock>>}
    *   The promise with list of Stock objects.
    */
-  static getStocks(): Promise<Array<Stock>> {
+  static getStocks(watchlist: Array<string>): Array<Stock> | Promise<Array<Stock>> {
+    if (!watchlist || !watchlist.length) {
+      return [];
+    }
+
     return new Promise((resolve, reject) => {
       axios
-        .get(url)
+        .post(url, {
+          watchlist
+        })
         .then(res => {
           resolve(
             res.data.map((data: any) => {
@@ -56,7 +64,7 @@ class StockModel {
                 debtToEquity: data?.financialData?.debtToEquity?.raw || null,
                 dividendYield: data?.summaryDetail?.dividendYieldata?.raw || null,
                 score: 0,
-                createdAt: new Date()
+                createdAt: data?.createdAt || new Date()
               };
               stock.score = this.getScore(stock);
 

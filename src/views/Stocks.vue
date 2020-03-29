@@ -59,20 +59,30 @@ export default {
   },
   methods: {
     /**
-     * Symbols change event..
+     * Symbols change event.
      */
     async symbolsChange() {
+      // Add loading effect inside the watchlist tags input.
       const symbolsLoading = this.$buefy.loading.open({
-        container: this.$refs.watchlist.$el
+        container: null
       });
 
       // Convert all symbols to uppercase.
       this.watchlist = this.watchlist.map(s => s.toUpperCase());
       // Sync the watchlist.
       await UserModel.updateWatchlist(this.username, this.watchlist);
-      // @todo: refetch the stocks data with the latest watchlist.
 
+      this.refreshStocks();
+
+      // Stop the loading effect.
       symbolsLoading.close();
+    },
+    /**
+     * Refresh the stocks listing.
+     */
+    async refreshStocks() {
+      this.stocks = await StockModel.getStocks(this.watchlist);
+      console.log("stocks", this.stocks);
     }
   },
   computed: {
@@ -85,7 +95,7 @@ export default {
     }
   },
   async mounted() {
-    // @todo: remove this. for development only.
+    // @todo: remove this. This was for development only.
     const USE_API = false;
 
     if (USE_API) {
@@ -120,8 +130,7 @@ export default {
         const user = await UserModel.getUser(this.username);
         this.watchlist = user ? user?.watchlist : [];
 
-        this.stocks = await StockModel.getStocks();
-        console.log("stocks", this.stocks);
+        this.refreshStocks();
       } catch (err) {
         this.error = err.message;
       }

@@ -1,27 +1,43 @@
 import express from 'express';
 import mongodb from 'mongodb';
+import stocksData from '../../data/stocks.json';
 
+// @todo: remove this. This was for development only.
+const USE_API = true;
 const router = express.Router();
 
 /**
- * Retrieve all stocks.
+ * Retrieve stocks by symbols.
  */
-router.get('/', async (req, res) => {
-  const stocks = await loadStocksCollection();
-  res.send(await stocks.find({}).toArray());
+router.post('/', async (req, res) => {
+  const watchlist = req.body.watchlist || [];
+
+  if (USE_API) {
+    // Load stocks from Mongo.
+    const stocks = await loadStocksCollection();
+    res.send(
+      await stocks
+        .find({
+          symbol: { $in: watchlist }
+        })
+        .toArray()
+    );
+  } else {
+    res.send(stocksData);
+  }
 });
 
 /**
  * Add a new stock.
  */
-router.post('/', async (req, res) => {
-  const stocks = await loadStocksCollection();
-  await stocks.insertOne({
-    ...req.body,
-    createdAt: new Date()
-  });
-  res.status(201).send();
-});
+// router.post('/', async (req, res) => {
+//   const stocks = await loadStocksCollection();
+//   await stocks.insertOne({
+//     ...req.body,
+//     createdAt: new Date()
+//   });
+//   res.status(201).send();
+// });
 
 /**
  * Delete a stock.
