@@ -33,10 +33,10 @@ class StockModel {
    * @param {Array<string>} watchlist
    *   The list of stock symbols.
    *
-   * @return {Array<Stock>|Promise<Array<Stock>>}
+   * @return {Promise<Array<Stock>>}
    *   The promise with list of Stock objects.
    */
-  static getStocks(watchlist: Array<string>): Array<Stock> | Promise<Array<Stock>> {
+  static getStocks(watchlist: Array<string>): Promise<Array<Stock>> {
     return new Promise((resolve, reject) => {
       axios
         .post(url, {
@@ -60,7 +60,7 @@ class StockModel {
                 debtToEquity: data?.financialData?.debtToEquity?.raw || null,
                 dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
                 score: 0,
-                createdAt: data?.createdAt || new Date()
+                createdAt: data?.createdAt
               };
               stock.score = this.getScore(stock);
 
@@ -72,6 +72,54 @@ class StockModel {
           reject(err);
         });
     });
+  }
+
+  /**
+   * Refresh a stock.
+   *
+   * @param {string} symbol
+   *   The stock symbol.
+   *
+   * @return {AxiosPromise}
+   *   The axios promise from the update request.
+   *
+   * @return {Promise<Stock>}
+   *   The promise with the Stock object.
+   */
+  static refreshStock(symbol: string): Promise<Stock> {
+    return new Promise((resolve, reject) => {
+      axios
+        .put(`${url}/refresh`, {
+          symbol
+        })
+        .then(res => {
+          const data = res.data;
+          const stock = {
+            symbol: data.symbol,
+            name: data?.price?.longName || null,
+            ask: data?.summaryDetail?.ask?.raw || null,
+            marketCap: data?.summaryDetail?.marketCap?.raw || null,
+            priceToEarnings: data?.summaryDetail?.trailingPE?.raw || null,
+            priceToBook: data?.defaultKeyStatistics?.priceToBook?.raw || null,
+            priceToCash: data?.summaryDetail?.ask?.raw / data?.financialData?.totalCashPerShare?.raw || null,
+            priceToSales: data?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
+            quickRatio: data?.financialData?.quickRatio?.raw || null,
+            currentRatio: data?.financialData?.currentRatio?.raw || null,
+            debtToEquity: data?.financialData?.debtToEquity?.raw || null,
+            dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
+            score: 0,
+            createdAt: data?.createdAt
+          };
+          stock.score = this.getScore(stock);
+
+          resolve(stock);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+
+    // return axios.put(`${url}/refresh`, { symbol });
   }
 
   /**

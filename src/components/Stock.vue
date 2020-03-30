@@ -1,5 +1,6 @@
 <template>
   <article class="card stock">
+    <b-loading :is-full-page="false" :active.sync="isLoading"></b-loading>
     <header class="stock__header">
       <section class="stock__heading">
         <div class="columns is-mobile">
@@ -90,7 +91,7 @@
       </div>
       <div class="columns" v-if="createdAt">
         <div class="column has-text-right stock__date">
-          <b-button size="is-small">
+          <b-button size="is-small" @click="refresh">
             <b-icon icon="sync-alt"></b-icon>
           </b-button>
           <small>
@@ -112,6 +113,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import StockModel from "@/models/StockModel";
 
 @Component({
   filters: {
@@ -149,7 +151,20 @@ export default class Stock extends Vue {
   @Prop() private dividendYield!: number;
   @Prop() private score!: number;
   @Prop() private createdAt!: Date;
-  @Prop({ default: 75 }) readonly scoreThreshold!: number;
+  scoreThreshold: number = 75;
+  isLoading: boolean = false;
+
+  /**
+   * Fetch the latest details of this stock.
+   */
+  async refresh() {
+    this.isLoading = true;
+
+    const stock = await StockModel.refreshStock(this.symbol);
+    this.$emit("refresh-stock", stock);
+
+    this.isLoading = false;
+  }
 }
 </script>
 

@@ -29,7 +29,7 @@
               :key="stock.symbol"
               :index="index"
             >
-              <Stock v-bind="stock" />
+              <Stock v-bind="stock" v-on:refresh-stock="refreshStock" />
             </div>
           </div>
         </div>
@@ -69,6 +69,16 @@ export default {
       this.refreshStocks();
     },
     /**
+     * Refresh details of a stock.
+     *
+     * @param {object} The updated stock object.
+     */
+    refreshStock(stock) {
+      this.stocks = this.stocks.map(s =>
+        s.symbol === stock.symbol ? stock : s
+      );
+    },
+    /**
      * Refresh the stocks listing.
      */
     async refreshStocks() {
@@ -78,7 +88,7 @@ export default {
       });
 
       this.stocks = await StockModel.getStocks(this.watchlist);
-      console.log("stocks", this.stocks);
+      console.log("Refresh Stocks Listing: ", this.stocks);
 
       // Stop the loading effect.
       symbolsLoading.close();

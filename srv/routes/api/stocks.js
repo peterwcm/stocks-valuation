@@ -27,6 +27,7 @@ router.post('/', async (req, res) => {
         .find({ symbol })
         .limit(1)
         .count();
+      // Fetch stock if it doesn't exist in the DB.
       if (!symbolCount) {
         const stock = await fetchStock(symbol);
         stocks.insertOne(stock);
@@ -40,16 +41,20 @@ router.post('/', async (req, res) => {
 });
 
 /**
- * Add a new stock.
+ * Fetch a stock by symbol and update DB with its latest details.
  */
-// router.post('/', async (req, res) => {
-//   const stocks = await loadStocksCollection();
-//   await stocks.insertOne({
-//     ...req.body,
-//     createdAt: new Date()
-//   });
-//   res.status(201).send();
-// });
+router.put('/refresh', async (req, res) => {
+  const symbol = req.body.symbol;
+
+  // Load stocks from Mongo.
+  const stocks = await loadStocksCollection();
+  // Fetch the latest stock details for the symbol.
+  const stock = await fetchStock(symbol);
+
+  stocks.update({ symbol }, stock, { upsert: true });
+
+  res.status(201).send(stock);
+});
 
 /**
  * Delete a stock.
