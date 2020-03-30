@@ -3,7 +3,7 @@
     <b-loading :is-full-page="false" :active.sync="isLoading"></b-loading>
     <header class="stock__header">
       <section class="stock__heading">
-        <div class="columns is-mobile">
+        <div class="columns is-mobile level">
           <div class="column is-narrow">
             <h2 class="title stock__symbol">
               {{ symbol }}
@@ -15,6 +15,15 @@
                 size="is-small"
               ></b-icon>
             </h2>
+          </div>
+          <div class="column is-narrow">
+            <a
+              :href="`https://finance.yahoo.com/quote/${symbol}`"
+              target="_blank"
+              class="stock__link"
+            >
+              <b-icon icon="external-link-alt" size="is-small"></b-icon>
+            </a>
           </div>
         </div>
       </section>
