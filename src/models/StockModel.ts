@@ -43,30 +43,7 @@ class StockModel {
           watchlist
         })
         .then(res => {
-          resolve(
-            res.data.map((data: any) => {
-              // Transform the remote data to a Stock object.
-              const stock = {
-                symbol: data.symbol,
-                name: data?.price?.longName || null,
-                ask: data?.summaryDetail?.ask?.raw || null,
-                marketCap: data?.summaryDetail?.marketCap?.raw || null,
-                priceToEarnings: data?.summaryDetail?.trailingPE?.raw || null,
-                priceToBook: data?.defaultKeyStatistics?.priceToBook?.raw || null,
-                priceToCash: data?.summaryDetail?.ask?.raw / data?.financialData?.totalCashPerShare?.raw || null,
-                priceToSales: data?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
-                quickRatio: data?.financialData?.quickRatio?.raw || null,
-                currentRatio: data?.financialData?.currentRatio?.raw || null,
-                debtToEquity: data?.financialData?.debtToEquity?.raw || null,
-                dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
-                score: 0,
-                createdAt: data?.createdAt
-              };
-              stock.score = this.getScore(stock);
-
-              return stock;
-            })
-          );
+          resolve(res.data.map((data: any) => this.transformStock(data)));
         })
         .catch(err => {
           reject(err);
@@ -93,33 +70,42 @@ class StockModel {
           symbol
         })
         .then(res => {
-          const data = res.data;
-          const stock = {
-            symbol: data.symbol,
-            name: data?.price?.longName || null,
-            ask: data?.summaryDetail?.ask?.raw || null,
-            marketCap: data?.summaryDetail?.marketCap?.raw || null,
-            priceToEarnings: data?.summaryDetail?.trailingPE?.raw || null,
-            priceToBook: data?.defaultKeyStatistics?.priceToBook?.raw || null,
-            priceToCash: data?.summaryDetail?.ask?.raw / data?.financialData?.totalCashPerShare?.raw || null,
-            priceToSales: data?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
-            quickRatio: data?.financialData?.quickRatio?.raw || null,
-            currentRatio: data?.financialData?.currentRatio?.raw || null,
-            debtToEquity: data?.financialData?.debtToEquity?.raw || null,
-            dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
-            score: 0,
-            createdAt: data?.createdAt
-          };
-          stock.score = this.getScore(stock);
-
-          resolve(stock);
+          resolve(this.transformStock(res.data));
         })
         .catch(err => {
           reject(err);
         });
     });
+  }
 
-    // return axios.put(`${url}/refresh`, { symbol });
+  /**
+   * Transform the API stock to a Stock object.
+   *
+   * @param {any} data
+   *   The API stock object.
+   *
+   * @return {Stock}
+   *   The Stock object.
+   */
+  private static transformStock(data: any): Stock {
+    const stock = {
+      symbol: data.symbol,
+      name: data?.price?.longName || null,
+      ask: data?.summaryDetail?.ask?.raw || null,
+      marketCap: data?.summaryDetail?.marketCap?.raw || null,
+      priceToEarnings: data?.summaryDetail?.trailingPE?.raw || null,
+      priceToBook: data?.defaultKeyStatistics?.priceToBook?.raw || null,
+      priceToCash: data?.summaryDetail?.ask?.raw / data?.financialData?.totalCashPerShare?.raw || null,
+      priceToSales: data?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
+      quickRatio: data?.financialData?.quickRatio?.raw || null,
+      currentRatio: data?.financialData?.currentRatio?.raw || null,
+      debtToEquity: data?.financialData?.debtToEquity?.raw || null,
+      dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
+      score: 0,
+      createdAt: data?.createdAt
+    };
+    stock.score = this.getScore(stock);
+    return stock;
   }
 
   /**
