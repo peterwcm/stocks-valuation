@@ -40,13 +40,14 @@ class StockModel {
     return new Promise((resolve, reject) => {
       axios
         .post(url, {
-          watchlist
+          watchlist,
         })
-        .then(res => {
+        .then((res) => {
           resolve(res.data.map((data: any) => this.transformStock(data)));
         })
-        .catch(err => {
-          reject(err);
+        .catch((err) => {
+          const invalidSymbols = err.response.data.invalidSymbols;
+          reject({ invalidSymbols });
         });
     });
   }
@@ -67,12 +68,12 @@ class StockModel {
     return new Promise((resolve, reject) => {
       axios
         .put(`${url}/refresh`, {
-          symbol
+          symbol,
         })
-        .then(res => {
+        .then((res) => {
           resolve(this.transformStock(res.data));
         })
-        .catch(err => {
+        .catch((err) => {
           reject(err);
         });
     });
@@ -102,7 +103,7 @@ class StockModel {
       debtToEquity: data?.financialData?.debtToEquity?.raw || null,
       dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
       score: 0,
-      createdAt: data?.createdAt
+      createdAt: data?.createdAt,
     };
     stock.score = this.getScore(stock);
     return stock;

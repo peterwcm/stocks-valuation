@@ -87,8 +87,17 @@ export default {
         container: null
       });
 
-      this.stocks = await StockModel.getStocks(this.watchlist);
-      console.log("Refresh Stocks Listing: ", this.stocks);
+      try {
+        this.stocks = await StockModel.getStocks(this.watchlist);
+        this.error = null;
+      } catch (e) {
+        // Error fetching stocks with the given watchlist.
+        const invalidSymbols = e.invalidSymbols;
+
+        this.error = `Cannot fetch data for the following symbol(s): ${e.invalidSymbols}`;
+        // Unset the stocks list.
+        this.stocks = [];
+      }
 
       // Stop the loading effect.
       symbolsLoading.close();
@@ -104,15 +113,11 @@ export default {
     }
   },
   async mounted() {
-    try {
-      // Load the user and stocks data.
-      const user = await UserModel.getUser(this.username);
-      this.watchlist = user ? user?.watchlist : [];
+    // Load the user and stocks data.
+    const user = await UserModel.getUser(this.username);
+    this.watchlist = user ? user?.watchlist : [];
 
-      this.refreshStocks();
-    } catch (err) {
-      this.error = err.message;
-    }
+    this.refreshStocks();
   }
 };
 </script>

@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
   if (USE_API) {
     // Load stocks from Mongo.
     const stocks = await loadStocksCollection();
+    const invalidSymbols = [];
 
     for (const symbol of watchlist) {
       const symbolCount = await stocks
@@ -34,11 +35,18 @@ router.post('/', async (req, res) => {
         // Cache a stock defensively and fail it silently.
         if (stock) {
           stocks.insertOne(stock);
+        } else {
+          invalidSymbols.push(symbol);
         }
       }
     }
 
-    res.send(await stocks.find(query).toArray());
+    if (!invalidSymbols.length) {
+      res.send(await stocks.find(query).toArray());
+    } else {
+      // Send the invalid symbols data back to client.
+      res.status(400).send({ invalidSymbols });
+    }
   } else {
     res.send(stocksData);
   }
