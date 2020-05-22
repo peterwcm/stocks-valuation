@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   const watchlist = req.body.watchlist || [];
   const query = watchlist.length
     ? {
-        symbol: { $in: watchlist }
+        symbol: { $in: watchlist },
       }
     : {};
 
@@ -30,7 +30,11 @@ router.post('/', async (req, res) => {
       // Fetch stock if it doesn't exist in the DB.
       if (!symbolCount) {
         const stock = await fetchStock(symbol);
-        stocks.insertOne(stock);
+
+        // Cache a stock defensively and fail it silently.
+        if (stock) {
+          stocks.insertOne(stock);
+        }
       }
     }
 
@@ -80,24 +84,30 @@ async function fetchStock(symbol) {
     .get('https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics', {
       params: {
         region,
-        symbol
+        symbol,
       },
       headers: {
         'content-type': 'application/json',
         'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
-        'x-rapidapi-key': process.env.EXPRESS_RAPIDAPI_KEY
-      }
+        'x-rapidapi-key': process.env.EXPRESS_RAPIDAPI_KEY,
+      },
     })
-    .then(response => {
+    .then((response) => {
       // Add missing stock into MongoDB.
       let stock = response.data;
+
+      // Return null if fetch was not successfully.
+      if (!stock) {
+        return null;
+      }
+
       // Remove the symbol key, property keys containing a dot do not work well with MongoDb.
       stock.quoteData = stock.quoteData[symbol];
       stock.createdAt = new Date();
       return stock;
     })
-    .catch(error => {
-      console.log(`Cannot cache stock symbol: ${symbol}`);
+    .catch((error) => {
+      console.log(`Cannot fetch stock symbol: ${symbol}`);
       console.error(error);
     });
 }
@@ -120,7 +130,7 @@ function getStockRegion(symbol) {
 
   // Custom region map for certain exchange.
   const regionMap = {
-    AX: 'AU'
+    AX: 'AU',
   };
 
   return regionMap[symbolRegionPair[1]] || symbolRegionPair[1];
@@ -137,7 +147,7 @@ async function loadStocksCollection() {
     `mongodb+srv://${process.env.EXPRESS_MONGO_USER}:${process.env.EXPRESS_MONGO_PASSWORD}@${process.env.EXPRESS_MONGO_ENDPOINT}`,
     {
       useUnifiedTopology: true,
-      useNewUrlParser: true
+      useNewUrlParser: true,
     }
   );
 
