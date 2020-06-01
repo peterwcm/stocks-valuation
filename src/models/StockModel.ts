@@ -186,6 +186,42 @@ class StockModel {
   }
 
   /**
+   * Limit a number in a given range.
+   *
+   * @param {number} value
+   *   The value to be checked.
+   * @param {number} bottom
+   *   The bottom range value.
+   * @param {number} top
+   *   The top range value.
+   *
+   * @return {number}
+   *   The limited value, between bottom and top range.
+   */
+  private static limitRange(value: number, bottom: number, top: number) {
+    return Math.max(Math.min(value, top), bottom);
+  }
+
+  /**
+   * Calculate upward score in scale with the given range.
+   *
+   * @param {number|null} value
+   *   The value to be checked.
+   * @param {number} bottom
+   *   The bottom range value.
+   * @param {number} top
+   *   The top range value.
+   *
+   * @return {number}
+   *   The calcualted score ratio, from 0-1.
+   */
+  private static upScaleScore(value: number | null, bottom: number, top: number) {
+    value = value || 0;
+
+    return this.limitRange((value - bottom) / (top - bottom), 0, 1);
+  }
+
+  /**
    * Calculate the score of a stock.
    *
    * @param {Stock} stock
@@ -195,12 +231,12 @@ class StockModel {
    *   The score of the Stock object.
    */
   private static getScore(stock: Stock): number {
-    // Ratios of different models.
-    const valuationRatio = 1;
-    const riskRatio = 0;
+    // Ratios of different models, all ratios should add up to 1.
+    const valuationRatio = 0.8;
+    const riskRatio = 0.2;
     const profitabilityRatio = 0;
 
-    // Scores of different models.
+    // Scores of different models, each score should be between 0-100.
     let valuationScore = 0;
     let riskScore = 0;
     let profitabilityScore = 0;
@@ -218,7 +254,14 @@ class StockModel {
     valuationScore += this.upScore(stock.dividendYield, 0.04, 0.06);
 
     // Health/Risk calculation.
-    riskScore = 0;
+    // Normal ratio should be 1, less than 1 is considered a risky ratio.
+    const quickRatioScore =
+      this.upScaleScore(stock.quickRatio, 0, 1) * 80 + this.upScaleScore(stock.quickRatio, 1, 2) * 20;
+    const currentRatioScore =
+      this.upScaleScore(stock.currentRatio, 0, 1) * 80 + this.upScaleScore(stock.currentRatio, 1, 2) * 20;
+
+    riskScore += quickRatioScore * 0.7 + currentRatioScore * 0.3;
+    // DEBT/EQUITY
 
     // Profitability calculation.
     profitabilityScore = 0;
@@ -226,7 +269,7 @@ class StockModel {
     const totalScore =
       valuationScore * valuationRatio + riskScore * riskRatio + profitabilityScore * profitabilityRatio;
 
-    return Math.min(Math.max(totalScore, 0), 100);
+    return this.limitRange(totalScore, 0, 100);
 
     //   // Health/Risk
 
