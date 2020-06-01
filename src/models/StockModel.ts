@@ -195,20 +195,38 @@ class StockModel {
    *   The score of the Stock object.
    */
   private static getScore(stock: Stock): number {
-    let score = 0;
-    // Valuation
+    // Ratios of different models.
+    const valuationRatio = 1;
+    const riskRatio = 0;
+    const profitabilityRatio = 0;
+
+    // Scores of different models.
+    let valuationScore = 0;
+    let riskScore = 0;
+    let profitabilityScore = 0;
+
+    // Valuation calucation.
     // PB A) 1 - 0.51 B) <= 0.5
     // PE A) 8 - 5.1 B) <= 5
     // PC A) 4 - 2.1 B) <= 2
     // PS A) 1.5 - 1.1 B) <= 1
     // Yield A) 4% - 6% B) >= 6.1%
-    score += this.downScore(stock.priceToBook, 2, 1);
-    score += this.downScore(stock.priceToEarnings, 10, 8);
-    score += this.downScore(stock.priceToCash, 4, 2);
-    score += this.downScore(stock.priceToSales, 4, 2);
-    score += this.upScore(stock.dividendYield, 0.04, 0.06);
+    valuationScore += this.downScore(stock.priceToBook, 2, 1);
+    valuationScore += this.downScore(stock.priceToEarnings, 10, 8);
+    valuationScore += this.downScore(stock.priceToCash, 4, 2);
+    valuationScore += this.downScore(stock.priceToSales, 4, 2);
+    valuationScore += this.upScore(stock.dividendYield, 0.04, 0.06);
 
-    return Math.min(Math.max(score, 0), 100);
+    // Health/Risk calculation.
+    riskScore = 0;
+
+    // Profitability calculation.
+    profitabilityScore = 0;
+
+    const totalScore =
+      valuationScore * valuationRatio + riskScore * riskRatio + profitabilityScore * profitabilityRatio;
+
+    return Math.min(Math.max(totalScore, 0), 100);
 
     //   // Health/Risk
 
