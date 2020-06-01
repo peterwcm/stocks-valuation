@@ -251,7 +251,10 @@ class StockModel {
     valuationScore += this.downScore(stock.priceToEarnings, 10, 8);
     valuationScore += this.downScore(stock.priceToCash, 4, 2);
     valuationScore += this.downScore(stock.priceToSales, 4, 2);
-    valuationScore += this.upScore(stock.dividendYield, 0.04, 0.06);
+    const dividendYieldScore =
+      this.upScaleScore(stock.dividendYield, 0, 0.04) * 70 + this.upScaleScore(stock.dividendYield, 0.04, 0.08) * 30;
+
+    valuationScore += dividendYieldScore * 0.2;
 
     // Health/Risk calculation.
     // Normal ratio should be 1, less than 1 is considered a risky ratio.
@@ -304,16 +307,6 @@ class StockModel {
     //   //   indicatorScore -= 10;
     //   // }
   }
-
-  // static addStock(text: string) {
-  //   return axios.post(url, {
-  //     text
-  //   });
-  // }
-
-  // static deleteStock(id: string) {
-  //   return axios.delete(`${url}${id}`);
-  // }
 }
 
 export default StockModel;
