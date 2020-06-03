@@ -1,5 +1,5 @@
-$stock-card-padding: 1.5rem;
-$stock-card-border: 1px solid $border;
+$stock-card-padding: 1.5rem !default;
+$stock-card-border: 1px solid $border !default;
 
 .stock {
   &__heading {
@@ -65,6 +65,12 @@ $stock-card-border: 1px solid $border;
       &:hover {
         color: $info;
       }
+    }
+  }
+
+  &__footer {
+    .progress-wrapper {
+      width: 100%;
     }
   }
 }

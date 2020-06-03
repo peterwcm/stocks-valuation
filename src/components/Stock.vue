@@ -109,13 +109,14 @@
         </div>
       </div>
     </div>
-    <footer class="card-footer">
-      <progress
-        class="progress is-small"
-        :class="[score > scoreThreshold ? 'is-success' : 'is-danger']"
+    <footer class="card-footer stock__footer">
+      <b-progress
+        :type="[score > scoreThreshold ? 'is-success' : 'is-danger']"
         :value="score"
+        :show-value="score > 60 ? true : false"
+        format="percent"
         max="100"
-      ></progress>
+      ></b-progress>
     </footer>
   </article>
 </template>
