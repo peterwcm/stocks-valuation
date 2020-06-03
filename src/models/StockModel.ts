@@ -203,22 +203,41 @@ class StockModel {
   }
 
   /**
-   * Calculate upward score in scale with the given range.
+   * Calculate downward score in scale with the given range,
+   * the closer the value to the bottom, the better the score is.
+   *
+   * @param {number|null} value
+   *   The value to be checked.
+   * @param {number} upper
+   *   The upper range value.
+   * @param {number} bottom
+   *   The bottom range value.
+   *
+   * @return {number}
+   *   The calcualted score ratio, from 0-1.
+   */
+  private static downScaleScore(value: number | null, upper: number, bottom: number) {
+    return 1 - this.upScaleScore(value, bottom, upper);
+  }
+
+  /**
+   * Calculate upward score in scale with the given range,
+   * the closer the value to the upper value, the better the score is.
    *
    * @param {number|null} value
    *   The value to be checked.
    * @param {number} bottom
    *   The bottom range value.
-   * @param {number} top
-   *   The top range value.
+   * @param {number} upper
+   *   The upper range value.
    *
    * @return {number}
    *   The calcualted score ratio, from 0-1.
    */
-  private static upScaleScore(value: number | null, bottom: number, top: number) {
+  private static upScaleScore(value: number | null, bottom: number, upper: number) {
     value = value || 0;
 
-    return this.limitRange((value - bottom) / (top - bottom), 0, 1);
+    return this.limitRange((value - bottom) / (upper - bottom), 0, 1);
   }
 
   /**
@@ -242,19 +261,23 @@ class StockModel {
     let profitabilityScore = 0;
 
     // Valuation calucation.
-    // PB A) 1 - 0.51 B) <= 0.5
-    // PE A) 8 - 5.1 B) <= 5
-    // PC A) 4 - 2.1 B) <= 2
-    // PS A) 1.5 - 1.1 B) <= 1
-    // Yield A) 4% - 6% B) >= 6.1%
-    valuationScore += this.downScore(stock.priceToBook, 2, 1);
-    valuationScore += this.downScore(stock.priceToEarnings, 10, 8);
-    valuationScore += this.downScore(stock.priceToCash, 4, 2);
-    valuationScore += this.downScore(stock.priceToSales, 4, 2);
+    const priceToBookScore =
+      this.downScaleScore(stock.priceToBook, 3, 1) * 80 + this.downScaleScore(stock.priceToBook, 1, 0) * 20;
+    const priceToEarningsScore =
+      this.downScaleScore(stock.priceToEarnings, 15, 10) * 60 + this.downScaleScore(stock.priceToEarnings, 10, 0) * 40;
+    const priceToCashScore =
+      this.downScaleScore(stock.priceToCash, 4, 2) * 70 + this.downScaleScore(stock.priceToCash, 2, 0) * 30;
+    const priceToSalesScore =
+      this.downScaleScore(stock.priceToSales, 4, 2) * 70 + this.downScaleScore(stock.priceToSales, 2, 0) * 30;
     const dividendYieldScore =
       this.upScaleScore(stock.dividendYield, 0, 0.04) * 70 + this.upScaleScore(stock.dividendYield, 0.04, 0.08) * 30;
 
-    valuationScore += dividendYieldScore * 0.2;
+    valuationScore +=
+      priceToBookScore * 0.2 +
+      priceToEarningsScore * 0.3 +
+      priceToCashScore * 0.2 +
+      priceToSalesScore * 0.1 +
+      dividendYieldScore * 0.2;
 
     // Health/Risk calculation.
     // Normal ratio should be 1, less than 1 is considered a risky ratio.
@@ -262,9 +285,9 @@ class StockModel {
       this.upScaleScore(stock.quickRatio, 0, 1) * 80 + this.upScaleScore(stock.quickRatio, 1, 2) * 20;
     const currentRatioScore =
       this.upScaleScore(stock.currentRatio, 0, 1) * 80 + this.upScaleScore(stock.currentRatio, 1, 2) * 20;
+    // @todo: calculate DEBT/EQUITY
 
     riskScore += quickRatioScore * 0.7 + currentRatioScore * 0.3;
-    // DEBT/EQUITY
 
     // Profitability calculation.
     profitabilityScore = 0;
@@ -273,39 +296,6 @@ class StockModel {
       valuationScore * valuationRatio + riskScore * riskRatio + profitabilityScore * profitabilityRatio;
 
     return this.limitRange(totalScore, 0, 100);
-
-    //   // Health/Risk
-
-    //   // Profitability
-
-    //   // const peRatioMax = 15;
-    //   // const pbvRatioMax = 1.5;
-    //   // const buyThreshold = 10;
-
-    //   // const stockPrice = this.ask;
-    //   // const earningShare = 0;
-    //   // const estEarningShare = 0;
-    //   // const bookValue = 0;
-    //   // if (!estEarningShare || !bookValue) return null;
-
-    //   // const peRatio = stockPrice / estEarningShare;
-    //   // const pbvRatio = stockPrice / bookValue;
-
-    //   // const estStockPrice = this.round(estEarningShare * buyThreshold, 2);
-    //   // let indicatorScore = this.round(
-    //   //   Math.min(
-    //   //     Math.max(((estStockPrice - stockPrice) / stockPrice) * 100, -70),
-    //   //     70
-    //   //   ),
-    //   //   0
-    //   // );
-
-    //   // // EPS Growth
-    //   // if (estEarningShare && estEarningShare > earningShare) {
-    //   //   indicatorScore += 10;
-    //   // } else if (estEarningShare && estEarningShare < earningShare) {
-    //   //   indicatorScore -= 10;
-    //   // }
   }
 }
 
