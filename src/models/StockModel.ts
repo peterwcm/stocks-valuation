@@ -186,13 +186,13 @@ class StockModel {
 
     // Valuation calucation.
     const priceToBookScore =
-      this.downScaleScore(stock.priceToBook, 3, 1) * 80 + this.downScaleScore(stock.priceToBook, 1, 0) * 20;
+      this.downScaleScore(stock.priceToBook, 3, 1) * 70 + this.downScaleScore(stock.priceToBook, 1, 0) * 30;
     const priceToEarningsScore =
       this.downScaleScore(stock.priceToEarnings, 15, 10) * 60 + this.downScaleScore(stock.priceToEarnings, 10, 0) * 40;
     const priceToCashScore =
-      this.downScaleScore(stock.priceToCash, 4, 2) * 70 + this.downScaleScore(stock.priceToCash, 2, 0) * 30;
+      this.downScaleScore(stock.priceToCash, 5, 2) * 70 + this.downScaleScore(stock.priceToCash, 2, 0) * 30;
     const priceToSalesScore =
-      this.downScaleScore(stock.priceToSales, 4, 2) * 70 + this.downScaleScore(stock.priceToSales, 2, 0) * 30;
+      this.downScaleScore(stock.priceToSales, 5, 2) * 70 + this.downScaleScore(stock.priceToSales, 2, 0) * 30;
     const dividendYieldScore =
       this.upScaleScore(stock.dividendYield, 0, 0.04) * 70 + this.upScaleScore(stock.dividendYield, 0.04, 0.08) * 30;
 
