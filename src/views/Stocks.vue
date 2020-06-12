@@ -98,8 +98,6 @@ export default {
         this.error = null;
       } catch (e) {
         // Error fetching stocks with the given watchlist.
-        const invalidSymbols = e.invalidSymbols;
-
         this.error = `Cannot fetch data for the following symbol(s): ${e.invalidSymbols}`;
         // Unset the stocks list.
         this.stocks = [];
