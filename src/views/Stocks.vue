@@ -1,10 +1,16 @@
 <template>
   <div class="view view--stocks">
+    <section class="hero is-primary">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            <b-icon icon="dollar-sign"></b-icon>tocks
+          </h1>
+        </div>
+      </div>
+    </section>
     <section class="section">
       <div class="container">
-        <h1 class="title">
-          <b-icon icon="dollar-sign"></b-icon>tocks
-        </h1>
         <div class="stocks">
           <b-message type="is-danger" v-if="error">{{ error }}</b-message>
           <div class="columns">

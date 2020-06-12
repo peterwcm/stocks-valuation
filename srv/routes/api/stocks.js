@@ -69,15 +69,6 @@ router.put('/refresh', async (req, res) => {
 });
 
 /**
- * Delete a stock.
- */
-// router.delete('/:id', async (req, res) => {
-//   const stocks = await loadStocksCollection();
-//   await stocks.deleteOne({ _id: new mongodb.ObjectID(req.params.id) });
-//   res.status(200).send();
-// });
-
-/**
  * Fetch stock data from remote API.
  *
  * @param {string} symbol
