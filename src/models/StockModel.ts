@@ -135,12 +135,16 @@ class StockModel {
    * @param {number} upper
    *   The upper range value.
    * @param {number} bottom
-   *   The bottom range value.
+   *   The bottom range value, minimum bottom value should be 0.
    *
    * @return {number}
    *   The calcualted score ratio, from 0-1.
    */
   private static downScaleScore(value: number | null, upper: number, bottom: number) {
+    if (value === (undefined || null)) {
+      return 0;
+    }
+
     return 1 - this.upScaleScore(value, bottom, upper);
   }
 
@@ -151,7 +155,7 @@ class StockModel {
    * @param {number|null} value
    *   The value to be checked.
    * @param {number} bottom
-   *   The bottom range value.
+   *   The bottom range value, minimum bottom value should be 0.
    * @param {number} upper
    *   The upper range value.
    *
@@ -159,7 +163,9 @@ class StockModel {
    *   The calcualted score ratio, from 0-1.
    */
   private static upScaleScore(value: number | null, bottom: number, upper: number) {
-    value = value || 0;
+    if (value === (undefined || null)) {
+      return 0;
+    }
 
     return this.limitRange((value - bottom) / (upper - bottom), 0, 1);
   }
@@ -215,6 +221,20 @@ class StockModel {
 
     // Profitability calculation.
     profitabilityScore = 0;
+
+    console.table({
+      Symbol: stock.symbol,
+      PE: stock.priceToEarnings,
+      'PB score': priceToBookScore,
+      'PE score': priceToEarningsScore,
+      'PC score': priceToCashScore,
+      'PS score': priceToSalesScore,
+      'DIV score': dividendYieldScore,
+      'Quick score': quickRatioScore,
+      'Current score': currentRatioScore,
+      'Valudation score': valuationScore,
+      'Risk score': riskScore,
+    });
 
     const totalScore =
       valuationScore * valuationRatio + riskScore * riskRatio + profitabilityScore * profitabilityRatio;
