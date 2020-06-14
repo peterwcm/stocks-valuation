@@ -1,11 +1,17 @@
 <template>
   <form>
     <b-field>
-      <b-input placeholder="Username" icon="user" maxlength="30"></b-input>
+      <b-input
+        placeholder="Username"
+        size="is-medium"
+        icon="user"
+        maxlength="30"
+        :has-counter="false"
+      ></b-input>
     </b-field>
 
     <b-field>
-      <b-input placeholder="Password" type="password" icon="key" password-reveal></b-input>
+      <b-input placeholder="Password" size="is-medium" type="password" icon="key" password-reveal></b-input>
     </b-field>
 
     <b-field>
