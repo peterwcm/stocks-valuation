@@ -224,7 +224,6 @@ class StockModel {
 
     console.table({
       Symbol: stock.symbol,
-      PE: stock.priceToEarnings,
       'PB score': priceToBookScore,
       'PE score': priceToEarningsScore,
       'PC score': priceToCashScore,
