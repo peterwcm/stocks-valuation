@@ -63,7 +63,7 @@ router.put('/refresh', async (req, res) => {
   // Fetch the latest stock details for the symbol.
   const stock = await fetchStock(symbol);
 
-  stocks.update({ symbol }, stock, { upsert: true });
+  stocks.updateOne({ symbol }, stock, { upsert: true });
 
   res.status(201).send(stock);
 });
