@@ -19,6 +19,7 @@ interface Stock {
   currentRatio: number | null;
   debtToEquity: number | null;
   dividendYield: number | null;
+  revenueGrowth: number | null;
   score: number;
   createdAt: Date | null;
 }
@@ -102,6 +103,7 @@ class StockModel {
       currentRatio: data?.financialData?.currentRatio?.raw || null,
       debtToEquity: data?.financialData?.debtToEquity?.raw || null,
       dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
+      revenueGrowth: data?.financialData?.revenueGrowth?.raw || null,
       score: 0,
       createdAt: data?.createdAt,
     };
@@ -181,9 +183,9 @@ class StockModel {
    */
   private static getScore(stock: Stock): number {
     // Ratios of different models, all ratios should add up to 1.
-    const valuationRatio = 0.8;
+    const valuationRatio = 0.65;
     const riskRatio = 0.2;
-    const profitabilityRatio = 0;
+    const profitabilityRatio = 0.15;
 
     // Scores of different models, each score should be between 0-100.
     let valuationScore = 0;
@@ -215,12 +217,16 @@ class StockModel {
       this.upScaleScore(stock.quickRatio, 0, 1) * 80 + this.upScaleScore(stock.quickRatio, 1, 2) * 20;
     const currentRatioScore =
       this.upScaleScore(stock.currentRatio, 0, 1) * 80 + this.upScaleScore(stock.currentRatio, 1, 2) * 20;
+    // Market cap should be at least 500M and 1B is considered as safe.
+    const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000);
     // @todo: calculate DEBT/EQUITY
 
-    riskScore += quickRatioScore * 0.7 + currentRatioScore * 0.3;
+    riskScore += quickRatioScore * 0.65 + currentRatioScore * 0.25 + marketCapScore * 0.1;
 
     // Profitability calculation.
-    profitabilityScore = 0;
+    const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0, 0.2);
+
+    profitabilityScore = revenueGrowthScore;
 
     console.table({
       Symbol: stock.symbol,
@@ -231,8 +237,10 @@ class StockModel {
       'DIV score': dividendYieldScore,
       'Quick score': quickRatioScore,
       'Current score': currentRatioScore,
+      'Market cap score': marketCapScore,
       'Valudation score': valuationScore,
       'Risk score': riskScore,
+      'Profitability score': profitabilityScore,
     });
 
     const totalScore =
