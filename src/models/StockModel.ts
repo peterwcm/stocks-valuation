@@ -20,6 +20,8 @@ interface Stock {
   debtToEquity: number | null;
   dividendYield: number | null;
   revenueGrowth: number | null;
+  operatingCashflow: number | null;
+  netIncomeToCommon: number | null;
   score: number;
   createdAt: Date | null;
 }
@@ -104,6 +106,8 @@ class StockModel {
       debtToEquity: data?.financialData?.debtToEquity?.raw || null,
       dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
       revenueGrowth: data?.financialData?.revenueGrowth?.raw || null,
+      netIncomeToCommon: data?.defaultKeyStatistics?.netIncomeToCommon?.raw || null,
+      operatingCashflow: data?.financialData?.operatingCashflow?.raw || null,
       score: 0,
       createdAt: data?.createdAt,
     };
@@ -196,7 +200,7 @@ class StockModel {
     const priceToBookScore =
       this.downScaleScore(stock.priceToBook, 3, 1) * 70 + this.downScaleScore(stock.priceToBook, 1, 0) * 30;
     const priceToEarningsScore =
-      this.downScaleScore(stock.priceToEarnings, 15, 10) * 60 + this.downScaleScore(stock.priceToEarnings, 10, 0) * 40;
+      this.downScaleScore(stock.priceToEarnings, 15, 10) * 80 + this.downScaleScore(stock.priceToEarnings, 10, 0) * 20;
     const priceToCashScore =
       this.downScaleScore(stock.priceToCash, 5, 2) * 70 + this.downScaleScore(stock.priceToCash, 2, 0) * 30;
     const priceToSalesScore =
@@ -221,12 +225,14 @@ class StockModel {
     const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000);
     // @todo: calculate DEBT/EQUITY
 
-    riskScore += quickRatioScore * 0.65 + currentRatioScore * 0.25 + marketCapScore * 0.1;
+    riskScore += quickRatioScore * 0.6 + currentRatioScore * 0.25 + marketCapScore * 0.15;
 
     // Profitability calculation.
     const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0, 0.2);
 
     profitabilityScore = revenueGrowthScore;
+
+    // Earnings quality.
 
     console.table({
       Symbol: stock.symbol,

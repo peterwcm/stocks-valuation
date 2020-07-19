@@ -37,9 +37,18 @@
       <section class="stock__highlights">
         <div class="level is-mobile">
           <div class="level-item has-text-centered">
-            <div>
+            <div class="stock__pe">
               <h3 class="heading">Price/Earnings</h3>
-              <p class="subtitle">{{ priceToEarnings | optional | round }}</p>
+              <p class="subtitle">
+                {{ priceToEarnings | optional | round }}
+                <b-icon
+                  v-if="netIncomeToCommon > operatingCashflow"
+                  class="has-tooltip-arrow has-tooltip-right"
+                  data-tooltip="Net income is more than the operating cash flow, check out their income statements"
+                  icon="exclamation-triangle"
+                  size="is-small"
+                ></b-icon>
+              </p>
             </div>
           </div>
           <div class="level-item has-text-centered">
@@ -159,6 +168,8 @@ export default class Stock extends Vue {
   @Prop() private currentRatio!: number;
   @Prop() private debtToEquity!: number;
   @Prop() private dividendYield!: number;
+  @Prop() private netIncomeToCommon!: number;
+  @Prop() private operatingCashflow!: number;
   @Prop() private score!: number;
   @Prop() private createdAt!: Date;
   scoreThreshold: number = 75;

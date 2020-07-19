@@ -14,8 +14,7 @@ $stock-card-border: 1px solid $border !default;
     .icon {
       position: absolute;
       top: -0.5rem;
-      right: -3rem;
-      padding-right: 1.5rem;
+      margin-left: 0.5rem;
       border-bottom: 0;
       color: rgba($grey-light, 0.9);
       font-size: 1rem;
@@ -55,6 +54,15 @@ $stock-card-border: 1px solid $border !default;
     }
   }
 
+  &__pe {
+    .icon {
+      // padding: 0 1.5rem 0 0.5rem;
+      border-bottom: 0;
+      color: rgba($color--red, 0.8);
+      font-size: 1rem;
+    }
+  }
+
   &__date {
     padding-bottom: 0;
 
@@ -73,6 +81,18 @@ $stock-card-border: 1px solid $border !default;
       width: 100%;
     }
   }
+
+  .has-tooltip-right {
+    &.has-tooltip-arrow {
+      &::before {
+        right: -0.75rem;
+      }
+
+      &::after {
+        right: -0.5rem;
+      }
+    }
+  }
 }
 
 .level {
@@ -86,5 +106,5 @@ $stock-card-border: 1px solid $border !default;
 }
 
 .is-negative {
-  color: #de3c3c;
+  color: $color--red;
 }
