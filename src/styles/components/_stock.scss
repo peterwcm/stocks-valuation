@@ -15,9 +15,7 @@ $stock-card-border: 1px solid $border !default;
       position: absolute;
       top: -0.5rem;
       margin-left: 0.5rem;
-      border-bottom: 0;
       color: rgba($grey-light, 0.9);
-      font-size: 1rem;
     }
   }
 
@@ -56,9 +54,17 @@ $stock-card-border: 1px solid $border !default;
 
   &__pe {
     .icon {
-      border-bottom: 0;
       color: rgba($color--red, 0.8);
-      font-size: 1rem;
+    }
+  }
+
+  &__yield {
+    .icon {
+      color: $text;
+
+      &:hover {
+        color: $info;
+      }
     }
   }
 
@@ -83,6 +89,11 @@ $stock-card-border: 1px solid $border !default;
     .progress {
       border-radius: 0;
     }
+  }
+
+  .icon {
+    border-bottom: 0;
+    font-size: 1rem;
   }
 
   .level {

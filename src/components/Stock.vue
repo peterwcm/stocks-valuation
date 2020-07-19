@@ -38,7 +38,7 @@
         <div class="level is-mobile">
           <div class="level-item has-text-centered">
             <div class="stock__pe">
-              <h3 class="heading">Price/Earnings</h3>
+              <h3 class="heading">P/E Ratio</h3>
               <p class="subtitle">
                 {{ priceToEarnings | optional | round }}
                 <b-icon
@@ -53,14 +53,23 @@
           </div>
           <div class="level-item has-text-centered">
             <div>
-              <h3 class="heading">Price/Book</h3>
+              <h3 class="heading">P/B Ratio</h3>
               <p class="subtitle">{{ priceToBook | optional | round }}</p>
             </div>
           </div>
           <div class="level-item has-text-centered">
-            <div>
+            <div class="stock__yield">
               <h3 class="heading">Div Yield</h3>
-              <p class="subtitle">{{ dividendYield | optional | percentage }}</p>
+              <p class="subtitle">
+                {{ dividendYield | optional | percentage }}
+                <a
+                  v-if="dividendUrl"
+                  :href="dividendUrl"
+                  target="_blank"
+                >
+                  <b-icon icon="chart-bar" size="is-small"></b-icon>
+                </a>
+              </p>
             </div>
           </div>
         </div>
@@ -224,6 +233,42 @@ export default class Stock extends Vue {
     this.$emit("refresh-stock", stock);
 
     this.isLoading = false;
+  }
+
+  /**
+   * Fetch the region code of this stock.
+   */
+  private getRegionCode(): string {
+    const symbolRegionPair = this.symbol.split(".");
+
+    if (symbolRegionPair.length < 2) {
+      return "US";
+    }
+
+    const regionCode: string = symbolRegionPair[1];
+
+    // Custom region map for certain exchange.
+    const regionMap: Map<string, string> = new Map<string, string>();
+    regionMap.set("AX", "AU");
+
+    return regionMap.get(regionCode) || regionCode;
+  }
+
+  /**
+   * Gets the dividend URL.
+   */
+  get dividendUrl(): string {
+    switch (this.getRegionCode()) {
+      case "US":
+        return `https://www.nasdaq.com/market-activity/stocks/${this.symbol}/dividend-history`;
+      case "AU": {
+        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
+
+        return `https://www.sharedividends.com.au/${symbol}-dividend-history/`;
+      }
+      default:
+        return "";
+    }
   }
 }
 </script>
