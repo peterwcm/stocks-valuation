@@ -42,7 +42,7 @@ $stock-card-border: 1px solid $border !default;
 
   &__highlights {
     padding: $stock-card-padding;
-    background-color: #f4f8f9;
+    background-color: $color--light-grey;
     border-top: $stock-card-border;
     border-bottom: $stock-card-border;
 
@@ -56,7 +56,6 @@ $stock-card-border: 1px solid $border !default;
 
   &__pe {
     .icon {
-      // padding: 0 1.5rem 0 0.5rem;
       border-bottom: 0;
       color: rgba($color--red, 0.8);
       font-size: 1rem;
@@ -80,6 +79,16 @@ $stock-card-border: 1px solid $border !default;
     .progress-wrapper {
       width: 100%;
     }
+
+    .progress {
+      border-radius: 0;
+    }
+  }
+
+  .level {
+    .subtitle {
+      color: $color--light-blue;
+    }
   }
 
   .has-tooltip-right {
@@ -93,18 +102,4 @@ $stock-card-border: 1px solid $border !default;
       }
     }
   }
-}
-
-.level {
-  .subtitle {
-    color: #6ba8e6;
-  }
-}
-
-.is-positive {
-  color: #30af30;
-}
-
-.is-negative {
-  color: $color--red;
 }

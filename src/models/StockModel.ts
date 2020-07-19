@@ -4,6 +4,16 @@ import axios from 'axios';
 const url = 'http://localhost:3000/api/stocks';
 
 /**
+ * The Stock Score interface.
+ */
+interface StockScore {
+  valuation: number;
+  health: number;
+  profitability: number;
+  overall: number;
+}
+
+/**
  * The Stock interface.
  */
 interface Stock {
@@ -22,7 +32,7 @@ interface Stock {
   revenueGrowth: number | null;
   operatingCashflow: number | null;
   netIncomeToCommon: number | null;
-  score: number;
+  score: StockScore;
   createdAt: Date | null;
 }
 
@@ -108,10 +118,15 @@ class StockModel {
       revenueGrowth: data?.financialData?.revenueGrowth?.raw || null,
       netIncomeToCommon: data?.defaultKeyStatistics?.netIncomeToCommon?.raw || null,
       operatingCashflow: data?.financialData?.operatingCashflow?.raw || null,
-      score: 0,
+      score: {
+        valuation: 0,
+        health: 0,
+        profitability: 0,
+        overall: 0,
+      },
       createdAt: data?.createdAt,
     };
-    stock.score = this.getScore(stock);
+    this.calculateScore(stock);
     return stock;
   }
 
@@ -177,23 +192,20 @@ class StockModel {
   }
 
   /**
-   * Calculate the score of a stock.
+   * Calculate and update the scores of a stock.
    *
    * @param {Stock} stock
    *   The Stock object.
-   *
-   * @return {number}
-   *   The score of the Stock object.
    */
-  private static getScore(stock: Stock): number {
+  private static calculateScore(stock: Stock) {
     // Ratios of different models, all ratios should add up to 1.
     const valuationRatio = 0.65;
-    const riskRatio = 0.2;
+    const healthRatio = 0.2;
     const profitabilityRatio = 0.15;
 
     // Scores of different models, each score should be between 0-100.
     let valuationScore = 0;
-    let riskScore = 0;
+    let healthScore = 0;
     let profitabilityScore = 0;
 
     // Valuation calucation.
@@ -225,14 +237,12 @@ class StockModel {
     const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000);
     // @todo: calculate DEBT/EQUITY
 
-    riskScore += quickRatioScore * 0.6 + currentRatioScore * 0.25 + marketCapScore * 0.15;
+    healthScore += quickRatioScore * 0.6 + currentRatioScore * 0.25 + marketCapScore * 0.15;
 
     // Profitability calculation.
-    const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0, 0.2);
+    const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0, 0.2) * 100;
 
     profitabilityScore = revenueGrowthScore;
-
-    // Earnings quality.
 
     console.table({
       Symbol: stock.symbol,
@@ -244,16 +254,18 @@ class StockModel {
       'Quick score': quickRatioScore,
       'Current score': currentRatioScore,
       'Market cap score': marketCapScore,
-      'Valudation score': valuationScore,
-      'Risk score': riskScore,
-      'Profitability score': profitabilityScore,
     });
 
     const totalScore =
-      valuationScore * valuationRatio + riskScore * riskRatio + profitabilityScore * profitabilityRatio;
+      valuationScore * valuationRatio + healthScore * healthRatio + profitabilityScore * profitabilityRatio;
 
-    return this.limitRange(totalScore, 0, 100);
+    // Update stock scores.
+    stock.score.valuation = valuationScore;
+    stock.score.health = healthScore;
+    stock.score.profitability = profitabilityScore;
+    stock.score.overall = this.limitRange(totalScore, 0, 100);
   }
 }
 
+export { StockScore };
 export default StockModel;

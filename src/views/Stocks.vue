@@ -113,7 +113,9 @@ export default {
      */
     sortedStocks() {
       const stocks = this.stocks;
-      return stocks ? stocks.sort((a, b) => b.score - a.score) : [];
+      return stocks
+        ? stocks.sort((a, b) => b.score.overall - a.score.overall)
+        : [];
     }
   },
   async mounted() {

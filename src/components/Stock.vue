@@ -43,8 +43,8 @@
                 {{ priceToEarnings | optional | round }}
                 <b-icon
                   v-if="netIncomeToCommon > operatingCashflow"
-                  class="has-tooltip-arrow has-tooltip-right"
-                  data-tooltip="Net income is more than the operating cash flow, check out their income statements"
+                  class="has-tooltip-arrow has-tooltip-right has-tooltip-multiline"
+                  data-tooltip="Earnings quality alert: Net income shouldn't be more than operating cash flow"
                   icon="exclamation-triangle"
                   size="is-small"
                 ></b-icon>
@@ -107,6 +107,45 @@
           </div>
         </div>
       </div>
+      <div class="columns">
+        <div class="column is-full">
+          <p class="heading">Valuation</p>
+          <b-progress
+            :type="score.valuation > scoreThreshold ? 'is-success' : 'is-danger'"
+            :value="score.valuation"
+            show-value="true"
+            size="is-small"
+            format="percent"
+            max="100"
+          ></b-progress>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-full">
+          <p class="heading">Health</p>
+          <b-progress
+            :type="score.health > scoreThreshold ? 'is-success' : 'is-danger'"
+            :value="score.health"
+            show-value="true"
+            size="is-small"
+            format="percent"
+            max="100"
+          ></b-progress>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-full">
+          <p class="heading">Profitability</p>
+          <b-progress
+            :type="score.profitability > scoreThreshold ? 'is-success' : 'is-danger'"
+            :value="score.profitability"
+            show-value="true"
+            size="is-small"
+            format="percent"
+            max="100"
+          ></b-progress>
+        </div>
+      </div>
       <div class="columns" v-if="createdAt">
         <div class="column has-text-right stock__date">
           <b-button size="is-small" @click="refresh">
@@ -120,11 +159,11 @@
     </div>
     <footer class="card-footer stock__footer">
       <b-progress
-        :type="score > scoreThreshold ? 'is-success' : 'is-danger'"
-        :value="score"
-        :show-value="score > 60 ? true : false"
+        :type="score.overall > scoreThreshold ? 'is-success' : 'is-danger'"
+        :value="score.overall"
+        show-value="true"
         format="percent"
-        :max="100"
+        max="100"
       ></b-progress>
     </footer>
   </article>
@@ -132,7 +171,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import StockModel from "@/models/StockModel";
+import StockModel, { StockScore } from "@/models/StockModel";
 
 @Component({
   filters: {
@@ -170,7 +209,7 @@ export default class Stock extends Vue {
   @Prop() private dividendYield!: number;
   @Prop() private netIncomeToCommon!: number;
   @Prop() private operatingCashflow!: number;
-  @Prop() private score!: number;
+  @Prop() private score!: StockScore;
   @Prop() private createdAt!: Date;
   scoreThreshold: number = 75;
   isLoading: boolean = false;
@@ -189,6 +228,6 @@ export default class Stock extends Vue {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "@/styles/components/_stock";
 </style>

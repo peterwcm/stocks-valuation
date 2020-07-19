@@ -1,4 +1,6 @@
 // Colors
+$color--light-blue: #6ba8e6;
+$color--light-grey: #f4f8f9;
 $color--red: #de3c3c;
 
 // Breakpoint
@@ -19,5 +21,4 @@ $navbar-height: 5rem;
 $footer-padding: 3rem;
 
 // Progress Bar
-$progress-border-radius: 0;
-$progress-bar-background-color: #f4f8f9;
+$progress-bar-background-color: $color--light-grey;
