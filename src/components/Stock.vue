@@ -20,7 +20,7 @@
             <a
               :href="`https://finance.yahoo.com/quote/${symbol}`"
               target="_blank"
-              class="stock__link"
+              class="stock__icon-link"
             >
               <b-icon icon="external-link-alt" size="is-small"></b-icon>
             </a>
@@ -66,6 +66,7 @@
                   v-if="dividendUrl"
                   :href="dividendUrl"
                   target="_blank"
+                  class="stock__icon-link"
                 >
                   <b-icon icon="chart-bar" size="is-small"></b-icon>
                 </a>

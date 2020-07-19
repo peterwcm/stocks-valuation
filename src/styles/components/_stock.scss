@@ -2,8 +2,22 @@ $stock-card-padding: 1.5rem !default;
 $stock-card-border: 1px solid $border !default;
 
 .stock {
+  &__icon-link {
+    color: $text;
+
+    &:hover {
+      color: $info;
+    }
+  }
+
   &__heading {
     padding: $stock-card-padding $stock-card-padding 0;
+
+    .stock__icon-link {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.625rem;
+    }
   }
 
   &__symbol {
@@ -16,17 +30,6 @@ $stock-card-border: 1px solid $border !default;
       top: -0.5rem;
       margin-left: 0.5rem;
       color: rgba($grey-light, 0.9);
-    }
-  }
-
-  &__link {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.625rem;
-    color: $text;
-
-    &:hover {
-      color: $info;
     }
   }
 
@@ -55,16 +58,6 @@ $stock-card-border: 1px solid $border !default;
   &__pe {
     .icon {
       color: rgba($color--red, 0.8);
-    }
-  }
-
-  &__yield {
-    .icon {
-      color: $text;
-
-      &:hover {
-        color: $info;
-      }
     }
   }
 
