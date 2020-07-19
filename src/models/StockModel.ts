@@ -256,20 +256,13 @@ class StockModel {
     profitabilityScore =
       revenueGrowthScore * 0.2 + roeScore * 0.2 + earningsGrowthScore * 0.2 + profitMarginScore * 0.4;
 
-    console.table({
-      Symbol: stock.symbol,
-      'PB score': priceToBookScore,
-      'PE score': priceToEarningsScore,
-      'PC score': priceToCashScore,
-      'PS score': priceToSalesScore,
-      'DIV score': dividendYieldScore,
-      'Quick score': quickRatioScore,
-      'Current score': currentRatioScore,
-      'Market cap score': marketCapScore,
-    });
-
     const totalScore =
       valuationScore * valuationRatio + healthScore * healthRatio + profitabilityScore * profitabilityRatio;
+
+    console.table({
+      Symbol: stock.symbol,
+      'Overall score': totalScore,
+    });
 
     // Update stock scores.
     stock.score.valuation = valuationScore;
