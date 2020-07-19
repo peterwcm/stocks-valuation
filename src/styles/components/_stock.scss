@@ -102,14 +102,16 @@ $stock-card-border: 1px solid $border !default;
     }
   }
 
-  .has-tooltip-right {
-    &.has-tooltip-arrow {
-      &::before {
-        right: -0.75rem;
-      }
+  [data-tooltip] {
+    &.has-tooltip-right {
+      &.has-tooltip-arrow {
+        &::before {
+          right: -0.75rem;
+        }
 
-      &::after {
-        right: -0.5rem;
+        &::after {
+          right: -0.5rem;
+        }
       }
     }
   }
