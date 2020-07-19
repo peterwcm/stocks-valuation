@@ -143,10 +143,10 @@
           <b-progress
             :type="score.valuation > scoreThreshold ? 'is-success' : 'is-danger'"
             :value="score.valuation"
-            show-value="true"
+            :show-value="true"
             size="is-small"
             format="percent"
-            max="100"
+            :max="100"
           ></b-progress>
         </div>
       </div>
@@ -156,10 +156,10 @@
           <b-progress
             :type="score.health > scoreThreshold ? 'is-success' : 'is-danger'"
             :value="score.health"
-            show-value="true"
+            :show-value="true"
             size="is-small"
             format="percent"
-            max="100"
+            :max="100"
           ></b-progress>
         </div>
       </div>
@@ -169,10 +169,23 @@
           <b-progress
             :type="score.profitability > scoreThreshold ? 'is-success' : 'is-danger'"
             :value="score.profitability"
-            show-value="true"
+            :show-value="true"
             size="is-small"
             format="percent"
-            max="100"
+            :max="100"
+          ></b-progress>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-full">
+          <p class="heading">Overall</p>
+          <b-progress
+            :type="score.overall > scoreThreshold ? 'is-success' : 'is-danger'"
+            :value="score.overall"
+            :show-value="true"
+            size="is-small"
+            format="percent"
+            :max="100"
           ></b-progress>
         </div>
       </div>
@@ -187,15 +200,6 @@
         </div>
       </div>
     </div>
-    <footer class="card-footer stock__footer">
-      <b-progress
-        :type="score.overall > scoreThreshold ? 'is-success' : 'is-danger'"
-        :value="score.overall"
-        show-value="true"
-        format="percent"
-        max="100"
-      ></b-progress>
-    </footer>
   </article>
 </template>
 

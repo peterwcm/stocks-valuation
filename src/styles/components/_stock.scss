@@ -74,16 +74,6 @@ $stock-card-border: 1px solid $border !default;
     }
   }
 
-  &__footer {
-    .progress-wrapper {
-      width: 100%;
-    }
-
-    .progress {
-      border-radius: 0;
-    }
-  }
-
   .icon {
     border-bottom: 0;
     font-size: 1rem;
