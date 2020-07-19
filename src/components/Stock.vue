@@ -117,6 +117,26 @@
           </div>
         </div>
       </div>
+      <div class="level is-mobile">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Profit Margin</p>
+            <p class="subtitle">{{ profitMargins | optional | percentage }}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">ROE</p>
+            <p class="subtitle">{{ returnOnEquity | optional | percentage }}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Earnings Growth</p>
+            <p class="subtitle">{{ earningsGrowth | optional | percentage }}</p>
+          </div>
+        </div>
+      </div>
       <div class="columns">
         <div class="column is-full">
           <p class="heading">Valuation</p>
@@ -219,6 +239,9 @@ export default class Stock extends Vue {
   @Prop() private dividendYield!: number;
   @Prop() private netIncomeToCommon!: number;
   @Prop() private operatingCashflow!: number;
+  @Prop() private profitMargins!: number;
+  @Prop() private earningsGrowth!: number;
+  @Prop() private returnOnEquity!: number;
   @Prop() private score!: StockScore;
   @Prop() private createdAt!: Date;
   scoreThreshold: number = 75;

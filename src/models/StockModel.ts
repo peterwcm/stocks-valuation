@@ -30,8 +30,11 @@ interface Stock {
   debtToEquity: number | null;
   dividendYield: number | null;
   revenueGrowth: number | null;
+  earningsGrowth: number | null;
   operatingCashflow: number | null;
   netIncomeToCommon: number | null;
+  profitMargins: number | null;
+  returnOnEquity: number | null;
   score: StockScore;
   createdAt: Date | null;
 }
@@ -116,8 +119,11 @@ class StockModel {
       debtToEquity: data?.financialData?.debtToEquity?.raw || null,
       dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
       revenueGrowth: data?.financialData?.revenueGrowth?.raw || null,
+      earningsGrowth: data?.financialData?.earningsGrowth?.raw || null,
       netIncomeToCommon: data?.defaultKeyStatistics?.netIncomeToCommon?.raw || null,
       operatingCashflow: data?.financialData?.operatingCashflow?.raw || null,
+      profitMargins: data?.defaultKeyStatistics?.profitMargins?.raw || null,
+      returnOnEquity: data?.financialData?.returnOnEquity?.raw || null,
       score: {
         valuation: 0,
         health: 0,
@@ -230,9 +236,9 @@ class StockModel {
     // Health/Risk calculation.
     // Normal ratio should be 1, less than 1 is considered a risky ratio.
     const quickRatioScore =
-      this.upScaleScore(stock.quickRatio, 0, 1) * 80 + this.upScaleScore(stock.quickRatio, 1, 2) * 20;
+      this.upScaleScore(stock.quickRatio, 0, 1) * 80 + this.upScaleScore(stock.quickRatio, 1, 1.5) * 20;
     const currentRatioScore =
-      this.upScaleScore(stock.currentRatio, 0, 1) * 80 + this.upScaleScore(stock.currentRatio, 1, 2) * 20;
+      this.upScaleScore(stock.currentRatio, 0, 1) * 80 + this.upScaleScore(stock.currentRatio, 1, 1.5) * 20;
     // Market cap should be at least 500M and 1B is considered as safe.
     const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000);
     // @todo: calculate DEBT/EQUITY
@@ -240,9 +246,15 @@ class StockModel {
     healthScore += quickRatioScore * 0.6 + currentRatioScore * 0.25 + marketCapScore * 0.15;
 
     // Profitability calculation.
-    const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0, 0.2) * 100;
+    const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0.05, 0.2) * 100;
+    const earningsGrowthScore = this.upScaleScore(stock.earningsGrowth, 0.05, 0.1) * 100;
+    const roeScore =
+      this.upScaleScore(stock.returnOnEquity, 0.1, 0.15) * 40 + this.upScaleScore(stock.returnOnEquity, 0.15, 0.2) * 60;
+    const profitMarginScore =
+      this.upScaleScore(stock.profitMargins, 0.1, 0.15) * 70 + this.upScaleScore(stock.profitMargins, 0.15, 0.2) * 30;
 
-    profitabilityScore = revenueGrowthScore;
+    profitabilityScore =
+      revenueGrowthScore * 0.2 + roeScore * 0.2 + earningsGrowthScore * 0.2 + profitMarginScore * 0.4;
 
     console.table({
       Symbol: stock.symbol,
