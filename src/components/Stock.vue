@@ -34,6 +34,16 @@
           </div>
         </div>
       </section>
+      <section class="stock__rating">
+        <b-progress
+          :type="score.overall > scoreThreshold ? 'is-success' : 'is-danger'"
+          :value="score.overall"
+          :show-value="true"
+          size="is-small"
+          format="percent"
+          :max="100"
+        ></b-progress>
+      </section>
       <section class="stock__highlights">
         <div class="level is-mobile">
           <div class="level-item has-text-centered">
@@ -169,19 +179,6 @@
           <b-progress
             :type="score.profitability > scoreThreshold ? 'is-success' : 'is-danger'"
             :value="score.profitability"
-            :show-value="true"
-            size="is-small"
-            format="percent"
-            :max="100"
-          ></b-progress>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column is-full">
-          <p class="heading">Overall</p>
-          <b-progress
-            :type="score.overall > scoreThreshold ? 'is-success' : 'is-danger'"
-            :value="score.overall"
             :show-value="true"
             size="is-small"
             format="percent"

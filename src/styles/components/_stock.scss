@@ -41,6 +41,18 @@ $stock-card-border: 1px solid $border !default;
     }
   }
 
+  &__rating {
+    border-top: $stock-card-border;
+
+    .progress {
+      border-radius: 0;
+
+      &::-webkit-progress-bar {
+        background-color: $white;
+      }
+    }
+  }
+
   &__highlights {
     padding: $stock-card-padding;
     background-color: $color--light-grey;
