@@ -205,9 +205,9 @@ class StockModel {
    */
   private static calculateScore(stock: Stock) {
     // Ratios of different models, all ratios should add up to 1.
-    const valuationRatio = 0.65;
-    const healthRatio = 0.2;
-    const profitabilityRatio = 0.15;
+    const valuationRatio = 0.45;
+    const healthRatio = 0.25;
+    const profitabilityRatio = 0.3;
 
     // Scores of different models, each score should be between 0-100.
     let valuationScore = 0;
