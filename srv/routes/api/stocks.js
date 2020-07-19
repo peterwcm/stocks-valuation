@@ -1,5 +1,4 @@
 import express from 'express';
-import mongodb from 'mongodb';
 import axios from 'axios';
 import stocksData from '../../data/stocks.json';
 
@@ -20,7 +19,7 @@ router.post('/', async (req, res) => {
 
   if (USE_API) {
     // Load stocks from Mongo.
-    const stocks = await loadStocksCollection();
+    const stocks = req.app.locals.db.collection('stocks');
     const invalidSymbols = [];
 
     for (const symbol of watchlist) {
@@ -59,7 +58,7 @@ router.put('/refresh', async (req, res) => {
   const symbol = req.body.symbol;
 
   // Load stocks from Mongo.
-  const stocks = await loadStocksCollection();
+  const stocks = req.app.locals.db.collection('stocks');
   // Fetch the latest stock details for the symbol.
   const stock = await fetchStock(symbol);
 
@@ -133,24 +132,6 @@ function getStockRegion(symbol) {
   };
 
   return regionMap[symbolRegionPair[1]] || symbolRegionPair[1];
-}
-
-/**
- * Load the Mongo stocks collection from remote DB.
- *
- * @return {Collection}
- *   The Mongo stocks collection.
- */
-async function loadStocksCollection() {
-  const client = await mongodb.MongoClient.connect(
-    `mongodb+srv://${process.env.EXPRESS_MONGO_USER}:${process.env.EXPRESS_MONGO_PASSWORD}@${process.env.EXPRESS_MONGO_ENDPOINT}`,
-    {
-      useUnifiedTopology: true,
-      useNewUrlParser: true,
-    }
-  );
-
-  return client.db('stocks_valuation').collection('stocks');
 }
 
 module.exports = router;
