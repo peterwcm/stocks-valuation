@@ -147,45 +147,54 @@
           </div>
         </div>
       </div>
-      <div class="columns">
-        <div class="column is-full">
-          <p class="heading">Valuation</p>
-          <b-progress
-            :type="score.valuation > scoreThreshold ? 'is-success' : 'is-danger'"
-            :value="score.valuation"
-            :show-value="true"
-            size="is-small"
-            format="percent"
-            :max="100"
-          ></b-progress>
+      <div class="block stock__sub-rating">
+        <div class="columns">
+          <div class="column is-5">
+            <p class="heading">Valuation</p>
+          </div>
+          <div class="column is-7">
+            <b-progress
+              :type="score.valuation > scoreThreshold ? 'is-success' : 'is-danger'"
+              :value="score.valuation"
+              :show-value="true"
+              size="is-small"
+              format="percent"
+              :max="100"
+            ></b-progress>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-5">
+            <p class="heading">Health</p>
+          </div>
+          <div class="column is-7">
+            <b-progress
+              :type="score.health > scoreThreshold ? 'is-success' : 'is-danger'"
+              :value="score.health"
+              :show-value="true"
+              size="is-small"
+              format="percent"
+              :max="100"
+            ></b-progress>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-5">
+            <p class="heading">Profitability</p>
+          </div>
+          <div class="column is-7">
+            <b-progress
+              :type="score.profitability > scoreThreshold ? 'is-success' : 'is-danger'"
+              :value="score.profitability"
+              :show-value="true"
+              size="is-small"
+              format="percent"
+              :max="100"
+            ></b-progress>
+          </div>
         </div>
       </div>
-      <div class="columns">
-        <div class="column is-full">
-          <p class="heading">Health</p>
-          <b-progress
-            :type="score.health > scoreThreshold ? 'is-success' : 'is-danger'"
-            :value="score.health"
-            :show-value="true"
-            size="is-small"
-            format="percent"
-            :max="100"
-          ></b-progress>
-        </div>
-      </div>
-      <div class="columns">
-        <div class="column is-full">
-          <p class="heading">Profitability</p>
-          <b-progress
-            :type="score.profitability > scoreThreshold ? 'is-success' : 'is-danger'"
-            :value="score.profitability"
-            :show-value="true"
-            size="is-small"
-            format="percent"
-            :max="100"
-          ></b-progress>
-        </div>
-      </div>
+
       <div class="columns" v-if="createdAt">
         <div class="column is-narrow stock__remove">
           <b-button class="stock__icon-button" size="is-small" @click="remove">

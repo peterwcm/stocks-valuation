@@ -61,6 +61,15 @@ $stock-card-border: 1px solid $border !default;
     }
   }
 
+  &__sub-rating {
+    padding-top: 1rem;
+
+    .columns,
+    .heading {
+      margin-bottom: 0;
+    }
+  }
+
   &__highlights {
     padding: $stock-card-padding;
     background-color: $color--light-grey;
