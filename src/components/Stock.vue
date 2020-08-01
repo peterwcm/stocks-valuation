@@ -187,13 +187,18 @@
         </div>
       </div>
       <div class="columns" v-if="createdAt">
-        <div class="column has-text-right stock__date">
-          <b-button size="is-small" @click="refresh">
-            <b-icon icon="sync-alt"></b-icon>
+        <div class="column is-narrow stock__remove">
+          <b-button class="stock__icon-button" size="is-small" @click="remove">
+            <b-icon icon="trash-alt"></b-icon>
           </b-button>
+        </div>
+        <div class="column has-text-right stock__date">
           <small>
             <em>Last fetched: {{ createdAt | moment('from', 'now') }}</em>
           </small>
+          <b-button class="stock__icon-button" size="is-small" @click="refresh">
+            <b-icon icon="sync-alt"></b-icon>
+          </b-button>
         </div>
       </div>
     </div>
@@ -222,8 +227,8 @@ import StockModel, { StockScore } from "@/models/StockModel";
     },
     round: (val: number | string, decimal: number = 2) => {
       return typeof val === "number" ? +val.toFixed(decimal) : val;
-    }
-  }
+    },
+  },
 })
 export default class Stock extends Vue {
   @Prop() private symbol!: string;
@@ -258,6 +263,13 @@ export default class Stock extends Vue {
     this.$emit("refresh-stock", stock);
 
     this.isLoading = false;
+  }
+
+  /**
+   * Remove this stock.
+   */
+  remove() {
+    this.$emit("remove-stock", this);
   }
 
   /**

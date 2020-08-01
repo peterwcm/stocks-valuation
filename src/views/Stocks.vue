@@ -35,7 +35,11 @@
               :key="stock.symbol"
               :index="index"
             >
-              <Stock v-bind="stock" v-on:refresh-stock="refreshStock" />
+              <Stock
+                v-bind="stock"
+                v-on:refresh-stock="refreshStock"
+                v-on:remove-stock="removeStock"
+              />
             </div>
           </div>
         </div>
@@ -51,7 +55,7 @@ import StockModel from "@/models/StockModel";
 
 export default {
   components: {
-    Stock
+    Stock,
   },
   data() {
     return {
@@ -59,7 +63,7 @@ export default {
       username: "admin",
       error: null,
       stocks: null,
-      watchlist: null
+      watchlist: null,
     };
   },
   methods: {
@@ -68,7 +72,7 @@ export default {
      */
     async symbolsChange() {
       // Convert all symbols to uppercase.
-      this.watchlist = this.watchlist.map(s => s.toUpperCase());
+      this.watchlist = this.watchlist.map((s) => s.toUpperCase());
       // Sync the watchlist.
       await UserModel.updateWatchlist(this.username, this.watchlist);
 
@@ -80,9 +84,25 @@ export default {
      * @param {object} The updated stock object.
      */
     refreshStock(stock) {
-      this.stocks = this.stocks.map(s =>
+      this.stocks = this.stocks.map((s) =>
         s.symbol === stock.symbol ? stock : s
       );
+    },
+    /**
+     * Remove a stock from the watchlist.
+     *
+     * @param {object} The stock object to be removed.
+     */
+    async removeStock(stock) {
+      // Remove the stock symbol from the watchlist.
+      this.watchlist = this.watchlist.filter(
+        (s) => s.toLowerCase() !== stock.symbol.toLowerCase()
+      );
+
+      // Sync the watchlist.
+      await UserModel.updateWatchlist(this.username, this.watchlist);
+
+      this.refreshStocks();
     },
     /**
      * Refresh the stocks listing.
@@ -90,7 +110,7 @@ export default {
     async refreshStocks() {
       // Add loading effect inside the watchlist tags input.
       const symbolsLoading = this.$buefy.loading.open({
-        container: null
+        container: null,
       });
 
       try {
@@ -105,7 +125,7 @@ export default {
 
       // Stop the loading effect.
       symbolsLoading.close();
-    }
+    },
   },
   computed: {
     /**
@@ -116,7 +136,7 @@ export default {
       return stocks
         ? stocks.sort((a, b) => b.score.overall - a.score.overall)
         : [];
-    }
+    },
   },
   async mounted() {
     // Load the user and stocks data.
@@ -124,6 +144,6 @@ export default {
     this.watchlist = user ? user?.watchlist : [];
 
     this.refreshStocks();
-  }
+  },
 };
 </script>

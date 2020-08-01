@@ -10,6 +10,14 @@ $stock-card-border: 1px solid $border !default;
     }
   }
 
+  &__icon-button {
+    border: 0;
+
+    &:hover {
+      color: $info;
+    }
+  }
+
   &__heading {
     padding: $stock-card-padding $stock-card-padding 0;
 
@@ -76,12 +84,15 @@ $stock-card-border: 1px solid $border !default;
   &__date {
     padding-bottom: 0;
 
-    .button {
+    .stock__icon-button {
       margin: 0 0.5rem;
-      border: 0;
+    }
+  }
 
+  &__remove {
+    .stock__icon-button {
       &:hover {
-        color: $info;
+        color: $color--red;
       }
     }
   }
