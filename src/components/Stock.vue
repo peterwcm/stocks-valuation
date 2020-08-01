@@ -148,11 +148,11 @@
         </div>
       </div>
       <div class="block stock__sub-rating">
-        <div class="columns">
-          <div class="column is-5">
+        <div class="columns is-mobile">
+          <div class="column is-4">
             <p class="heading">Valuation</p>
           </div>
-          <div class="column is-7">
+          <div class="column is-8">
             <b-progress
               :type="score.valuation > scoreThreshold ? 'is-success' : 'is-danger'"
               :value="score.valuation"
@@ -163,11 +163,11 @@
             ></b-progress>
           </div>
         </div>
-        <div class="columns">
-          <div class="column is-5">
+        <div class="columns is-mobile">
+          <div class="column is-4">
             <p class="heading">Health</p>
           </div>
-          <div class="column is-7">
+          <div class="column is-8">
             <b-progress
               :type="score.health > scoreThreshold ? 'is-success' : 'is-danger'"
               :value="score.health"
@@ -178,11 +178,11 @@
             ></b-progress>
           </div>
         </div>
-        <div class="columns">
-          <div class="column is-5">
+        <div class="columns is-mobile">
+          <div class="column is-4">
             <p class="heading">Profitability</p>
           </div>
-          <div class="column is-7">
+          <div class="column is-8">
             <b-progress
               :type="score.profitability > scoreThreshold ? 'is-success' : 'is-danger'"
               :value="score.profitability"
@@ -195,13 +195,13 @@
         </div>
       </div>
 
-      <div class="columns" v-if="createdAt">
+      <div class="columns is-mobile">
         <div class="column is-narrow stock__remove">
           <b-button class="stock__icon-button" size="is-small" @click="remove">
             <b-icon icon="trash-alt"></b-icon>
           </b-button>
         </div>
-        <div class="column has-text-right stock__date">
+        <div class="column has-text-right stock__date" v-if="createdAt">
           <small>
             <em>Last fetched: {{ createdAt | moment('from', 'now') }}</em>
           </small>
