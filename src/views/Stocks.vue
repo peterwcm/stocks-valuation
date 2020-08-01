@@ -22,7 +22,6 @@
                   ellipsis
                   icon="comments-dollar"
                   placeholder="Add a stock symbol, e.g. ANZ.AX"
-                  type="is-info"
                   @input="symbolsChange"
                 ></b-taginput>
               </b-field>
@@ -71,8 +70,9 @@ export default {
      * Symbols change event.
      */
     async symbolsChange() {
-      // Convert all symbols to uppercase.
+      // Convert all symbols to uppercase and sort it.
       this.watchlist = this.watchlist.map((s) => s.toUpperCase());
+      this.watchlist.sort();
       // Sync the watchlist.
       await UserModel.updateWatchlist(this.username, this.watchlist);
 
@@ -142,6 +142,7 @@ export default {
     // Load the user and stocks data.
     const user = await UserModel.getUser(this.username);
     this.watchlist = user ? user?.watchlist : [];
+    this.watchlist.sort();
 
     this.refreshStocks();
   },
