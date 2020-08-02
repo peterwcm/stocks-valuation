@@ -20,6 +20,7 @@
                   ref="watchlist"
                   v-model="watchlist"
                   ellipsis
+                  attached
                   icon="comments-dollar"
                   placeholder="Add a stock symbol, e.g. ANZ.AX"
                   @input="symbolsChange"
