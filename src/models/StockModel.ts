@@ -234,16 +234,19 @@ class StockModel {
       dividendYieldScore * 0.2;
 
     // Health/Risk calculation.
+    // A good debt to equity ratio is around 1 to 1.5.
+    const debtToEquityScore =
+      this.downScaleScore(stock.debtToEquity, 2, 1.5) * 20 + this.downScaleScore(stock.debtToEquity, 1.5, 1) * 80;
     // Normal ratio should be 1, less than 1 is considered a risky ratio.
     const quickRatioScore =
       this.upScaleScore(stock.quickRatio, 0, 1) * 80 + this.upScaleScore(stock.quickRatio, 1, 1.5) * 20;
     const currentRatioScore =
       this.upScaleScore(stock.currentRatio, 0, 1) * 80 + this.upScaleScore(stock.currentRatio, 1, 1.5) * 20;
     // Market cap should be at least 500M and 1B is considered as safe.
-    const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000);
+    const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000) * 100;
     // @todo: calculate DEBT/EQUITY
 
-    healthScore += quickRatioScore * 0.6 + currentRatioScore * 0.25 + marketCapScore * 0.15;
+    healthScore += debtToEquityScore * 0.1 + quickRatioScore * 0.5 + currentRatioScore * 0.25 + marketCapScore * 0.15;
 
     // Profitability calculation.
     const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0.05, 0.2) * 100;
@@ -259,10 +262,18 @@ class StockModel {
     const totalScore =
       valuationScore * valuationRatio + healthScore * healthRatio + profitabilityScore * profitabilityRatio;
 
-    console.table({
-      Symbol: stock.symbol,
-      'Overall score': totalScore,
-    });
+    // @toto: dev code only, remove before release.
+    const DEBUG_STOCK_SYMBOL: string = '';
+    if (DEBUG_STOCK_SYMBOL && DEBUG_STOCK_SYMBOL.toLowerCase() === stock.symbol?.toLowerCase()) {
+      console.table({
+        Symbol: stock.symbol,
+        'Debt To Equity score': debtToEquityScore,
+        'Quick Ratio score': quickRatioScore,
+        'Current Ratio score': currentRatioScore,
+        'Market Cap score': marketCapScore,
+        'Overall score': totalScore,
+      });
+    }
 
     // Update stock scores.
     stock.score.valuation = valuationScore;
