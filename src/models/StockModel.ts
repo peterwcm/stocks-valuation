@@ -116,7 +116,8 @@ class StockModel {
       priceToSales: data?.summaryDetail?.priceToSalesTrailing12Months?.raw || null,
       quickRatio: data?.financialData?.quickRatio?.raw || null,
       currentRatio: data?.financialData?.currentRatio?.raw || null,
-      debtToEquity: data?.financialData?.debtToEquity?.raw || null,
+      // Yahoo Finance returns a debtToEquity digit in %.
+      debtToEquity: data?.financialData?.debtToEquity?.raw / 100 || null,
       dividendYield: data?.summaryDetail?.dividendYield?.raw || null,
       revenueGrowth: data?.financialData?.revenueGrowth?.raw || null,
       earningsGrowth: data?.financialData?.earningsGrowth?.raw || null,
@@ -246,7 +247,7 @@ class StockModel {
     const marketCapScore = this.upScaleScore(stock.marketCap, 500000000, 1000000000) * 100;
     // @todo: calculate DEBT/EQUITY
 
-    healthScore += debtToEquityScore * 0.1 + quickRatioScore * 0.5 + currentRatioScore * 0.25 + marketCapScore * 0.15;
+    healthScore += debtToEquityScore * 0.3 + quickRatioScore * 0.3 + currentRatioScore * 0.25 + marketCapScore * 0.15;
 
     // Profitability calculation.
     const revenueGrowthScore = this.upScaleScore(stock.revenueGrowth, 0.05, 0.2) * 100;
