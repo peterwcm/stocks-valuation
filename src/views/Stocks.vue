@@ -99,6 +99,7 @@ export default {
           await UserModel.deleteWatchlist(this.username, this.watchlistId);
 
           this.$buefy.toast.open(`Watchlist deleted`);
+          await this.init();
           dialog.close();
         },
       });
@@ -181,6 +182,20 @@ export default {
       // Stop the loading effect.
       symbolsLoading.close();
     },
+    /**
+     * Load user and initial display.
+     */
+    async init() {
+      // Load the user and stocks data.
+      const user = await UserModel.getUser(this.username);
+      // Reset watchlist ID.
+      this.watchlistId = 0;
+      this.watchlists = user.watchlists;
+      this.watchlist = this.watchlists[this.watchlistId].list;
+      this.watchlist.sort();
+
+      this.refreshStocks();
+    },
   },
   computed: {
     /**
@@ -194,13 +209,7 @@ export default {
     },
   },
   async mounted() {
-    // Load the user and stocks data.
-    const user = await UserModel.getUser(this.username);
-    this.watchlists = user.watchlists;
-    this.watchlist = this.watchlists[this.watchlistId].list;
-    this.watchlist.sort();
-
-    this.refreshStocks();
+    this.init();
   },
 };
 </script>
