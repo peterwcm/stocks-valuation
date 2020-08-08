@@ -15,7 +15,17 @@
           <b-message type="is-danger" v-if="error">{{ error }}</b-message>
           <div class="columns">
             <div class="column">
-              <b-field label="Watchlist">
+              <b-field>
+                <b-select
+                  placeholder="Select a watchlist"
+                  v-model="watchlistId"
+                  required
+                  @input="watchlistChange"
+                >
+                  <option v-for="(w, index) in watchlists" :value="index" :key="index">{{ w.name }}</option>
+                </b-select>
+              </b-field>
+              <b-field>
                 <b-taginput
                   ref="watchlist"
                   v-model="watchlist"
@@ -63,19 +73,32 @@ export default {
       username: "admin",
       error: null,
       stocks: null,
+      watchlists: null,
       watchlist: null,
+      watchlistId: 0,
     };
   },
   methods: {
+    watchlistChange() {
+      this.watchlist = this.watchlists[this.watchlistId].list;
+      this.watchlist.sort();
+
+      this.refreshStocks();
+    },
     /**
      * Symbols change event.
      */
     async symbolsChange() {
+      console.log("change", this.watchlist);
       // Convert all symbols to uppercase and sort it.
       this.watchlist = this.watchlist.map((s) => s.toUpperCase());
       this.watchlist.sort();
       // Sync the watchlist.
-      await UserModel.updateWatchlist(this.username, this.watchlist);
+      await UserModel.updateWatchlist(
+        this.username,
+        this.watchlistId,
+        this.watchlist
+      );
 
       this.refreshStocks();
     },
@@ -101,7 +124,11 @@ export default {
       );
 
       // Sync the watchlist.
-      await UserModel.updateWatchlist(this.username, this.watchlist);
+      await UserModel.updateWatchlist(
+        this.username,
+        this.watchlistId,
+        this.watchlist
+      );
 
       this.refreshStocks();
     },
@@ -142,7 +169,8 @@ export default {
   async mounted() {
     // Load the user and stocks data.
     const user = await UserModel.getUser(this.username);
-    this.watchlist = user ? user?.watchlist : [];
+    this.watchlists = user.watchlists;
+    this.watchlist = this.watchlists[this.watchlistId].list;
     this.watchlist.sort();
 
     this.refreshStocks();

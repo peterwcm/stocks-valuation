@@ -15,9 +15,17 @@ router.get('/:username', async (req, res) => {
  */
 router.put('/update', async (req, res) => {
   const users = req.app.locals.db.collection('users');
+  // POST params.
+  const { username, watchlistId, watchlist } = req.body;
+
   await users.findOneAndUpdate(
-    { username: req.body.username },
-    { $set: { watchlist: req.body.watchlist, updatedAt: new Date() } }
+    { username },
+    {
+      $set: {
+        [`watchlists.${watchlistId}.list`]: watchlist,
+        updatedAt: new Date(),
+      },
+    }
   );
   res.status(200).send();
 });

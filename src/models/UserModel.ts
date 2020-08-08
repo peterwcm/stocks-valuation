@@ -8,9 +8,17 @@ const url = 'http://localhost:3000/api/users';
  */
 interface User {
   username: string;
-  watchlist: Array<string>;
+  watchlists: Array<Watchlist>;
   createdAt: string;
   updatedAt: string;
+}
+
+/**
+ * The Watchlist interface.
+ */
+interface Watchlist {
+  name: string;
+  list: Array<string>;
 }
 
 /**
@@ -30,10 +38,10 @@ class UserModel {
     return new Promise((resolve, reject) => {
       axios
         .get(`${url}/${username}`)
-        .then(res => {
+        .then((res) => {
           resolve(res.data || {});
         })
-        .catch(err => {
+        .catch((err) => {
           reject(err);
         });
     });
@@ -44,16 +52,19 @@ class UserModel {
    *
    * @param {string} username
    *   The username of the user.
+   * @param {number} watchlistId
+   *   The watchlist ID.
    * @param {Array<string>} watchlist
    *   The new watchlist.
    *
    * @return {AxiosPromise}
    *   The axios promise from the update request.
    */
-  static updateWatchlist(username: string, watchlist: Array<string>): AxiosPromise {
+  static updateWatchlist(username: string, watchlistId: number, watchlist: Array<string>): AxiosPromise {
     return axios.put(`${url}/update`, {
       username,
-      watchlist
+      watchlistId,
+      watchlist,
     });
   }
 }
