@@ -32,6 +32,25 @@ router.put('/:username/watchlist/:watchlistId/update', async (req, res) => {
 /**
  * Delete a user's watchlist.
  */
-router.delete('/:username/watchlist/:watchlistId/delete', async (req, res) => {});
+router.delete('/:username/watchlist/:watchlistId/delete', async (req, res) => {
+  const users = req.app.locals.db.collection('users');
+  let { username, watchlistId } = req.params;
+  watchlistId = Number(watchlistId);
+
+  await users.findOneAndUpdate({ username }, [
+    {
+      $set: {
+        watchlists: {
+          $concatArrays: [
+            { $slice: ['$watchlists', watchlistId] },
+            { $slice: ['$watchlists', { $add: [1, watchlistId] }, { $size: '$watchlists' }] },
+          ],
+        },
+        updatedAt: new Date(),
+      },
+    },
+  ]);
+  res.status(200).send();
+});
 
 module.exports = router;

@@ -24,6 +24,9 @@
                 >
                   <option v-for="(w, index) in watchlists" :value="index" :key="index">{{ w.name }}</option>
                 </b-select>
+                <b-button icon-right="plus" />
+                <b-button icon-right="edit" />
+                <b-button icon-right="trash" @click="deleteWatchlist" v-if="watchlists.length > 1" />
               </b-field>
               <b-field>
                 <b-taginput
@@ -79,6 +82,30 @@ export default {
     };
   },
   methods: {
+    /**
+     * Delete watchlist event.
+     */
+    deleteWatchlist() {
+      this.$buefy.dialog.confirm({
+        title: "Deleting watchlist",
+        message:
+          "Are you sure you want to <b>delete</b> the current watchlist? This action cannot be undone.",
+        confirmText: "Delete",
+        type: "is-danger",
+        hasIcon: true,
+        closeOnConfirm: false,
+        onConfirm: async (value, dialog) => {
+          this.$buefy.toast.open(`Deleting watchlist...`);
+          await UserModel.deleteWatchlist(this.username, this.watchlistId);
+
+          this.$buefy.toast.open(`Watchlist deleted`);
+          dialog.close();
+        },
+      });
+    },
+    /**
+     * Watchlist dropdown change event.
+     */
     watchlistChange() {
       this.watchlist = this.watchlists[this.watchlistId].list;
       this.watchlist.sort();

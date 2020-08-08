@@ -73,8 +73,13 @@ class UserModel {
    *   The username of the user.
    * @param {number} watchlistId
    *   The watchlist ID.
+   *
+   * @return {AxiosPromise}
+   *   The axios promise from the delete request.
    */
-  deleteWatchlist(username: string, watchlistId: number) {}
+  static deleteWatchlist(username: string, watchlistId: number) {
+    return axios.delete(`${url}/${username}/watchlist/${watchlistId}/delete`);
+  }
 }
 
 export default UserModel;
