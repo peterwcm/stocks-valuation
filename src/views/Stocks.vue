@@ -24,10 +24,21 @@
                 >
                   <option v-for="(w, index) in watchlists" :value="index" :key="index">{{ w.name }}</option>
                 </b-select>
-                <b-button icon-right="plus" @click="addWatchlist" />
-                <b-button icon-right="edit" @click="renameWatchlist" />
-                <b-button icon-right="trash" @click="deleteWatchlist" v-if="watchlists.length > 1" />
+                <p class="control">
+                  <b-button icon-right="plus" @click="addWatchlist" />
+                </p>
+                <p class="control">
+                  <b-button icon-right="edit" @click="renameWatchlist" />
+                </p>
+                <p class="control">
+                  <b-button
+                    icon-right="trash"
+                    @click="deleteWatchlist"
+                    v-if="watchlists.length > 1"
+                  />
+                </p>
               </b-field>
+
               <b-field>
                 <b-taginput
                   ref="watchlist"
