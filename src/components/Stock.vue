@@ -83,67 +83,81 @@
         </div>
       </section>
     </header>
+    <b-collapse class="stock__stats" :open="false" animation="slide">
+      <div slot="trigger" slot-scope="props" class="card-header">
+        <p class="card-header-title">Financials</p>
+        <a class="card-header-icon">
+          <b-icon
+            class="stock__icon-button"
+            size="is-small"
+            :icon="props.open ? 'caret-down' : 'caret-up'"
+          ></b-icon>
+        </a>
+      </div>
+      <div class="card-content">
+        <div class="level is-mobile">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Price/Sales</p>
+              <p class="subtitle">{{ priceToSales | optional | round }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Price/Cash</p>
+              <p class="subtitle">{{ priceToCash | optional | round }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Market Cap</p>
+              <p class="subtitle">{{ marketCap | optional | abbreviation }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="level is-mobile">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Debt/Equity</p>
+              <p class="subtitle">{{ debtToEquity | optional | round }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Quick Ratio</p>
+              <p class="subtitle">{{ quickRatio | optional | round }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Current Ratio</p>
+              <p class="subtitle">{{ currentRatio | optional | round }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="level is-mobile">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Profit Margin</p>
+              <p class="subtitle">{{ profitMargins | optional | percentage }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">ROE</p>
+              <p class="subtitle">{{ returnOnEquity | optional | percentage }}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Earnings Growth</p>
+              <p class="subtitle">{{ earningsGrowth | optional | percentage }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </b-collapse>
     <div class="card-content">
-      <div class="level is-mobile">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Price/Sales</p>
-            <p class="subtitle">{{ priceToSales | optional | round }}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Price/Cash</p>
-            <p class="subtitle">{{ priceToCash | optional | round }}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Market Cap</p>
-            <p class="subtitle">{{ marketCap | optional | abbreviation }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="level is-mobile">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Debt/Equity</p>
-            <p class="subtitle">{{ debtToEquity | optional | round }}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Quick Ratio</p>
-            <p class="subtitle">{{ quickRatio | optional | round }}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Current Ratio</p>
-            <p class="subtitle">{{ currentRatio | optional | round }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="level is-mobile">
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Profit Margin</p>
-            <p class="subtitle">{{ profitMargins | optional | percentage }}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">ROE</p>
-            <p class="subtitle">{{ returnOnEquity | optional | percentage }}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Earnings Growth</p>
-            <p class="subtitle">{{ earningsGrowth | optional | percentage }}</p>
-          </div>
-        </div>
-      </div>
       <div class="block stock__sub-rating">
         <div class="columns is-mobile">
           <div class="column is-4">

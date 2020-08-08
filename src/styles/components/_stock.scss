@@ -13,6 +13,7 @@ $stock-remove-btn-size: 3rem !default;
 
   &__icon-button {
     border: 0;
+    color: $text;
 
     &:hover {
       color: $info;
@@ -99,6 +100,16 @@ $stock-remove-btn-size: 3rem !default;
         border-left: $stock-card-border;
         border-right: $stock-card-border;
       }
+    }
+  }
+
+  &__stats {
+    .card-header {
+      padding: 0 $stock-card-padding;
+    }
+
+    .card-content {
+      padding-bottom: 0;
     }
   }
 
