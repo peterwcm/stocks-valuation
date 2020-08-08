@@ -20,11 +20,11 @@
                   placeholder="Select a watchlist"
                   v-model="watchlistId"
                   required
-                  @input="watchlistChange"
+                  @input="switchWatchlist"
                 >
                   <option v-for="(w, index) in watchlists" :value="index" :key="index">{{ w.name }}</option>
                 </b-select>
-                <b-button icon-right="plus" />
+                <b-button icon-right="plus" @click="addWatchlist" />
                 <b-button icon-right="edit" @click="renameWatchlist" />
                 <b-button icon-right="trash" @click="deleteWatchlist" v-if="watchlists.length > 1" />
               </b-field>
@@ -83,6 +83,33 @@ export default {
   },
   methods: {
     /**
+     * Add watchlist event.
+     */
+    addWatchlist() {
+      this.$buefy.dialog.prompt({
+        title: "Add watchlist",
+        inputAttrs: {
+          type: "text",
+          placeholder: "Name",
+          required: true,
+        },
+        confirmText: "Add",
+        trapFocus: true,
+        closeOnConfirm: false,
+        onConfirm: async (value, dialog) => {
+          this.$buefy.toast.open("Adding watchlist...");
+          await UserModel.addWatchlist(this.username, value);
+          this.$buefy.toast.open(`Watchlist added`);
+
+          // Refresh watchlist.
+          await this.loadWatchlists();
+          this.switchWatchlist(this.watchlists.length - 1);
+
+          dialog.close();
+        },
+      });
+    },
+    /**
      * Rename watchlist event.
      */
     renameWatchlist() {
@@ -97,13 +124,13 @@ export default {
         trapFocus: true,
         closeOnConfirm: false,
         onConfirm: async (value, dialog) => {
-          this.$buefy.toast.open(`Renaming watchlist...`);
+          this.$buefy.toast.open("Renaming watchlist...");
           await UserModel.renameWatchlist(
             this.username,
             this.watchlistId,
             value
           );
-          this.$buefy.toast.open(`Watchlist renamed`);
+          this.$buefy.toast.open("Watchlist renamed");
 
           // Sync the local watchlist name.
           this.watchlists[this.watchlistId].name = value;
@@ -125,23 +152,18 @@ export default {
         hasIcon: true,
         closeOnConfirm: false,
         onConfirm: async (value, dialog) => {
-          this.$buefy.toast.open(`Deleting watchlist...`);
+          this.$buefy.toast.open("Deleting watchlist...");
           await UserModel.deleteWatchlist(this.username, this.watchlistId);
 
-          this.$buefy.toast.open(`Watchlist deleted`);
-          await this.init();
+          this.$buefy.toast.open("Watchlist deleted");
+
+          // Refresh watchlists.
+          await this.loadWatchlists();
+          this.switchWatchlist();
+
           dialog.close();
         },
       });
-    },
-    /**
-     * Watchlist dropdown change event.
-     */
-    watchlistChange() {
-      this.watchlist = this.watchlists[this.watchlistId].list;
-      this.watchlist.sort();
-
-      this.refreshStocks();
     },
     /**
      * Symbols change event.
@@ -213,17 +235,19 @@ export default {
       symbolsLoading.close();
     },
     /**
-     * Load user and initial display.
+     * Load user's watchlists.
      */
-    async init() {
-      // Load the user and stocks data.
+    async loadWatchlists() {
       const user = await UserModel.getUser(this.username);
-      // Reset watchlist ID.
-      this.watchlistId = 0;
       this.watchlists = user.watchlists;
+    },
+    /**
+     * Switch to a watchlist.
+     */
+    switchWatchlist(watchlistId = 0) {
+      this.watchlistId = watchlistId;
       this.watchlist = this.watchlists[this.watchlistId].list;
       this.watchlist.sort();
-
       this.refreshStocks();
     },
   },
@@ -239,7 +263,8 @@ export default {
     },
   },
   async mounted() {
-    this.init();
+    await this.loadWatchlists();
+    this.switchWatchlist();
   },
 };
 </script>

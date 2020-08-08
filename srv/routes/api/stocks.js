@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
     const invalidSymbols = [];
 
     for (const symbol of watchlist) {
+      // @todo: maker sure symbol is uppercase.
       const symbolCount = await stocks
         .find({ symbol })
         .limit(1)

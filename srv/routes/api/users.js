@@ -11,6 +11,30 @@ router.get('/:username', async (req, res) => {
 });
 
 /**
+ * Add a user's watchlist.
+ */
+router.post('/:username/watchlist/add', async (req, res) => {
+  const users = req.app.locals.db.collection('users');
+  const { username } = req.params;
+
+  await users.findOneAndUpdate(
+    { username },
+    {
+      $push: {
+        watchlists: {
+          name: req.body.name,
+          list: [],
+        },
+      },
+      $set: {
+        updatedAt: new Date(),
+      },
+    }
+  );
+  res.status(200).send();
+});
+
+/**
  * Update a user's watchlist.
  */
 router.put('/:username/watchlist/:watchlistId/update', async (req, res) => {

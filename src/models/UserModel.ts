@@ -48,6 +48,23 @@ class UserModel {
   }
 
   /**
+   * Add a user's watchlist.
+   *
+   * @param {string} username
+   *   The username of the user.
+   * @param {string} name
+   *   The new watchlist name.
+   *
+   * @return {AxiosPromise}
+   *   The axios promise from the update request.
+   */
+  static addWatchlist(username: string, name: string): AxiosPromise {
+    return axios.post(`${url}/${username}/watchlist/add`, {
+      name,
+    });
+  }
+
+  /**
    * Update a user's watchlist.
    *
    * @param {string} username
