@@ -13,21 +13,25 @@ router.get('/:username', async (req, res) => {
 /**
  * Update a user's watchlist.
  */
-router.put('/update', async (req, res) => {
+router.put('/:username/watchlist/:watchlistId/update', async (req, res) => {
   const users = req.app.locals.db.collection('users');
-  // POST params.
-  const { username, watchlistId, watchlist } = req.body;
+  const { username, watchlistId } = req.params;
 
   await users.findOneAndUpdate(
     { username },
     {
       $set: {
-        [`watchlists.${watchlistId}.list`]: watchlist,
+        [`watchlists.${watchlistId}.list`]: req.body.watchlist,
         updatedAt: new Date(),
       },
     }
   );
   res.status(200).send();
 });
+
+/**
+ * Delete a user's watchlist.
+ */
+router.delete('/:username/watchlist/:watchlistId/delete', async (req, res) => {});
 
 module.exports = router;

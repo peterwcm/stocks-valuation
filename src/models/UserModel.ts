@@ -61,12 +61,20 @@ class UserModel {
    *   The axios promise from the update request.
    */
   static updateWatchlist(username: string, watchlistId: number, watchlist: Array<string>): AxiosPromise {
-    return axios.put(`${url}/update`, {
-      username,
-      watchlistId,
+    return axios.put(`${url}/${username}/watchlist/${watchlistId}/update`, {
       watchlist,
     });
   }
+
+  /**
+   * Delete a user's watchlist.
+   *
+   * @param {string} username
+   *   The username of the user.
+   * @param {number} watchlistId
+   *   The watchlist ID.
+   */
+  deleteWatchlist(username: string, watchlistId: number) {}
 }
 
 export default UserModel;
