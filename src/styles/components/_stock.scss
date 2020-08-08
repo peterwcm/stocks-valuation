@@ -1,5 +1,6 @@
 $stock-card-padding: 1.5rem !default;
 $stock-card-border: 1px solid $border !default;
+$stock-remove-btn-size: 3rem !default;
 
 .stock {
   &__icon-link {
@@ -20,12 +21,6 @@ $stock-card-border: 1px solid $border !default;
 
   &__heading {
     padding: $stock-card-padding $stock-card-padding 0;
-
-    .stock__icon-link {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.625rem;
-    }
   }
 
   &__symbol {
@@ -33,11 +28,34 @@ $stock-card-border: 1px solid $border !default;
     text-transform: uppercase;
     font-size: 1.25rem;
 
+    a {
+      color: $text;
+
+      &:hover,
+      &:focus {
+        color: $info;
+      }
+    }
+
     .icon {
       position: absolute;
       top: -0.5rem;
       margin-left: 0.5rem;
       color: rgba($grey-light, 0.9);
+    }
+  }
+
+  &__remove {
+    .stock__icon-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: $stock-remove-btn-size;
+      height: $stock-remove-btn-size;
+
+      &:hover {
+        color: $color--red;
+      }
     }
   }
 
@@ -94,15 +112,7 @@ $stock-card-border: 1px solid $border !default;
     padding-bottom: 0;
 
     .stock__icon-button {
-      margin: 0 0.5rem;
-    }
-  }
-
-  &__remove {
-    .stock__icon-button {
-      &:hover {
-        color: $color--red;
-      }
+      margin: 0 0 0 0.5rem;
     }
   }
 

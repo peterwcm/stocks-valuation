@@ -6,7 +6,8 @@
         <div class="columns is-mobile level">
           <div class="column is-narrow">
             <h2 class="title stock__symbol">
-              {{ symbol }}
+              <a :href="`https://finance.yahoo.com/quote/${symbol}`" target="_blank">{{ symbol }}</a>
+
               <b-icon
                 v-if="ask"
                 class="has-tooltip-arrow has-tooltip-right"
@@ -16,14 +17,10 @@
               ></b-icon>
             </h2>
           </div>
-          <div class="column is-narrow">
-            <a
-              :href="`https://finance.yahoo.com/quote/${symbol}`"
-              target="_blank"
-              class="stock__icon-link"
-            >
-              <b-icon icon="external-link-alt" size="is-small"></b-icon>
-            </a>
+          <div class="column is-narrow stock__remove">
+            <b-button class="stock__icon-button" size="is-small" @click="remove">
+              <b-icon icon="times"></b-icon>
+            </b-button>
           </div>
         </div>
       </section>
@@ -196,11 +193,6 @@
       </div>
 
       <div class="columns is-mobile">
-        <div class="column is-narrow stock__remove">
-          <b-button class="stock__icon-button" size="is-small" @click="remove">
-            <b-icon icon="trash-alt"></b-icon>
-          </b-button>
-        </div>
         <div class="column has-text-right stock__date" v-if="createdAt">
           <small>
             <em>Last fetched: {{ createdAt | moment('from', 'now') }}</em>
