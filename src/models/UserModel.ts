@@ -67,6 +67,25 @@ class UserModel {
   }
 
   /**
+   * Rename a user's watchlist.
+   *
+   * @param {string} username
+   *   The username of the user.
+   * @param {number} watchlistId
+   *   The watchlist ID.
+   * @param {string} name
+   *   The new watchlist name.
+   *
+   * @return {AxiosPromise}
+   *   The axios promise from the update request.
+   */
+  static renameWatchlist(username: string, watchlistId: number, name: string): AxiosPromise {
+    return axios.put(`${url}/${username}/watchlist/${watchlistId}/rename`, {
+      name,
+    });
+  }
+
+  /**
    * Delete a user's watchlist.
    *
    * @param {string} username

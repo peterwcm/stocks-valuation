@@ -25,7 +25,7 @@
                   <option v-for="(w, index) in watchlists" :value="index" :key="index">{{ w.name }}</option>
                 </b-select>
                 <b-button icon-right="plus" />
-                <b-button icon-right="edit" />
+                <b-button icon-right="edit" @click="renameWatchlist" />
                 <b-button icon-right="trash" @click="deleteWatchlist" v-if="watchlists.length > 1" />
               </b-field>
               <b-field>
@@ -76,12 +76,42 @@ export default {
       username: "admin",
       error: null,
       stocks: null,
-      watchlists: null,
+      watchlists: [],
       watchlist: null,
       watchlistId: 0,
     };
   },
   methods: {
+    /**
+     * Rename watchlist event.
+     */
+    renameWatchlist() {
+      this.$buefy.dialog.prompt({
+        title: "Rename watchlist",
+        inputAttrs: {
+          type: "text",
+          placeholder: "Name",
+          value: this.watchlists[this.watchlistId].name,
+        },
+        confirmText: "Save",
+        trapFocus: true,
+        closeOnConfirm: false,
+        onConfirm: async (value, dialog) => {
+          this.$buefy.toast.open(`Renaming watchlist...`);
+          await UserModel.renameWatchlist(
+            this.username,
+            this.watchlistId,
+            value
+          );
+          this.$buefy.toast.open(`Watchlist renamed`);
+
+          // Sync the local watchlist name.
+          this.watchlists[this.watchlistId].name = value;
+
+          dialog.close();
+        },
+      });
+    },
     /**
      * Delete watchlist event.
      */
