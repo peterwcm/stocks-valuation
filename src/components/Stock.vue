@@ -338,6 +338,12 @@ export default class Stock extends Vue {
 
         return `https://www.sharedividends.com.au/${symbol}-dividend-history/`;
       }
+      case "HK": {
+        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
+
+        return `http://www.aastocks.com/tc/stocks/analysis/dividend.aspx?symbol=${symbol}`;
+      }
+
       default:
         return "";
     }
