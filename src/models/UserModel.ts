@@ -104,6 +104,25 @@ class UserModel {
   }
 
   /**
+   * Regionalise a user's watchlist.
+   *
+   * @param {string} username
+   *   The username of the user.
+   * @param {number} watchlistId
+   *   The watchlist ID.
+   * @param {string} regionCode
+   *   The watchlist region code.
+   *
+   * @return {AxiosPromise}
+   *   The axios promise from the update request.
+   */
+  static regionaliseWatchlist(username: string, watchlistId: number, regionCode: string): AxiosPromise {
+    return axios.put(`${url}/${username}/watchlist/${watchlistId}/regionalise`, {
+      regionCode,
+    });
+  }
+
+  /**
    * Delete a user's watchlist.
    *
    * @param {string} username

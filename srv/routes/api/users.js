@@ -73,6 +73,25 @@ router.put('/:username/watchlist/:watchlistId/rename', async (req, res) => {
 });
 
 /**
+ * Regionalise a user's watchlist.
+ */
+router.put('/:username/watchlist/:watchlistId/regionalise', async (req, res) => {
+  const users = req.app.locals.db.collection('users');
+  const { username, watchlistId } = req.params;
+
+  await users.findOneAndUpdate(
+    { username },
+    {
+      $set: {
+        [`watchlists.${watchlistId}.regionCode`]: req.body.regionCode,
+        updatedAt: new Date(),
+      },
+    }
+  );
+  res.status(200).send();
+});
+
+/**
  * Delete a user's watchlist.
  */
 router.delete('/:username/watchlist/:watchlistId/delete', async (req, res) => {

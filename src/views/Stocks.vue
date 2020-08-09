@@ -23,6 +23,9 @@
                   <b-button icon-right="edit" @click="renameWatchlist" />
                 </p>
                 <p class="control">
+                  <b-button icon-right="globe" @click="regionaliseWatchlist" />
+                </p>
+                <p class="control">
                   <b-button
                     icon-right="trash"
                     @click="deleteWatchlist"
@@ -145,6 +148,37 @@ export default {
         },
       });
     },
+    regionaliseWatchlist() {
+      this.$buefy.dialog.prompt({
+        title: "Regionalise watchlist",
+        inputAttrs: {
+          type: "text",
+          placeholder: "Region code",
+          required: false,
+          value: this.watchlists[this.watchlistId].regionCode,
+        },
+        confirmText: "Save",
+        trapFocus: true,
+        closeOnConfirm: false,
+        onConfirm: async (value, dialog) => {
+          this.$buefy.toast.open("Regionalising watchlist...");
+          const regionCode = value.toUpperCase();
+
+          await UserModel.regionaliseWatchlist(
+            this.username,
+            this.watchlistId,
+            regionCode
+          );
+          this.$buefy.toast.open("Watchlist regionalised");
+
+          // Sync the local watchlist region code.
+          this.watchlists[this.watchlistId].regionCode = regionCode;
+          await this.symbolsChange();
+
+          dialog.close();
+        },
+      });
+    },
     /**
      * Delete watchlist event.
      */
@@ -182,6 +216,8 @@ export default {
         s = s.toUpperCase();
         if (regionCode && !s.endsWith(`.${regionCode}`)) {
           s = `${s}.${regionCode}`;
+        } else if (!regionCode && s.indexOf(".") !== -1) {
+          s = s.substring(0, s.indexOf("."));
         }
 
         return s;
