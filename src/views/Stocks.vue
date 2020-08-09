@@ -321,9 +321,21 @@ export default {
         : [];
     },
   },
+  watch: {
+    watchlistId(newWatchlistId) {
+      localStorage.watchlistId = newWatchlistId;
+    },
+  },
   async mounted() {
     await this.loadWatchlists();
-    this.switchWatchlist();
+    if (
+      localStorage.watchlistId &&
+      localStorage.watchlistId > 0 &&
+      localStorage.watchlistId < this.watchlists.length
+    ) {
+      this.watchlistId = localStorage.watchlistId;
+    }
+    this.switchWatchlist(this.watchlistId);
   },
 };
 </script>
