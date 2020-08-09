@@ -15,7 +15,11 @@ $input-shadow: none;
 $button-focus-box-shadow-size: 0;
 
 // Navbar
-$navbar-height: 5rem;
+$navbar-height: 8rem;
+$navbar-background-color: $primary;
+$navbar-item-color: $white;
+$navbar-item-hover-color: rgba($white, 0.8);
+$navbar-item-hover-background-color: transparent;
 
 // Footer
 $footer-padding: 3rem;

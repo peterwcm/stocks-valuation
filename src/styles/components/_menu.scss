@@ -1,0 +1,48 @@
+.navbar {
+  .navbar-burger {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1.5rem;
+    width: 5rem;
+
+    @include desktop {
+      display: none;
+    }
+
+    &:hover {
+      color: $white;
+      background-color: transparent;
+    }
+
+    span {
+      left: auto;
+      width: 2rem;
+      height: 2px;
+
+      &:nth-child(1) {
+        top: calc(50% - 12px);
+      }
+
+      &:nth-child(2) {
+        top: calc(50% - 4px);
+      }
+    }
+
+    &.is-active {
+      span {
+        &:nth-child(1) {
+          transform: translateY(5px) rotate(45deg);
+        }
+
+        &:nth-child(3) {
+          transform: translateY(-10px) rotate(-45deg);
+        }
+      }
+    }
+  }
+
+  .navbar-item {
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+  }
+}

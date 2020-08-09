@@ -1,9 +1,12 @@
 <template>
-  <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <img alt="Logo" src="@/assets/logo.png" />
+          <h1 class="title has-text-white">
+            <b-icon icon="dollar-sign"></b-icon>
+            <span>tocks</span>
+          </h1>
         </a>
 
         <a
@@ -20,8 +23,9 @@
       </div>
 
       <div id="navMenu" class="navbar-menu">
-        <div class="navbar-start">
+        <div class="navbar-end">
           <router-link class="navbar-item" to="/stocks">Stocks</router-link>
+          <router-link class="navbar-item" to="/login">Login</router-link>
         </div>
       </div>
     </div>
@@ -44,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Check if there are any navbar burgers
   if ($navbarBurgers.length > 0) {
     // Add a click event on each of them
-    $navbarBurgers.forEach(el => {
+    $navbarBurgers.forEach((el) => {
       el.addEventListener("click", () => {
         // Get the target from the "data-target" attribute
         const target = el.dataset.target;
@@ -60,3 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+
+<style lang="scss">
+@import "@/styles/components/_menu";
+</style>
