@@ -11,6 +11,7 @@
                   placeholder="Select a watchlist"
                   v-model="watchlistId"
                   required
+                  expanded
                   @input="switchWatchlist"
                 >
                   <option v-for="(w, index) in watchlists" :value="index" :key="index">{{ w.name }}</option>
