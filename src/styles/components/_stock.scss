@@ -113,6 +113,12 @@ $stock-remove-btn-size: 3rem !default;
     }
   }
 
+  .collapse-trigger {
+    .stock__icon-link {
+      margin-left: 1rem;
+    }
+  }
+
   &__pe {
     .icon {
       color: rgba($color--red, 0.8);

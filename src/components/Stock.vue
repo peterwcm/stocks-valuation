@@ -91,7 +91,17 @@
       @close="toggleDetails(false)"
     >
       <div slot="trigger" class="card-header">
-        <p class="card-header-title">Financials</p>
+        <p class="card-header-title">
+          Financials
+          <a
+            v-if="financeUrl"
+            :href="financeUrl"
+            target="_blank"
+            class="stock__icon-link"
+          >
+            <b-icon icon="external-link-alt" size="is-small"></b-icon>
+          </a>
+        </p>
         <a class="card-header-icon">
           <b-icon
             class="stock__icon-button"
@@ -347,6 +357,22 @@ export default class Stock extends Vue {
         const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
 
         return `https://histock.tw/stock/${symbol}/%E9%99%A4%E6%AC%8A%E9%99%A4%E6%81%AF`;
+      }
+
+      default:
+        return "";
+    }
+  }
+
+  /**
+   * Gets the finance URL.
+   */
+  get financeUrl(): string {
+    switch (this.getRegionCode()) {
+      case "HK": {
+        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
+
+        return `http://stock.finance.sina.com.cn/hkstock/finance/${symbol}.html`;
       }
 
       default:
