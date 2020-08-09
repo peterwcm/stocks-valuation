@@ -343,6 +343,11 @@ export default class Stock extends Vue {
 
         return `http://www.aastocks.com/tc/stocks/analysis/dividend.aspx?symbol=${symbol}`;
       }
+      case "TW": {
+        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
+
+        return `https://histock.tw/stock/${symbol}/%E9%99%A4%E6%AC%8A%E9%99%A4%E6%81%AF`;
+      }
 
       default:
         return "";
