@@ -70,7 +70,7 @@
               <p class="subtitle">
                 {{ dividendYield | optional | percentage }}
                 <a
-                  v-if="dividendUrl"
+                  v-if="dividendYield && dividendUrl"
                   :href="dividendUrl"
                   target="_blank"
                   class="stock__icon-link"
