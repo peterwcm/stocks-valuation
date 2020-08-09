@@ -22,8 +22,8 @@ router.post('/', async (req, res) => {
     const stocks = req.app.locals.db.collection('stocks');
     const invalidSymbols = [];
 
-    for (const symbol of watchlist) {
-      // @todo: maker sure symbol is uppercase.
+    for (const s of watchlist) {
+      const symbol = s.toUpperCase();
       const symbolCount = await stocks
         .find({ symbol })
         .limit(1)
