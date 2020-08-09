@@ -83,14 +83,20 @@
         </div>
       </section>
     </header>
-    <b-collapse class="stock__stats" :open="false" animation="slide">
-      <div slot="trigger" slot-scope="props" class="card-header">
+    <b-collapse
+      class="stock__stats"
+      :open="isDetailed"
+      animation="slide"
+      @open="toggleDetails(true)"
+      @close="toggleDetails(false)"
+    >
+      <div slot="trigger" class="card-header">
         <p class="card-header-title">Financials</p>
         <a class="card-header-icon">
           <b-icon
             class="stock__icon-button"
             size="is-small"
-            :icon="props.open ? 'caret-down' : 'caret-up'"
+            :icon="isDetailed ? 'caret-down' : 'caret-up'"
           ></b-icon>
         </a>
       </div>
@@ -265,6 +271,7 @@ export default class Stock extends Vue {
   @Prop() private returnOnEquity!: number;
   @Prop() private score!: StockScore;
   @Prop() private createdAt!: Date;
+  @Prop() private isDetailed!: boolean;
   scoreThreshold: number = 75;
   isLoading: boolean = false;
 
@@ -281,6 +288,16 @@ export default class Stock extends Vue {
   }
 
   /**
+   * Toggle the detailed mode.
+   *
+   * @param {boolean} isDetailed
+   *   Indicate if the detailed mode is enabled.
+   */
+  toggleDetails(isDetailed: boolean) {
+    this.$emit("toggle-details", isDetailed);
+  }
+
+  /**
    * Remove this stock.
    */
   remove() {
@@ -289,6 +306,9 @@ export default class Stock extends Vue {
 
   /**
    * Fetch the region code of this stock.
+   *
+   * @returns {string}
+   *   The 2-char region code.
    */
   private getRegionCode(): string {
     const symbolRegionPair = this.symbol.split(".");

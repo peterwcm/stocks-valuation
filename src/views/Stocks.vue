@@ -53,6 +53,8 @@
             >
               <Stock
                 v-bind="stock"
+                :isDetailed="isDetailed"
+                v-on:toggle-details="toggleDetails"
                 v-on:refresh-stock="refreshStock"
                 v-on:remove-stock="removeStock"
               />
@@ -82,6 +84,7 @@ export default {
       watchlists: [],
       watchlist: null,
       watchlistId: 0,
+      isDetailed: false,
     };
   },
   methods: {
@@ -172,7 +175,6 @@ export default {
      * Symbols change event.
      */
     async symbolsChange() {
-      console.log("change", this.watchlist);
       // Convert all symbols to uppercase and sort it.
       this.watchlist = this.watchlist.map((s) => s.toUpperCase());
       this.watchlist.sort();
@@ -184,6 +186,15 @@ export default {
       );
 
       this.refreshStocks();
+    },
+    /**
+     * Toggle the detailed mode.
+     *
+     * @param {boolean} isDetailed
+     *   Indicate if the detailed mode is enabled.
+     */
+    toggleDetails(isDetailed) {
+      this.isDetailed = isDetailed;
     },
     /**
      * Refresh details of a stock.
