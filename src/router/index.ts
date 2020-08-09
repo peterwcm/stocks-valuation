@@ -11,7 +11,8 @@ const routes = [
     component: Login,
   },
   {
-    path: '/stocks',
+    path: '/',
+    alias: '/stocks',
     name: 'Stocks',
     component: () => import(/* webpackChunkName: "stocks" */ '@/views/Stocks.vue'),
   },
