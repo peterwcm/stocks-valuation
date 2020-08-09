@@ -214,10 +214,8 @@ export default {
         const regionCode = this.watchlists[this.watchlistId].regionCode;
 
         s = s.toUpperCase();
-        if (regionCode && !s.endsWith(`.${regionCode}`)) {
+        if (regionCode && s.indexOf(".") === -1) {
           s = `${s}.${regionCode}`;
-        } else if (!regionCode && s.indexOf(".") !== -1) {
-          s = s.substring(0, s.indexOf("."));
         }
 
         return s;
