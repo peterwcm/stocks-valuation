@@ -19,6 +19,7 @@ interface User {
 interface Watchlist {
   name: string;
   list: Array<string>;
+  regionCode: string;
 }
 
 /**

@@ -176,7 +176,16 @@ export default {
      */
     async symbolsChange() {
       // Convert all symbols to uppercase and sort it.
-      this.watchlist = this.watchlist.map((s) => s.toUpperCase());
+      this.watchlist = this.watchlist.map((s) => {
+        const regionCode = this.watchlists[this.watchlistId].regionCode;
+
+        s = s.toUpperCase();
+        if (regionCode && !s.endsWith(`.${regionCode}`)) {
+          s = `${s}.${regionCode}`;
+        }
+
+        return s;
+      });
       this.watchlist.sort();
       // Sync the watchlist.
       await UserModel.updateWatchlist(
