@@ -258,7 +258,7 @@ class StockModel {
       this.upScaleScore(stock.profitMargins, 0.1, 0.15) * 70 + this.upScaleScore(stock.profitMargins, 0.15, 0.2) * 30;
 
     profitabilityScore =
-      revenueGrowthScore * 0.2 + roeScore * 0.2 + earningsGrowthScore * 0.2 + profitMarginScore * 0.4;
+      revenueGrowthScore * 0.1 + roeScore * 0.4 + earningsGrowthScore * 0.15 + profitMarginScore * 0.25;
 
     const totalScore =
       valuationScore * valuationRatio + healthScore * healthRatio + profitabilityScore * profitabilityRatio;
