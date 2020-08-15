@@ -332,6 +332,7 @@ export default class Stock extends Vue {
     // Custom region map for certain exchange.
     const regionMap: Map<string, string> = new Map<string, string>();
     regionMap.set("AX", "AU");
+    regionMap.set("L", "GB");
 
     return regionMap.get(regionCode) || regionCode;
   }
@@ -340,23 +341,23 @@ export default class Stock extends Vue {
    * Gets the dividend URL.
    */
   get dividendUrl(): string {
+    // Symbol without region code.
+    const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
+
     switch (this.getRegionCode()) {
       case "US":
         return `https://www.nasdaq.com/market-activity/stocks/${this.symbol}/dividend-history`;
       case "AU": {
-        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
-
         return `https://www.sharedividends.com.au/${symbol}-dividend-history/`;
       }
       case "HK": {
-        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
-
         return `http://www.aastocks.com/tc/stocks/analysis/dividend.aspx?symbol=${symbol}`;
       }
       case "TW": {
-        const symbol = this.symbol.substring(0, this.symbol.indexOf("."));
-
         return `https://histock.tw/stock/${symbol}/%E9%99%A4%E6%AC%8A%E9%99%A4%E6%81%AF`;
+      }
+      case "GB": {
+        return `https://www.dividenddata.co.uk/dividend-history.py?epic=${symbol}`;
       }
 
       default:

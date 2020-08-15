@@ -130,6 +130,7 @@ function getStockRegion(symbol) {
   // Custom region map for certain exchange.
   const regionMap = {
     AX: 'AU',
+    L: 'GB',
   };
 
   return regionMap[symbolRegionPair[1]] || symbolRegionPair[1];
