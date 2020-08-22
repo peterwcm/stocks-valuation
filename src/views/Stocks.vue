@@ -255,6 +255,23 @@ export default {
      * @param {object} The stock object to be removed.
      */
     async removeStock(stock) {
+      await this.$buefy.dialog.confirm({
+        title: "Removing stock",
+        message:
+          "Do you also want to <b>delete</b> its data from the database? This action cannot be undone.",
+        cancelText: "No",
+        confirmText: "Yes",
+        type: "is-danger",
+        closeOnConfirm: false,
+        onConfirm: async (value, dialog) => {
+          this.$buefy.toast.open("Deleting stock data...");
+          await StockModel.deleteStock(stock.symbol);
+          this.$buefy.toast.open("Stock data deleted");
+
+          dialog.close();
+        },
+      });
+
       // Remove the stock symbol from the watchlist.
       this.watchlist = this.watchlist.filter(
         (s) => s.toLowerCase() !== stock.symbol.toLowerCase()

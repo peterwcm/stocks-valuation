@@ -96,6 +96,35 @@ class StockModel {
   }
 
   /**
+   * Delete a stock.
+   *
+   * @param {string} symbol
+   *   The stock symbol.
+   *
+   * @return {AxiosPromise}
+   *   The axios promise from the delete request.
+   *
+   * @return {Promise<boolean>}
+   *   The promise with the boolean result.
+   */
+  static deleteStock(symbol: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(`${url}/delete`, {
+          data: {
+            symbol,
+          },
+        })
+        .then(() => {
+          resolve(true);
+        })
+        .catch(() => {
+          reject(false);
+        });
+    });
+  }
+
+  /**
    * Transform the API stock to a Stock object.
    *
    * @param {any} data

@@ -69,6 +69,23 @@ router.put('/refresh', async (req, res) => {
 });
 
 /**
+ * Delete a stock from the DB.
+ */
+router.delete('/delete', async (req, res) => {
+  console.log('deleting');
+  const symbol = req.body.symbol;
+
+  // Load stocks from Mongo.
+  const stocks = req.app.locals.db.collection('stocks');
+
+  stocks.deleteOne({ symbol }, (err) => {
+    if (err) throw err;
+  });
+
+  res.status(201).send();
+});
+
+/**
  * Fetch stock data from remote API.
  *
  * @param {string} symbol
