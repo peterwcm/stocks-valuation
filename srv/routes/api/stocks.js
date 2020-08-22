@@ -11,6 +11,12 @@ const router = express.Router();
  */
 router.post('/', async (req, res) => {
   const watchlist = req.body.watchlist || [];
+
+  if (!req.body.watchlist.length) {
+    res.send([]);
+    return;
+  }
+
   const query = watchlist.length
     ? {
         symbol: { $in: watchlist },
@@ -72,7 +78,6 @@ router.put('/refresh', async (req, res) => {
  * Delete a stock from the DB.
  */
 router.delete('/delete', async (req, res) => {
-  console.log('deleting');
   const symbol = req.body.symbol;
 
   // Load stocks from Mongo.
