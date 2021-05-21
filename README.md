@@ -22,7 +22,7 @@ yarn serve
 
 ### Remote DB and API key setup
 
-You would need to create a `env.development.local` file with the following configs.
+You would need to create a `.env.development.local` file with the following configs.
 This app is using a remote mongo DB server to store the watchlist data and
 a Yahoo Finance API key to fetch stocks data.
 
