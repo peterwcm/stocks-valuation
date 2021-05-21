@@ -2,34 +2,33 @@
 
 ## Project setup
 
+First install all the packages and dependecies
+
 ```
 yarn install
 ```
 
-### Run express server
+Then start the express server
 
 ```
 yarn express
 ```
 
-### Compiles and hot-reloads for development
+Once the server is up and running, start the site
 
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Remote DB and API key setup
+
+You would need to create a `env.development.local` file with the following configs.
+This app is using a remote mongo DB server to store the watchlist data and
+a Yahoo Finance API key to fetch stocks data.
 
 ```
-yarn build
+EXPRESS_MONGO_USER=root
+EXPRESS_MONGO_PASSWORD=dbPassword
+EXPRESS_MONGO_ENDPOINT=api.mongodb.net/dbname
+EXPRESS_RAPIDAPI_KEY=this_is_the_api_key
 ```
-
-### Lints and fixes files
-
-```
-yarn lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
