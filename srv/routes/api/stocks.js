@@ -102,14 +102,14 @@ router.delete('/delete', async (req, res) => {
 async function fetchStock(symbol) {
   const region = getStockRegion(symbol);
   return axios
-    .get('https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-statistics', {
+    .get('https://yh-finance.p.rapidapi.com/stock/v2/get-statistics', {
       params: {
         region,
         symbol,
       },
       headers: {
         'content-type': 'application/json',
-        'x-rapidapi-host': 'apidojo-yahoo-finance-v1.p.rapidapi.com',
+        'x-rapidapi-host': 'yh-finance.p.rapidapi.com',
         'x-rapidapi-key': process.env.EXPRESS_RAPIDAPI_KEY,
       },
     })
