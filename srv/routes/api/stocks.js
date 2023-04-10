@@ -102,7 +102,7 @@ router.delete('/delete', async (req, res) => {
 async function fetchStock(symbol) {
   const region = getStockRegion(symbol);
   return axios
-    .get('https://yh-finance.p.rapidapi.com/stock/v2/get-statistics', {
+    .get('https://yh-finance.p.rapidapi.com/stock/v2/get-summary', {
       params: {
         region,
         symbol,
@@ -122,8 +122,6 @@ async function fetchStock(symbol) {
         return null;
       }
 
-      // Remove the symbol key, property keys containing a dot do not work well with MongoDb.
-      stock.quoteData = stock.quoteData[symbol];
       stock.createdAt = new Date();
       return stock;
     })
