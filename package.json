@@ -13,7 +13,7 @@
     "@creativebulma/bulma-tooltip": "^1.0.1",
     "@types/vue-moment": "^4.0.0",
     "axios": "^0.19.2",
-    "buefy": "^0.8.13",
+    "buefy": "^0.9.23",
     "core-js": "^3.6.4",
     "cors": "^2.8.5",
     "mongodb": "^3.5.5",
